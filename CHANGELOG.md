@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/carlonicora/assettrack/compare/v1.1.0...v1.2.0) (2025-10-04)
+
+### 🚀 Features
+
+* add equipment list to supplier ([dcceeb3](https://github.com/carlonicora/assettrack/commit/dcceeb309a42a8f49a4ed416c93d8cf417478fb9))
+* add loan list to employee ([9aef90e](https://github.com/carlonicora/assettrack/commit/9aef90e1b4ccbb1865a6cdb7f85352e49793620a))
+* add loan list to equipment ([89e3422](https://github.com/carlonicora/assettrack/commit/89e3422d583c1cc9aa04c2342ea2487d22608e0d))
+
+### 🐛 Bug Fixes
+
+* correct filename ([bd2d922](https://github.com/carlonicora/assettrack/commit/bd2d92276c6c1d49638d364001327904e4e6fc63))
+* correct filename ([bfcd402](https://github.com/carlonicora/assettrack/commit/bfcd402def68cb821a89cddd2392ba321877a213))
+
 ## [1.1.0](https://github.com/carlonicora/assettrack/compare/v1.0.0...v1.1.0) (2025-10-04)
 
 ### 🚀 Features
