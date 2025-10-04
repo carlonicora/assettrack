@@ -3,6 +3,7 @@
 import EquipmentDetails from "@/features/features/equipment/components/details/EquipmentDetails";
 import { useEquipmentContext } from "@/features/features/equipment/contexts/EquipmentContext";
 import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
+import EquipmentLoansList from "@/features/features/loan/components/lists/EquipmentLoanList";
 import { Modules } from "@/modules/modules";
 import { Action } from "@/permisions/types";
 import withPermissions from "@/permisions/wrappers/withPermissions";
@@ -14,12 +15,13 @@ type EquipmentContainerProps = {
 function EquipmentContainerInternal({ equipment }: EquipmentContainerProps) {
   return (
     <div className="flex w-full gap-x-4">
-      <div className="flex h-[calc(100vh-theme(spacing.20))] w-2xl flex-col justify-between border-r pr-4">
+      <div className="w-2xl flex h-[calc(100vh-theme(spacing.20))] flex-col justify-between border-r pr-4">
         <div className="flex h-full overflow-y-auto">
           <EquipmentDetails />
         </div>
       </div>
       <div className="flex w-full flex-col gap-y-4">
+        <EquipmentLoansList equipment={equipment} />
       </div>
     </div>
   );
@@ -34,5 +36,5 @@ export default function EquipmentContainer() {
     modules: [Modules.Equipment],
     action: Action.Read,
     data: equipment,
-  })({ equipment:equipment });
+  })({ equipment: equipment });
 }
