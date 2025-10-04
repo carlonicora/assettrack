@@ -17,9 +17,7 @@ describe(`GET /${employeeMeta.endpoint}`, () => {
   });
 
   it(`GET /${employeeMeta.endpoint}/:employeeId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .get(`/${employeeMeta.endpoint}/${EMPLOYEES.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).get(`/${employeeMeta.endpoint}/${EMPLOYEES.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`GET /${employeeMeta.endpoint}/:employeeId → 403 when employee from another company`, async () => {
@@ -123,6 +121,4 @@ describe(`GET /${employeeMeta.endpoint}`, () => {
       expected: [EMPLOYEES.CompanyOne_Full],
     });
   });
-
-
 });

@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Equals, IsDefined, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested, IsNumber, IsBoolean, IsDateString } from "class-validator";
+import { Equals, IsDefined, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested } from "class-validator";
 import { SupplierModel } from "src/features/supplier/entities/supplier.model";
 
 export class SupplierPostAttributesDTO {
@@ -20,7 +20,6 @@ export class SupplierPostAttributesDTO {
   @IsString()
   phone?: string;
 }
-
 
 export class SupplierPostDataDTO {
   @Equals(SupplierModel.endpoint)

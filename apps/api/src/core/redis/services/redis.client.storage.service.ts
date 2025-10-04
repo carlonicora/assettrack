@@ -173,6 +173,7 @@ export class RedisClientStorageService implements OnModuleDestroy {
         await this.redis.quit();
       }
     } catch (error) {
+      console.error("Error disconnecting Redis client:", error);
       // Fallback to disconnect if quit fails
       this.redis?.disconnect();
     }

@@ -23,12 +23,11 @@ describe(`POST /${loanMeta.endpoint}`, () => {
     app = testState.app;
 
     // Initialize company-filtered fixtures
-    companyEmployeeFixtures = Object.values(EMPLOYEES).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
-    companyEquipmentFixtures = Object.values(EQUIPMENTS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    companyEmployeeFixtures = Object.values(EMPLOYEES).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
+    companyEquipmentFixtures = Object.values(EQUIPMENTS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
   });
 
   it(`POST /${loanMeta.endpoint} → 403 when unauthenticated`, async () => {
-
     const newLoan = {
       data: {
         type: loanMeta.endpoint,
@@ -40,14 +39,14 @@ describe(`POST /${loanMeta.endpoint}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: companyEmployeeFixtures[0].id
-            }
+              id: companyEmployeeFixtures[0].id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: companyEquipmentFixtures[0].id
-            }
+              id: companyEquipmentFixtures[0].id,
+            },
           },
         },
       },
@@ -57,7 +56,6 @@ describe(`POST /${loanMeta.endpoint}`, () => {
   });
 
   it(`POST /${loanMeta.endpoint} → 201 when authenticated user creates a loan`, async () => {
-
     const newLoan = {
       data: {
         type: loanMeta.endpoint,
@@ -69,14 +67,14 @@ describe(`POST /${loanMeta.endpoint}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: companyEmployeeFixtures[0].id
-            }
+              id: companyEmployeeFixtures[0].id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: companyEquipmentFixtures[0].id
-            }
+              id: companyEquipmentFixtures[0].id,
+            },
           },
         },
       },
@@ -148,14 +146,14 @@ describe(`POST /${loanMeta.endpoint}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: "invalid-uuid"
-            }
+              id: "invalid-uuid",
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: "invalid-uuid"
-            }
+              id: "invalid-uuid",
+            },
           },
         },
       },
@@ -179,14 +177,14 @@ describe(`POST /${loanMeta.endpoint}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000"
-            }
+              id: "00000000-0000-0000-0000-000000000000",
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000"
-            }
+              id: "00000000-0000-0000-0000-000000000000",
+            },
           },
         },
       },
@@ -200,8 +198,8 @@ describe(`POST /${loanMeta.endpoint}`, () => {
 
   it(`POST /${loanMeta.endpoint} → 400 when relationship type is incorrect`, async () => {
     // Use company-filtered fixtures for relationship IDs
-    const companyEmployeeFixtures = Object.values(EMPLOYEES).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
-    const companyEquipmentFixtures = Object.values(EQUIPMENTS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyEmployeeFixtures = Object.values(EMPLOYEES).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyEquipmentFixtures = Object.values(EQUIPMENTS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
 
     const newLoan = {
       data: {
@@ -214,14 +212,14 @@ describe(`POST /${loanMeta.endpoint}`, () => {
           employee: {
             data: {
               type: "wrong-type",
-              id: companyEmployeeFixtures[0].id
-            }
+              id: companyEmployeeFixtures[0].id,
+            },
           },
           equipment: {
             data: {
               type: "wrong-type",
-              id: companyEquipmentFixtures[0].id
-            }
+              id: companyEquipmentFixtures[0].id,
+            },
           },
         },
       },
@@ -232,5 +230,4 @@ describe(`POST /${loanMeta.endpoint}`, () => {
       .send(newLoan)
       .expect(400);
   });
-
 });

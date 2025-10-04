@@ -21,9 +21,7 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${loanMeta.endpoint}/:loanId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .get(`/${loanMeta.endpoint}/${LOANS.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).get(`/${loanMeta.endpoint}/${LOANS.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`GET /${loanMeta.endpoint}/:loanId → 403 when loan from another company`, async () => {
@@ -128,13 +126,12 @@ describe(`GET /${loanMeta.endpoint}`, () => {
     });
   });
 
-
   // Other relationship tests - only if fixtures exist
   it(`GET /${employeeMeta.endpoint}/:employeeId/${loanMeta.endpoint} → 200 returns loans by employee`, async () => {
     // Check if relationship fixtures exist and are accessible
-    if (typeof EMPLOYEES === 'undefined') return;
+    if (typeof EMPLOYEES === "undefined") return;
 
-    const companyOneFixtures = Object.values(EMPLOYEES).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EMPLOYEES).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -144,7 +141,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource
-    const expectedFixtures = Object.values(LOANS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.employee?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(LOANS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.employee?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: loanMeta.endpoint,
@@ -153,7 +152,7 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${employeeMeta.endpoint}/:employeeId/${loanMeta.endpoint} → 200 returns empty list when employee does not exist`, async () => {
-    if (typeof EMPLOYEES === 'undefined') return;
+    if (typeof EMPLOYEES === "undefined") return;
 
     const nonExistentEmployeeId = "00000000-0000-0000-0000-000000000000";
 
@@ -166,9 +165,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${employeeMeta.endpoint}/:employeeId/${loanMeta.endpoint} → 403 when unauthenticated`, async () => {
-    if (typeof EMPLOYEES === 'undefined') return;
+    if (typeof EMPLOYEES === "undefined") return;
 
-    const companyOneFixtures = Object.values(EMPLOYEES).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EMPLOYEES).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     await request(app.getHttpServer())
@@ -177,9 +176,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${employeeMeta.endpoint}/:employeeId/${loanMeta.endpoint}?search=term → 200 returns filtered loans by employee and search`, async () => {
-    if (typeof EMPLOYEES === 'undefined') return;
+    if (typeof EMPLOYEES === "undefined") return;
 
-    const companyOneFixtures = Object.values(EMPLOYEES).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EMPLOYEES).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -189,7 +188,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource AND match search
-    const expectedFixtures = Object.values(LOANS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.employee?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(LOANS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.employee?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: loanMeta.endpoint,
@@ -199,9 +200,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   // Other relationship tests - only if fixtures exist
   it(`GET /${equipmentMeta.endpoint}/:equipmentId/${loanMeta.endpoint} → 200 returns loans by equipment`, async () => {
     // Check if relationship fixtures exist and are accessible
-    if (typeof EQUIPMENTS === 'undefined') return;
+    if (typeof EQUIPMENTS === "undefined") return;
 
-    const companyOneFixtures = Object.values(EQUIPMENTS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EQUIPMENTS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -211,7 +212,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource
-    const expectedFixtures = Object.values(LOANS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.equipment?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(LOANS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.equipment?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: loanMeta.endpoint,
@@ -220,7 +223,7 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${equipmentMeta.endpoint}/:equipmentId/${loanMeta.endpoint} → 200 returns empty list when equipment does not exist`, async () => {
-    if (typeof EQUIPMENTS === 'undefined') return;
+    if (typeof EQUIPMENTS === "undefined") return;
 
     const nonExistentEquipmentId = "00000000-0000-0000-0000-000000000000";
 
@@ -233,9 +236,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${equipmentMeta.endpoint}/:equipmentId/${loanMeta.endpoint} → 403 when unauthenticated`, async () => {
-    if (typeof EQUIPMENTS === 'undefined') return;
+    if (typeof EQUIPMENTS === "undefined") return;
 
-    const companyOneFixtures = Object.values(EQUIPMENTS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EQUIPMENTS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     await request(app.getHttpServer())
@@ -244,9 +247,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
   });
 
   it(`GET /${equipmentMeta.endpoint}/:equipmentId/${loanMeta.endpoint}?search=term → 200 returns filtered loans by equipment and search`, async () => {
-    if (typeof EQUIPMENTS === 'undefined') return;
+    if (typeof EQUIPMENTS === "undefined") return;
 
-    const companyOneFixtures = Object.values(EQUIPMENTS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(EQUIPMENTS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -256,7 +259,9 @@ describe(`GET /${loanMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource AND match search
-    const expectedFixtures = Object.values(LOANS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.equipment?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(LOANS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.equipment?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: loanMeta.endpoint,

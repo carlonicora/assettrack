@@ -8,16 +8,12 @@ export const supplierValidator: ResourceValidator = {
     name: {
       required: true,
     },
-    address: {
-    },
-    email: {
-    },
-    phone: {
-    },
+    address: {},
+    email: {},
+    phone: {},
   },
   meta: {
     ...standardMeta,
   },
-  relationships: {
-  },
+  relationships: {},
 };

@@ -110,7 +110,6 @@ export class AppLoggingService implements LoggingServiceInterface, LoggerService
     );
   }
 
-
   private getEnrichedContext(context?: string, metadata?: Record<string, any>): any {
     const requestContext = this.getRequestContext();
     const traceContext = this.tracingService?.getCurrentTracingContext();
@@ -148,9 +147,10 @@ export class AppLoggingService implements LoggingServiceInterface, LoggerService
       });
 
       // Include stack in the message for console visibility
-      logMessage = typeof message === "object"
-        ? `${JSON.stringify(message)}\nStack: ${errorOrTrace.stack}`
-        : `${message}\nStack: ${errorOrTrace.stack}`;
+      logMessage =
+        typeof message === "object"
+          ? `${JSON.stringify(message)}\nStack: ${errorOrTrace.stack}`
+          : `${message}\nStack: ${errorOrTrace.stack}`;
     } else {
       // Legacy NestJS LoggerService signature: trace string provided
       enrichedContext = this.getEnrichedContext(context, {
@@ -199,9 +199,10 @@ export class AppLoggingService implements LoggingServiceInterface, LoggerService
 
     let logMessage: string;
     if (error) {
-      logMessage = typeof message === "object"
-        ? `${JSON.stringify(message)}\nStack: ${error.stack}`
-        : `${message}\nStack: ${error.stack}`;
+      logMessage =
+        typeof message === "object"
+          ? `${JSON.stringify(message)}\nStack: ${error.stack}`
+          : `${message}\nStack: ${error.stack}`;
     } else {
       logMessage = typeof message === "object" ? JSON.stringify(message) : message;
     }
@@ -342,9 +343,10 @@ class ChildLoggingService implements LoggingServiceInterface {
         errorName: error.name,
       });
 
-      logMessage = typeof message === "object"
-        ? `${JSON.stringify(message)}\nStack: ${error.stack}`
-        : `${message}\nStack: ${error.stack}`;
+      logMessage =
+        typeof message === "object"
+          ? `${JSON.stringify(message)}\nStack: ${error.stack}`
+          : `${message}\nStack: ${error.stack}`;
     } else {
       enrichedContext = this.getEnrichedContext(context, {
         ...metadata,
@@ -380,9 +382,10 @@ class ChildLoggingService implements LoggingServiceInterface {
 
     let logMessage: string;
     if (error) {
-      logMessage = typeof message === "object"
-        ? `${JSON.stringify(message)}\nStack: ${error.stack}`
-        : `${message}\nStack: ${error.stack}`;
+      logMessage =
+        typeof message === "object"
+          ? `${JSON.stringify(message)}\nStack: ${error.stack}`
+          : `${message}\nStack: ${error.stack}`;
     } else {
       logMessage = typeof message === "object" ? JSON.stringify(message) : message;
     }

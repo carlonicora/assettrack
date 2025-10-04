@@ -49,14 +49,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: EMPLOYEES.CompanyOne_Full.id
-            }
+              id: EMPLOYEES.CompanyOne_Full.id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: EQUIPMENTS.CompanyOne_Full.id
-            }
+              id: EQUIPMENTS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -81,14 +81,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: EMPLOYEES.CompanyOne_Full.id
-            }
+              id: EMPLOYEES.CompanyOne_Full.id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: EQUIPMENTS.CompanyOne_Full.id
-            }
+              id: EQUIPMENTS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -114,14 +114,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: EMPLOYEES.CompanyOne_Full.id
-            }
+              id: EMPLOYEES.CompanyOne_Full.id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: EQUIPMENTS.CompanyOne_Full.id
-            }
+              id: EQUIPMENTS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -164,14 +164,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: EMPLOYEES.CompanyOne_Minimal.id
-            }
+              id: EMPLOYEES.CompanyOne_Minimal.id,
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: EQUIPMENTS.CompanyOne_Minimal.id
-            }
+              id: EQUIPMENTS.CompanyOne_Minimal.id,
+            },
           },
         },
       },
@@ -245,14 +245,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: "invalid-uuid"
-            }
+              id: "invalid-uuid",
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: "invalid-uuid"
-            }
+              id: "invalid-uuid",
+            },
           },
         },
       },
@@ -277,14 +277,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: employeeMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000"
-            }
+              id: "00000000-0000-0000-0000-000000000000",
+            },
           },
           equipment: {
             data: {
               type: equipmentMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000"
-            }
+              id: "00000000-0000-0000-0000-000000000000",
+            },
           },
         },
       },
@@ -309,14 +309,14 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
           employee: {
             data: {
               type: "wrong-type",
-              id: EMPLOYEES.CompanyOne_Full.id
-            }
+              id: EMPLOYEES.CompanyOne_Full.id,
+            },
           },
           equipment: {
             data: {
               type: "wrong-type",
-              id: EQUIPMENTS.CompanyOne_Full.id
-            }
+              id: EQUIPMENTS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -328,5 +328,4 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
       .send(updateLoan)
       .expect(400);
   });
-
 });
