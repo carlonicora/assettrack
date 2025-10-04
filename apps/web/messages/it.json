@@ -27,6 +27,11 @@
         "title": "Supplier",
         "subtitle": "supplier?",
         "description": "supplier"
+      },
+      "search": {
+        "no_results": "no Supplier found",
+        "placeholder": "Search Supplier...",
+        "select": "Select Supplier"
       }
     },
     "employee": {
@@ -56,6 +61,11 @@
         "title": "Employee",
         "subtitle": "employee?",
         "description": "employee"
+      },
+      "search": {
+        "no_results": "no Employee found",
+        "placeholder": "Search Employee...",
+        "select": "Select Employee"
       }
     },
     "equipment": {
@@ -98,6 +108,11 @@
         "title": "Equipment",
         "subtitle": "equipment?",
         "description": "equipment"
+      },
+      "search": {
+        "no_results": "no Equipment found",
+        "placeholder": "Search Equipment...",
+        "select": "Select Equipment"
       }
     },
     "loan": {

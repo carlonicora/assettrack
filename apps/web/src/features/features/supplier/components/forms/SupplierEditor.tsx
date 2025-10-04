@@ -8,6 +8,7 @@ import CommonEditorHeader from "@/features/common/components/forms/CommonEditorH
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
 import FormInput from "@/features/common/components/forms/FormInput";
 import FormTextarea from "@/features/common/components/forms/FormTextarea";
+import FormDate from "@/features/common/components/forms/FormDate";
 import { SupplierInput, SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
 import { SupplierService } from "@/features/features/supplier/data/SupplierService";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";

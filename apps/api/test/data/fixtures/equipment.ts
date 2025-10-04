@@ -3,7 +3,7 @@ import { SUPPLIERS } from "test/data/fixtures/supplier";
 
 export const EQUIPMENTS = {
   CompanyOne_Full: {
-    id: "6a71ae58-e8ca-4696-b4a5-c6b755d50afe",
+    id: "de107eed-60b1-4942-9653-191d02873916",
     company: COMPANIES.CompanyOne,
     supplier: SUPPLIERS.CompanyOne_Full,
     name: "CompanyOne Equipment Full name",
@@ -13,7 +13,7 @@ export const EQUIPMENTS = {
     endDate: new Date('2024-01-01T00:00:00.000Z'),
   },
   CompanyOne_Nullable: {
-    id: "54c7afb8-ebd1-4ec0-b0ff-8d8df67cc92d",
+    id: "6a89592c-b59a-46de-aa58-8124a4a25dec",
     company: COMPANIES.CompanyOne,
     supplier: SUPPLIERS.CompanyOne_Nullable,
     name: "CompanyOne Equipment Nullable name",
@@ -23,7 +23,7 @@ export const EQUIPMENTS = {
     endDate: new Date('2024-01-02T00:00:00.000Z'),
   },
   CompanyOne_Minimal: {
-    id: "75f53b74-c857-45b1-9b79-3f5e90a74bed",
+    id: "b673ffaf-ff7d-4ef8-9871-194f8e64f6d4",
     company: COMPANIES.CompanyOne,
     supplier: SUPPLIERS.CompanyOne_Minimal,
     name: "CompanyOne Equipment Minimal name",
@@ -33,7 +33,7 @@ export const EQUIPMENTS = {
     endDate: new Date('2024-01-03T00:00:00.000Z'),
   },
   CompanyTwo_Full: {
-    id: "1cf422b6-1388-4bcd-b445-d8017055e487",
+    id: "52349d32-c3c3-4bbc-83a9-5b3c7100c03a",
     company: COMPANIES.CompanyTwo,
     supplier: SUPPLIERS.CompanyTwo_Full,
     name: "CompanyTwo Equipment Full name",
@@ -43,7 +43,7 @@ export const EQUIPMENTS = {
     endDate: new Date('2024-02-01T00:00:00.000Z'),
   },
   CompanyTwo_Nullable: {
-    id: "6ce392bc-940d-48a7-afcd-e2ad79e075b7",
+    id: "aa3f3f69-766a-40f6-9046-96962992b9e1",
     company: COMPANIES.CompanyTwo,
     supplier: SUPPLIERS.CompanyTwo_Nullable,
     name: "CompanyTwo Equipment Nullable name",
@@ -53,7 +53,7 @@ export const EQUIPMENTS = {
     endDate: new Date('2024-02-02T00:00:00.000Z'),
   },
   CompanyTwo_Minimal: {
-    id: "a4c73ea0-7465-422f-9b46-4ecd6d96c9f5",
+    id: "1d0c400c-19c5-473f-aa2e-3030fb7af46f",
     company: COMPANIES.CompanyTwo,
     supplier: SUPPLIERS.CompanyTwo_Minimal,
     name: "CompanyTwo Equipment Minimal name",

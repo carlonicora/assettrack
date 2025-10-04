@@ -8,6 +8,7 @@ import CommonEditorHeader from "@/features/common/components/forms/CommonEditorH
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
 import FormInput from "@/features/common/components/forms/FormInput";
 import FormTextarea from "@/features/common/components/forms/FormTextarea";
+import FormDate from "@/features/common/components/forms/FormDate";
 import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { EquipmentService } from "@/features/features/equipment/data/EquipmentService";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
@@ -132,14 +133,14 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 name={t(`features.equipment.fields.description.label`)}
                 placeholder={t(`features.equipment.fields.description.placeholder`)}
               />
-              <FormInput
+              <FormDate
                 form={form}
                 id="startDate"
                 name={t(`features.equipment.fields.startDate.label`)}
                 placeholder={t(`features.equipment.fields.startDate.placeholder`)}
                 isRequired
               />
-              <FormInput
+              <FormDate
                 form={form}
                 id="endDate"
                 name={t(`features.equipment.fields.endDate.label`)}
