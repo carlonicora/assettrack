@@ -86,6 +86,12 @@
           "label": "Contract End",
           "placeholder": "Select contract end date",
           "error": "Contract end date is required"
+        },
+        "manufacturer": {
+          "label": "Manufacturer"
+        },
+        "model": {
+          "label": "Model"
         }
       },
       "relationships": {
@@ -394,6 +400,8 @@
     "home": "Home Page",
     "last_updated": "Last Updated",
     "my_profile": "My Profile",
+    "language": "Language",
+    "languages": { "en": "🇬🇧 English", "it": "🇮🇹 Italiano" },
     "navigation": "Navigation",
     "no_data_found": "No data found",
     "not_active": "Not Active",

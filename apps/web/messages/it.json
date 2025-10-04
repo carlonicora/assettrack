@@ -86,6 +86,12 @@
           "label": "Fine Contratto",
           "placeholder": "Seleziona la data di fine del contratto",
           "error": "La data di fine del contratto è obbligatoria"
+        },
+        "manufacturer": {
+          "label": "Produttore"
+        },
+        "model": {
+          "label": "Modello"
         }
       },
       "relationships": {
@@ -182,7 +188,7 @@
       "forgot_password": "Password Dimenticata",
       "gdpr_consent_text": "Accetto il trattamento dei miei dati personali secondo la Normativa sulla Privacy (GDPR) e i Termini di Servizio",
       "login": "Accedi",
-      "login_description": "Accedi ad AssetTrack AI per gestire il tuo studio legale.",
+      "login_description": "Accedi ad AssetTrack per gestire i beni aziendali assegnati ai dipendenti.",
       "password": "Password",
       "password_reset": "Reimposta Password",
       "register": "Registrati",
@@ -269,7 +275,7 @@
         "resend_activation": "Reinvia Email di Attivazione"
       },
       "delete": {
-        "description": "Eliminando questo utente verrà rimossa la sua capacità di accedere ad AssetTrack AI. Tutte le sue conoscenze rimarranno nel sistema.",
+        "description": "Eliminando questo utente verrà rimossa la sua capacità di accedere ad AssetTrack. Tutte le sue conoscenze rimarranno nel sistema.",
         "subtitle": "Sei sicuro di voler eliminare questo utente?",
         "title": "Elimina Utente"
       },
@@ -390,6 +396,8 @@
       "recent_searches": "Ricerche Recenti",
       "searching": "Ricerca in corso..."
     },
+    "language": "Lingua",
+    "languages": { "en": "🇬🇧 English", "it": "🇮🇹 Italiano" },
     "hide_password": "Nascondi Password",
     "home": "Home Page",
     "last_updated": "Ultimo Aggiornamento",
