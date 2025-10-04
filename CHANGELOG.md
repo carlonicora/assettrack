@@ -1,3 +1,17 @@
+## [1.1.0](https://github.com/carlonicora/assettrack/compare/v1.0.0...v1.1.0) (2025-10-04)
+
+### 🚀 Features
+
+* add pre-push husky ([1458f45](https://github.com/carlonicora/assettrack/commit/1458f4562849c345dbe8e0f022e39f97bbfb21cd))
+
+### 🐛 Bug Fixes
+
+* correct husky permissions ([b190aa4](https://github.com/carlonicora/assettrack/commit/b190aa4fd93546cb2285c933f4687ecaaed30e61))
+
+### 📦 Code Refactoring
+
+* remove deprecated test files ([7bce955](https://github.com/carlonicora/assettrack/commit/7bce95543a194061fca42e6195b486f52cf2cf11))
+
 ## 1.0.0 (2025-10-04)
 
 ### 🚀 Features
