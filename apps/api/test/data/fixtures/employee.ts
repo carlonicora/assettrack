@@ -2,7 +2,7 @@ import { COMPANIES } from "test/data/fixtures/company";
 
 export const EMPLOYEES = {
   CompanyOne_Full: {
-    id: "183487ed-9173-419e-a810-efc1fb2149ac",
+    id: "15af9c0c-5703-40d4-b8a0-85c07ad67d65",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Employee Full name",
     phone: "CompanyOne Employee Full phone",
@@ -10,7 +10,7 @@ export const EMPLOYEES = {
     avatar: "CompanyOne Employee Full avatar",
   },
   CompanyOne_Nullable: {
-    id: "1bd31e9f-826f-4d5a-84dd-6263b23a5a58",
+    id: "2fe09848-25c0-43e4-b9f8-5cebae0c297c",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Employee Nullable name",
     phone: null,
@@ -18,7 +18,7 @@ export const EMPLOYEES = {
     avatar: null,
   },
   CompanyOne_Minimal: {
-    id: "c9d1daaa-50f4-47b1-b030-02404538a0a3",
+    id: "71b22e53-e56f-405b-9ebb-bdfbe5475ffb",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Employee Minimal name",
     phone: undefined,
@@ -26,7 +26,7 @@ export const EMPLOYEES = {
     avatar: undefined,
   },
   CompanyTwo_Full: {
-    id: "e9e86676-be51-42f3-b64a-f4b481d67444",
+    id: "9604a56d-cb84-44ee-be45-02407951660b",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Employee Full name",
     phone: "CompanyTwo Employee Full phone",
@@ -34,7 +34,7 @@ export const EMPLOYEES = {
     avatar: "CompanyTwo Employee Full avatar",
   },
   CompanyTwo_Nullable: {
-    id: "e8aa8b2d-a839-4fc6-b2fb-5b5ac11b6475",
+    id: "29f60b23-f4bd-4991-90eb-b01ce9b17d31",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Employee Nullable name",
     phone: null,
@@ -42,7 +42,7 @@ export const EMPLOYEES = {
     avatar: null,
   },
   CompanyTwo_Minimal: {
-    id: "bf77e6e9-abb0-4646-96c1-0a64b0296958",
+    id: "332547e5-b67e-4ae7-a727-2ddecab10eaa",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Employee Minimal name",
     phone: undefined,

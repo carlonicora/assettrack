@@ -117,6 +117,7 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 id="name"
                 name={t(`features.equipment.fields.name.label`)}
                 placeholder={t(`features.equipment.fields.name.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}
@@ -125,23 +126,25 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 placeholder={t(`features.equipment.fields.barcode.placeholder`)}
               />
               <FormTextarea
+                className="h-20 min-h-20"
                 form={form}
                 id="description"
                 name={t(`features.equipment.fields.description.label`)}
                 placeholder={t(`features.equipment.fields.description.placeholder`)}
-                className="h-20 min-h-20"
               />
               <FormInput
                 form={form}
                 id="startDate"
                 name={t(`features.equipment.fields.startDate.label`)}
                 placeholder={t(`features.equipment.fields.startDate.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}
                 id="endDate"
                 name={t(`features.equipment.fields.endDate.label`)}
                 placeholder={t(`features.equipment.fields.endDate.placeholder`)}
+                isRequired
               />
               <SupplierSelector
                 form={form}

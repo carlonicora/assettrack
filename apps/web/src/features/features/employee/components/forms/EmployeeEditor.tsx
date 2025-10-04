@@ -104,6 +104,7 @@ export default function EmployeeEditor({ employee, propagateChanges }: EmployeeE
                 id="name"
                 name={t(`features.employee.fields.name.label`)}
                 placeholder={t(`features.employee.fields.name.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}

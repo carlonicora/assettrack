@@ -117,18 +117,21 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
                 id="name"
                 name={t(`features.loan.fields.name.label`)}
                 placeholder={t(`features.loan.fields.name.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}
                 id="startDate"
                 name={t(`features.loan.fields.startDate.label`)}
                 placeholder={t(`features.loan.fields.startDate.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}
                 id="endDate"
                 name={t(`features.loan.fields.endDate.label`)}
                 placeholder={t(`features.loan.fields.endDate.placeholder`)}
+                isRequired
               />
               <EmployeeSelector
                 form={form}
