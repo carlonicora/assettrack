@@ -15,6 +15,8 @@ import { AuthRole } from "@/permisions/enums/AuthRole";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 
 export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFields> = (params) => {
   const t = useTranslations();
@@ -61,6 +63,42 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
         name: "endDate",
         title: t(`features.loan.fields.endDate.label`),
       }),
+    [LoanFields.employee]: () => ({
+      id: "employee",
+      accessorKey: "employee",
+      header: t(`features.loan.relationships.employee.label`),
+      cell: ({ row }: { row: TableContent<LoanInterface> }) => {
+        const loan: LoanInterface = row.original.jsonApiData;
+        return (
+          <Link href={generateUrl({ page: Modules.Employee, id: loan.employee.id })}>
+            {loan.employee.name}
+          </Link>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
+    [LoanFields.equipment]: () => ({
+      id: "equipment",
+      accessorKey: "equipment",
+      header: t(`features.loan.relationships.equipment.label`),
+      cell: ({ row }: { row: TableContent<LoanInterface> }) => {
+        const loan: LoanInterface = row.original.jsonApiData;
+        return (
+          <Link href={generateUrl({ page: Modules.Equipment, id: loan.equipment.id })}>
+            {loan.equipment.name}
+          </Link>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
+
+
+
+
+
+
     [LoanFields.createdAt]: () =>
       cellDate({
         name: "createdAt",

@@ -3,15 +3,12 @@
 import { Link } from "@/components/custom-ui/link";
 import { cellDate } from "@/features/common/components/tables/cells/cell.date";
 import { cellId } from "@/features/common/components/tables/cells/cell.id";
-import { cellLink } from "@/features/common/components/tables/cells/cell.link";
-import { cellText } from "@/features/common/components/tables/cells/cell.text";
 import { TableContent, UseTableStructureHook } from "@/features/common/interfaces/table.structure.generator.interface";
 import { EquipmentFields } from "@/features/features/equipment/data/EquipmentFields";
 import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { registerTableGenerator } from "@/hooks/useTableGenerator";
 import { Modules } from "@/modules/modules";
-import { AuthRole } from "@/permisions/enums/AuthRole";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
@@ -51,13 +48,26 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
       enableSorting: false,
       enableHiding: false,
     }),
+    [EquipmentFields.supplier]: () => ({
+      id: "supplier",
+      accessorKey: "supplier",
+      header: t(`features.equipment.relationships.supplier.label`),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => {
+        const equipment: EquipmentInterface = row.original.jsonApiData;
+        return (
+          <Link href={generateUrl({ page: Modules.Supplier, id: equipment.supplier.id })}>
+            {equipment.supplier.name}
+          </Link>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.barcode]: () => ({
       id: "barcode",
       accessorKey: "barcode",
       header: t(`features.equipment.fields.barcode.label`),
-      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => (
-        <>{row.getValue("barcode")}</>
-      ),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => <>{row.getValue("barcode")}</>,
       enableSorting: false,
       enableHiding: false,
     }),
@@ -65,9 +75,7 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
       id: "description",
       accessorKey: "description",
       header: t(`features.equipment.fields.description.label`),
-      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => (
-        <>{row.getValue("description")}</>
-      ),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => <>{row.getValue("description")}</>,
       enableSorting: false,
       enableHiding: false,
     }),
@@ -94,9 +102,9 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
   };
 
   const columns = useMemo(() => {
-      return params.fields
-      .map((field) => fieldColumnMap[field]?.())
-      .filter((col) => col !== undefined) as ColumnDef<TableContent<EquipmentInterface>>[];
+    return params.fields.map((field) => fieldColumnMap[field]?.()).filter((col) => col !== undefined) as ColumnDef<
+      TableContent<EquipmentInterface>
+    >[];
   }, [params.fields, fieldColumnMap, t, generateUrl]);
 
   return useMemo(() => ({ data: tableData, columns: columns }), [tableData, columns]);

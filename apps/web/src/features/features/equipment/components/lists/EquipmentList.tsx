@@ -25,7 +25,7 @@ export default function EquipmentsList() {
   return (
     <ContentListTable
       data={data}
-      fields={[EquipmentFields.name, EquipmentFields.startDate, EquipmentFields.endDate]}
+      fields={[EquipmentFields.name, EquipmentFields.supplier, EquipmentFields.startDate, EquipmentFields.endDate]}
       tableGeneratorType={Modules.Equipment}
       functions={functions}
       title={t(`types.equipments`, { count: 2 })}

@@ -7,6 +7,8 @@ export enum EquipmentFields {
   startDate = "startDate",
   endDate = "endDate",
 
+  supplier = "supplier",
+
   createdAt = "createdAt",
   updatedAt = "updatedAt",
 }
