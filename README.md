@@ -1,6 +1,6 @@
-# AssetTrack - Legal Practice Management Platform
+# AssetTrack
 
-A modern monorepo-based legal practice management platform built with NestJS and Next.js.
+A modern monorepo-based equipment loan tracket platform built with NestJS and Next.js. It supports muti-tenancy customers.
 
 ## 🏗 Architecture
 
@@ -41,12 +41,14 @@ assettrack/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd assettrack
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
@@ -54,6 +56,7 @@ assettrack/
 3. **Set up environment variables**
 
    Copy the example environment files:
+
    ```bash
    cp apps/api/.env.example apps/api/.env
    cp apps/web/.env.example apps/web/.env
@@ -62,16 +65,19 @@ assettrack/
 ### Development
 
 **Start everything with a single command:**
+
 ```bash
 pnpm dev
 ```
 
 This will start:
+
 - API server on http://localhost:3000
 - Web application on http://localhost:3191
 - Worker process for background jobs
 
 **Individual services:**
+
 ```bash
 pnpm dev:api      # Start only API server
 pnpm dev:web      # Start only web application
@@ -81,11 +87,13 @@ pnpm dev:worker   # Start only worker process
 ### Using Docker
 
 **Start the entire stack with Docker:**
+
 ```bash
 docker-compose up
 ```
 
 This will start:
+
 - Neo4j database (http://localhost:7474)
 - Redis cache/queue (port 6379)
 - API server (http://localhost:3000)
@@ -95,15 +103,17 @@ This will start:
 ## 📦 Workspace Packages
 
 ### @assettrack/api
+
 NestJS backend with:
+
 - REST API with JSON:API specification
-- GraphQL support via Neo4j
 - WebSocket support via Socket.io
 - Background job processing with BullMQ
-- Multi-agent AI system with LangChain
 
 ### @assettrack/web
+
 Next.js 15 frontend with:
+
 - App Router
 - Tailwind CSS v4
 - shadcn/ui components
@@ -111,11 +121,8 @@ Next.js 15 frontend with:
 - Real-time updates via Socket.io
 
 ### @assettrack/shared
+
 Shared package containing:
-- TypeScript type definitions
-- Zod validation schemas
-- Utility functions (validation, formatting, dates)
-- Common business logic
 
 ## 🛠 Available Scripts
 
@@ -154,12 +161,14 @@ pnpm clean:all        # Clean everything including node_modules
 ### TypeScript
 
 The monorepo uses a shared base TypeScript configuration:
+
 - `tsconfig.base.json` - Shared configuration
 - Each package extends this with its own `tsconfig.json`
 
 ### Turborepo
 
 Turborepo is configured to:
+
 - Cache build outputs for faster subsequent builds
 - Run tasks in parallel when possible
 - Understand task dependencies
@@ -167,6 +176,7 @@ Turborepo is configured to:
 ### pnpm Workspaces
 
 Workspace packages are defined in `pnpm-workspace.yaml`:
+
 - `api/` - Backend application
 - `web/` - Frontend application
 - `packages/*` - Shared packages
@@ -186,6 +196,7 @@ pnpm start:prod
 ### Using Docker
 
 Build production images:
+
 ```bash
 # Build API image
 docker build -f apps/api/Dockerfile -t assettrack-api .
@@ -195,6 +206,7 @@ docker build -f apps/web/Dockerfile -t assettrack-web .
 ```
 
 Run production containers:
+
 ```bash
 docker run -p 3000:3000 assettrack-api
 docker run -p 3191:3191 assettrack-web
@@ -203,16 +215,19 @@ docker run -p 3191:3191 assettrack-web
 ## 🧪 Testing
 
 ### Unit Tests
+
 ```bash
 pnpm test
 ```
 
 ### E2E Tests
+
 ```bash
 pnpm test:e2e
 ```
 
 ### Test Coverage
+
 ```bash
 pnpm test:cov
 ```
@@ -220,14 +235,15 @@ pnpm test:cov
 ## 📚 Technology Stack
 
 ### Backend (API)
+
 - **Framework**: NestJS 11
 - **Database**: Neo4j (graph database)
 - **Cache/Queue**: Redis + BullMQ
 - **Authentication**: Passport JWT
 - **Real-time**: Socket.io
-- **AI**: LangChain, Azure OpenAI
 
 ### Frontend (Web)
+
 - **Framework**: Next.js 15
 - **UI**: Tailwind CSS v4 + shadcn/ui
 - **State**: Jotai
@@ -235,6 +251,7 @@ pnpm test:cov
 - **Testing**: Jest + Playwright
 
 ### Shared
+
 - **Language**: TypeScript 5.9
 - **Package Manager**: pnpm
 - **Build Tool**: Turborepo
@@ -243,7 +260,9 @@ pnpm test:cov
 ## 🔒 Environment Variables
 
 ### API Environment (.env)
+
 Key variables needed:
+
 - `NODE_ENV` - Environment (development/production)
 - `PORT` - API server port
 - `NEO4J_URI` - Neo4j connection URI
@@ -254,7 +273,9 @@ Key variables needed:
 - `JWT_SECRET` - JWT signing secret
 
 ### Web Environment (.env)
+
 Key variables needed:
+
 - `NODE_ENV` - Environment (development/production)
 - `PORT` - Web server port
 - `NEXT_PUBLIC_API_URL` - API server URL
