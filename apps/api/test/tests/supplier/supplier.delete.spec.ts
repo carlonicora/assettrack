@@ -15,9 +15,7 @@ describe(`DELETE /${supplierMeta.endpoint}`, () => {
   });
 
   it(`DELETE /${supplierMeta.endpoint}/:supplierId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .delete(`/${supplierMeta.endpoint}/${SUPPLIERS.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).delete(`/${supplierMeta.endpoint}/${SUPPLIERS.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`DELETE /${supplierMeta.endpoint}/:supplierId → 403 when user from another company tries to delete a supplier`, async () => {

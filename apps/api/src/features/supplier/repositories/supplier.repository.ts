@@ -3,10 +3,9 @@ import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.curs
 import { Neo4jService } from "src/core/neo4j/services/neo4j.service";
 import { SecurityService } from "src/core/security/services/security.service";
 import { Supplier } from "src/features/supplier/entities/supplier.entity";
+import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
 import { SupplierModel } from "src/features/supplier/entities/supplier.model";
 import { SupplierCypherService } from "src/features/supplier/services/supplier.cypher.service";
-import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
-import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 
 @Injectable()
 export class SupplierRepository implements OnModuleInit {
@@ -22,7 +21,7 @@ export class SupplierRepository implements OnModuleInit {
     });
 
     const indexName = "supplier_search_index";
-    const expectedProperties = ["name","address","email","phone"];
+    const expectedProperties = ["name", "address", "email", "phone"];
 
     const result = await this.neo4j.read(
       `
@@ -70,11 +69,11 @@ export class SupplierRepository implements OnModuleInit {
     if (exists) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
   }
 
-  async find(params: { 
-    fetchAll?: boolean; 
-    term?: string; 
+  async find(params: {
+    fetchAll?: boolean;
+    term?: string;
     orderBy?: string;
-    cursor?: JsonApiCursorInterface
+    cursor?: JsonApiCursorInterface;
   }): Promise<Supplier[]> {
     const query = this.neo4j.initQuery({
       cursor: params.cursor,
@@ -134,15 +133,8 @@ export class SupplierRepository implements OnModuleInit {
     });
   }
 
-  async create(params: {
-    id: string;
-    name: string;
-    address?: string;
-    email?: string;
-    phone?: string;
-  }): Promise<void> {
+  async create(params: { id: string; name: string; address?: string; email?: string; phone?: string }): Promise<void> {
     const query = this.neo4j.initQuery();
-
 
     query.queryParams = {
       ...query.queryParams,
@@ -166,19 +158,11 @@ export class SupplierRepository implements OnModuleInit {
       CREATE (supplier)-[:BELONGS_TO]->(company)
     `;
 
-
     await this.neo4j.writeOne(query);
   }
 
-  async put(params: {
-    id: string;
-    name: string;
-    address?: string;
-    email?: string;
-    phone?: string;
-  }): Promise<void> {
+  async put(params: { id: string; name: string; address?: string; email?: string; phone?: string }): Promise<void> {
     const query = this.neo4j.initQuery();
-
 
     query.queryParams = {
       ...query.queryParams,
@@ -201,7 +185,6 @@ export class SupplierRepository implements OnModuleInit {
       SET supplier.updatedAt = datetime(),
       ${set}
     `;
-
 
     await this.neo4j.writeOne(query);
   }

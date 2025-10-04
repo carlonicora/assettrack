@@ -17,9 +17,7 @@ describe(`GET /${supplierMeta.endpoint}`, () => {
   });
 
   it(`GET /${supplierMeta.endpoint}/:supplierId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .get(`/${supplierMeta.endpoint}/${SUPPLIERS.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).get(`/${supplierMeta.endpoint}/${SUPPLIERS.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`GET /${supplierMeta.endpoint}/:supplierId → 403 when supplier from another company`, async () => {
@@ -123,6 +121,4 @@ describe(`GET /${supplierMeta.endpoint}`, () => {
       expected: [SUPPLIERS.CompanyOne_Full],
     });
   });
-
-
 });

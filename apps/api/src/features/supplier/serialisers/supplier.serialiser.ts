@@ -18,7 +18,6 @@ export class SupplierSerialiser extends AbstractJsonApiSerialiser implements Jso
       phone: "phone",
     };
 
-
     return super.create();
   }
 }

@@ -304,7 +304,7 @@ export class CacheService {
         await this.redis.quit();
       }
     } catch (error) {
-      // Fallback to disconnect if quit fails
+      console.error("Error disconnecting Redis client:", error);
       this.redis?.disconnect();
     }
   }

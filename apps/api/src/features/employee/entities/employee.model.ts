@@ -10,6 +10,6 @@ export const EmployeeModel: DataModelInterface<Employee> = {
   entity: undefined as unknown as Employee,
   mapper: mapEmployee,
   serialiser: EmployeeSerialiser,
-  singleChildrenTokens: [companyMeta.nodeName,],
-  childrenTokens: []
+  singleChildrenTokens: [companyMeta.nodeName],
+  childrenTokens: [],
 };

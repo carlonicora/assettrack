@@ -1,8 +1,8 @@
 import { Type } from "class-transformer";
-import { Equals, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested, IsNumber, IsBoolean, IsDateString, IsDefined } from "class-validator";
-import { LoanModel } from "src/features/loan/entities/loan.model";
+import { Equals, IsDateString, IsDefined, IsNotEmpty, IsOptional, IsUUID, ValidateNested } from "class-validator";
 import { EmployeeDataDTO } from "src/features/employee/dtos/employee.dto";
 import { EquipmentDataDTO } from "src/features/equipment/dtos/equipment.dto";
+import { LoanModel } from "src/features/loan/entities/loan.model";
 
 export class LoanPutAttributesDTO {
   @IsDefined()
@@ -26,7 +26,6 @@ export class LoanPutRelationshipsDTO {
   @Type(() => EquipmentDataDTO)
   equipment: EquipmentDataDTO;
 }
-
 
 export class LoanPutDataDTO {
   @Equals(LoanModel.endpoint)

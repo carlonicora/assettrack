@@ -1,4 +1,3 @@
-
 import { COMPANIES } from "test/data/fixtures/company";
 import { USERS } from "test/data/fixtures/user";
 import { authValidator } from "test/jsonapi/validators/authValidator";
@@ -16,4 +15,3 @@ jsonApiValidator.registerValidator(roleValidator);
 export { ValidationContext } from "./JsonApiValidator";
 export * from "./types";
 export { jsonApiValidator };
-

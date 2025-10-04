@@ -18,7 +18,6 @@ export class EmployeeSerialiser extends AbstractJsonApiSerialiser implements Jso
       avatar: "avatar",
     };
 
-
     return super.create();
   }
 }

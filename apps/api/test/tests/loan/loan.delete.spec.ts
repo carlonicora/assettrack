@@ -15,9 +15,7 @@ describe(`DELETE /${loanMeta.endpoint}`, () => {
   });
 
   it(`DELETE /${loanMeta.endpoint}/:loanId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .delete(`/${loanMeta.endpoint}/${LOANS.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).delete(`/${loanMeta.endpoint}/${LOANS.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`DELETE /${loanMeta.endpoint}/:loanId → 403 when user from another company tries to delete a loan`, async () => {

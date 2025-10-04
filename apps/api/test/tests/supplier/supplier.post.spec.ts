@@ -13,11 +13,9 @@ describe(`POST /${supplierMeta.endpoint}`, () => {
       throw new Error("testState.app is not initialized. Global setup may have failed.");
     }
     app = testState.app;
-
   });
 
   it(`POST /${supplierMeta.endpoint} → 403 when unauthenticated`, async () => {
-
     const newSupplier = {
       data: {
         type: supplierMeta.endpoint,
@@ -32,7 +30,6 @@ describe(`POST /${supplierMeta.endpoint}`, () => {
   });
 
   it(`POST /${supplierMeta.endpoint} → 201 when authenticated user creates a supplier`, async () => {
-
     const newSupplier = {
       data: {
         type: supplierMeta.endpoint,
@@ -94,6 +91,4 @@ describe(`POST /${supplierMeta.endpoint}`, () => {
       .send(newSupplier)
       .expect(400);
   });
-
-
 });

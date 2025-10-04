@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Equals, IsDefined, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested, IsNumber, IsBoolean, IsDateString } from "class-validator";
+import { Equals, IsDefined, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested } from "class-validator";
 import { EmployeeModel } from "src/features/employee/entities/employee.model";
 
 export class EmployeePostAttributesDTO {
@@ -20,7 +20,6 @@ export class EmployeePostAttributesDTO {
   @IsString()
   avatar?: string;
 }
-
 
 export class EmployeePostDataDTO {
   @Equals(EmployeeModel.endpoint)

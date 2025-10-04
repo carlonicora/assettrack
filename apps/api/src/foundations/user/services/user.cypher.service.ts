@@ -24,7 +24,7 @@ export class UserCypherService {
     return ``;
   };
 
-  returnStatement = (params?: { useTotalScore?: boolean }): string => {
+  returnStatement = (): string => {
     return `
         RETURN ${userMeta.nodeName}
     `;

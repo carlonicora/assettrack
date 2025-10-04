@@ -39,10 +39,10 @@ export class LoanController {
   @Get(loanMeta.endpoint)
   async findLoans(
     @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply, 
-    @Query() query: any, 
+    @Res() reply: FastifyReply,
+    @Query() query: any,
     @Query("search") search?: string,
-    @Query("fetchAll") fetchAll?: boolean,  
+    @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
   ) {
     const response = await this.loanService.find({
@@ -71,7 +71,7 @@ export class LoanController {
     const response = await this.loanService.create({
       data: body.data,
     });
-    
+
     reply.send(response);
 
     await this.cacheService.invalidateByType(loanMeta.endpoint);
@@ -98,11 +98,7 @@ export class LoanController {
 
   @Delete(`${loanMeta.endpoint}/:loanId`)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteLoan(
-    @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply,
-    @Param("loanId") loanId: string
-  ) {
+  async deleteLoan(@Req() req: AuthenticatedRequest, @Res() reply: FastifyReply, @Param("loanId") loanId: string) {
     await this.loanService.delete({ id: loanId });
     reply.send();
 
@@ -112,10 +108,10 @@ export class LoanController {
   @Get(`${employeeMeta.endpoint}/:employeeId/${loanMeta.endpoint}`)
   async findByEmployee(
     @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply, 
-    @Param("employeeId") employeeId: string, 
+    @Res() reply: FastifyReply,
+    @Param("employeeId") employeeId: string,
     @Query() query: any,
-    @Query("search") search?: string, 
+    @Query("search") search?: string,
     @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
   ) {
@@ -128,15 +124,15 @@ export class LoanController {
     });
 
     reply.send(response);
-  }  
+  }
 
   @Get(`${equipmentMeta.endpoint}/:equipmentId/${loanMeta.endpoint}`)
   async findByEquipment(
     @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply, 
-    @Param("equipmentId") equipmentId: string, 
+    @Res() reply: FastifyReply,
+    @Param("equipmentId") equipmentId: string,
     @Query() query: any,
-    @Query("search") search?: string, 
+    @Query("search") search?: string,
     @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
   ) {
@@ -149,5 +145,5 @@ export class LoanController {
     });
 
     reply.send(response);
-  }  
+  }
 }
