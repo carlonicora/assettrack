@@ -136,9 +136,7 @@ describe("CompanyController", () => {
       const serviceError = new Error("Service error");
       companyService.find.mockRejectedValue(serviceError);
 
-      await expect(
-        controller.fetchAllCompanies(mockRequest, mockReply, mockQuery)
-      ).rejects.toThrow("Service error");
+      await expect(controller.fetchAllCompanies(mockRequest, mockReply, mockQuery)).rejects.toThrow("Service error");
 
       expect(companyService.find).toHaveBeenCalledWith({
         term: undefined,
@@ -176,9 +174,9 @@ describe("CompanyController", () => {
     it("should throw unauthorized error when user tries to access different company", async () => {
       const mockRequest = { user: mockRegularUser } as AuthenticatedRequest;
 
-      await expect(
-        controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)
-      ).rejects.toThrow(new HttpException("Unauthorised", 401));
+      await expect(controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)).rejects.toThrow(
+        new HttpException("Unauthorised", 401),
+      );
 
       expect(companyService.findOne).not.toHaveBeenCalled();
       expect(mockReply.send).not.toHaveBeenCalled();
@@ -201,9 +199,9 @@ describe("CompanyController", () => {
       const serviceError = new Error("Company not found");
       companyService.findOne.mockRejectedValue(serviceError);
 
-      await expect(
-        controller.findCompany(mockRequest, mockReply, MOCK_COMPANY_ID)
-      ).rejects.toThrow("Company not found");
+      await expect(controller.findCompany(mockRequest, mockReply, MOCK_COMPANY_ID)).rejects.toThrow(
+        "Company not found",
+      );
 
       expect(companyService.findOne).toHaveBeenCalledWith({
         companyId: MOCK_COMPANY_ID,
@@ -272,9 +270,7 @@ describe("CompanyController", () => {
       const serviceError = new Error("Creation failed");
       companyService.createForController.mockRejectedValue(serviceError);
 
-      await expect(
-        controller.create(mockRequest, mockReply, mockPostDTO)
-      ).rejects.toThrow("Creation failed");
+      await expect(controller.create(mockRequest, mockReply, mockPostDTO)).rejects.toThrow("Creation failed");
 
       expect(companyService.createForController).toHaveBeenCalledWith({
         data: mockPostDTO.data,
@@ -288,9 +284,7 @@ describe("CompanyController", () => {
       companyService.createForController.mockResolvedValue(mockServiceResponse);
       cacheService.invalidateByType.mockRejectedValue(cacheError);
 
-      await expect(
-        controller.create(mockRequest, mockReply, mockPostDTO)
-      ).rejects.toThrow("Cache invalidation failed");
+      await expect(controller.create(mockRequest, mockReply, mockPostDTO)).rejects.toThrow("Cache invalidation failed");
 
       expect(companyService.createForController).toHaveBeenCalledWith({
         data: mockPostDTO.data,
@@ -329,10 +323,7 @@ describe("CompanyController", () => {
         data: mockPutDTO.data,
       });
       expect(mockReply.send).toHaveBeenCalledWith(mockServiceResponse);
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        MOCK_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, MOCK_COMPANY_ID);
     });
 
     it("should update company when user is company administrator of same company", async () => {
@@ -346,18 +337,15 @@ describe("CompanyController", () => {
         data: mockPutDTO.data,
       });
       expect(mockReply.send).toHaveBeenCalledWith(mockServiceResponse);
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        MOCK_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, MOCK_COMPANY_ID);
     });
 
     it("should throw unauthorized error when company admin tries to update different company", async () => {
       const mockRequest = { user: mockCompanyAdminUser } as AuthenticatedRequest;
 
-      await expect(
-        controller.update(mockRequest, mockReply, mockPutDTO, DIFFERENT_COMPANY_ID)
-      ).rejects.toThrow(new HttpException("Unauthorised", 401));
+      await expect(controller.update(mockRequest, mockReply, mockPutDTO, DIFFERENT_COMPANY_ID)).rejects.toThrow(
+        new HttpException("Unauthorised", 401),
+      );
 
       expect(companyService.update).not.toHaveBeenCalled();
       expect(mockReply.send).not.toHaveBeenCalled();
@@ -374,13 +362,8 @@ describe("CompanyController", () => {
         included: [],
       };
 
-      await expect(
-        controller.update(mockRequest, mockReply, mismatchedPutDTO, MOCK_COMPANY_ID)
-      ).rejects.toThrow(
-        new HttpException(
-          "Company Id does not match the {json:api} id",
-          HttpStatus.PRECONDITION_FAILED
-        )
+      await expect(controller.update(mockRequest, mockReply, mismatchedPutDTO, MOCK_COMPANY_ID)).rejects.toThrow(
+        new HttpException("Company Id does not match the {json:api} id", HttpStatus.PRECONDITION_FAILED),
       );
 
       expect(companyService.update).not.toHaveBeenCalled();
@@ -400,21 +383,13 @@ describe("CompanyController", () => {
       companyService.update.mockResolvedValue(mockServiceResponse);
       cacheService.invalidateByElement.mockResolvedValue();
 
-      await controller.update(
-        mockRequest,
-        mockReply,
-        differentCompanyPutDTO,
-        DIFFERENT_COMPANY_ID
-      );
+      await controller.update(mockRequest, mockReply, differentCompanyPutDTO, DIFFERENT_COMPANY_ID);
 
       expect(companyService.update).toHaveBeenCalledWith({
         data: differentCompanyPutDTO.data,
       });
       expect(mockReply.send).toHaveBeenCalledWith(mockServiceResponse);
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        DIFFERENT_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, DIFFERENT_COMPANY_ID);
     });
 
     it("should handle service errors during update", async () => {
@@ -422,9 +397,9 @@ describe("CompanyController", () => {
       const serviceError = new Error("Update failed");
       companyService.update.mockRejectedValue(serviceError);
 
-      await expect(
-        controller.update(mockRequest, mockReply, mockPutDTO, MOCK_COMPANY_ID)
-      ).rejects.toThrow("Update failed");
+      await expect(controller.update(mockRequest, mockReply, mockPutDTO, MOCK_COMPANY_ID)).rejects.toThrow(
+        "Update failed",
+      );
 
       expect(companyService.update).toHaveBeenCalledWith({
         data: mockPutDTO.data,
@@ -439,18 +414,15 @@ describe("CompanyController", () => {
       companyService.update.mockResolvedValue(mockServiceResponse);
       cacheService.invalidateByElement.mockRejectedValue(cacheError);
 
-      await expect(
-        controller.update(mockRequest, mockReply, mockPutDTO, MOCK_COMPANY_ID)
-      ).rejects.toThrow("Cache invalidation failed");
+      await expect(controller.update(mockRequest, mockReply, mockPutDTO, MOCK_COMPANY_ID)).rejects.toThrow(
+        "Cache invalidation failed",
+      );
 
       expect(companyService.update).toHaveBeenCalledWith({
         data: mockPutDTO.data,
       });
       expect(mockReply.send).toHaveBeenCalledWith(mockServiceResponse);
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        MOCK_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, MOCK_COMPANY_ID);
     });
   });
 
@@ -466,10 +438,7 @@ describe("CompanyController", () => {
         companyId: MOCK_COMPANY_ID,
       });
       expect(mockReply.send).toHaveBeenCalledWith();
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        MOCK_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, MOCK_COMPANY_ID);
     });
 
     it("should handle service errors during deletion", async () => {
@@ -477,9 +446,7 @@ describe("CompanyController", () => {
       const serviceError = new Error("Deletion failed");
       companyService.delete.mockRejectedValue(serviceError);
 
-      await expect(
-        controller.delete(mockRequest, mockReply, MOCK_COMPANY_ID)
-      ).rejects.toThrow("Deletion failed");
+      await expect(controller.delete(mockRequest, mockReply, MOCK_COMPANY_ID)).rejects.toThrow("Deletion failed");
 
       expect(companyService.delete).toHaveBeenCalledWith({
         companyId: MOCK_COMPANY_ID,
@@ -494,18 +461,15 @@ describe("CompanyController", () => {
       companyService.delete.mockResolvedValue();
       cacheService.invalidateByElement.mockRejectedValue(cacheError);
 
-      await expect(
-        controller.delete(mockRequest, mockReply, MOCK_COMPANY_ID)
-      ).rejects.toThrow("Cache invalidation failed");
+      await expect(controller.delete(mockRequest, mockReply, MOCK_COMPANY_ID)).rejects.toThrow(
+        "Cache invalidation failed",
+      );
 
       expect(companyService.delete).toHaveBeenCalledWith({
         companyId: MOCK_COMPANY_ID,
       });
       expect(mockReply.send).toHaveBeenCalledWith();
-      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(
-        companyMeta.endpoint,
-        MOCK_COMPANY_ID
-      );
+      expect(cacheService.invalidateByElement).toHaveBeenCalledWith(companyMeta.endpoint, MOCK_COMPANY_ID);
     });
   });
 
@@ -527,12 +491,7 @@ describe("CompanyController", () => {
       companyService.activateLicense.mockResolvedValue(mockServiceResponse);
       cacheService.invalidateByType.mockResolvedValue();
 
-      await controller.activateLicense(
-        mockRequest,
-        mockReply,
-        MOCK_COMPANY_ID,
-        mockLicensePutDTO
-      );
+      await controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO);
 
       expect(companyService.activateLicense).toHaveBeenCalledWith({
         companyId: MOCK_COMPANY_ID,
@@ -547,12 +506,7 @@ describe("CompanyController", () => {
       companyService.activateLicense.mockResolvedValue(mockServiceResponse);
       cacheService.invalidateByType.mockResolvedValue();
 
-      await controller.activateLicense(
-        mockRequest,
-        mockReply,
-        MOCK_COMPANY_ID,
-        mockLicensePutDTO
-      );
+      await controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO);
 
       expect(companyService.activateLicense).toHaveBeenCalledWith({
         companyId: MOCK_COMPANY_ID,
@@ -568,7 +522,7 @@ describe("CompanyController", () => {
       companyService.activateLicense.mockRejectedValue(serviceError);
 
       await expect(
-        controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO)
+        controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO),
       ).rejects.toThrow("License activation failed");
 
       expect(companyService.activateLicense).toHaveBeenCalledWith({
@@ -586,7 +540,7 @@ describe("CompanyController", () => {
       cacheService.invalidateByType.mockRejectedValue(cacheError);
 
       await expect(
-        controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO)
+        controller.activateLicense(mockRequest, mockReply, MOCK_COMPANY_ID, mockLicensePutDTO),
       ).rejects.toThrow("Cache invalidation failed");
 
       expect(companyService.activateLicense).toHaveBeenCalledWith({
@@ -609,9 +563,9 @@ describe("CompanyController", () => {
         };
         const mockRequest = { user: userWithNoRoles } as AuthenticatedRequest;
 
-        await expect(
-          controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)
-        ).rejects.toThrow(new HttpException("Unauthorised", 401));
+        await expect(controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)).rejects.toThrow(
+          new HttpException("Unauthorised", 401),
+        );
       });
 
       it("should handle user with null/undefined roles", async () => {
@@ -623,9 +577,7 @@ describe("CompanyController", () => {
         };
         const mockRequest = { user: userWithNullRoles } as AuthenticatedRequest;
 
-        await expect(
-          controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)
-        ).rejects.toThrow();
+        await expect(controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)).rejects.toThrow();
       });
 
       it("should handle multiple roles including administrator", async () => {
@@ -737,9 +689,7 @@ describe("CompanyController", () => {
         };
 
         companyService.createForController.mockResolvedValue(mockServiceResponse);
-        cacheService.invalidateByType.mockImplementation(() =>
-          new Promise(resolve => setTimeout(resolve, 100))
-        );
+        cacheService.invalidateByType.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 100)));
 
         const promise1 = controller.create(mockRequest, mockReply, mockPostDTO);
         const promise2 = controller.create(mockRequest, mockReply, mockPostDTO);
@@ -765,9 +715,9 @@ describe("CompanyController", () => {
       it("should throw 401 Unauthorized for access violations", async () => {
         const mockRequest = { user: mockRegularUser } as AuthenticatedRequest;
 
-        await expect(
-          controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)
-        ).rejects.toThrow(new HttpException("Unauthorised", 401));
+        await expect(controller.findCompany(mockRequest, mockReply, DIFFERENT_COMPANY_ID)).rejects.toThrow(
+          new HttpException("Unauthorised", 401),
+        );
       });
 
       it("should throw 412 Precondition Failed for ID mismatch", async () => {
@@ -784,13 +734,8 @@ describe("CompanyController", () => {
           included: [],
         };
 
-        await expect(
-          controller.update(mockRequest, mockReply, mismatchedPutDTO, MOCK_COMPANY_ID)
-        ).rejects.toThrow(
-          new HttpException(
-            "Company Id does not match the {json:api} id",
-            HttpStatus.PRECONDITION_FAILED
-          )
+        await expect(controller.update(mockRequest, mockReply, mismatchedPutDTO, MOCK_COMPANY_ID)).rejects.toThrow(
+          new HttpException("Company Id does not match the {json:api} id", HttpStatus.PRECONDITION_FAILED),
         );
       });
     });

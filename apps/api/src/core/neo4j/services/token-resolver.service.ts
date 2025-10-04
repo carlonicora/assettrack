@@ -58,20 +58,29 @@ export class TokenResolverService {
    */
   patternToRegex(pattern: string, parentName: string): RegExp {
     // Escape special regex characters in parentName
-    const escapedParentName = parentName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedParentName = parentName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     // Replace pattern placeholders
-    let regexPattern = pattern
-      .replace(/\{parent\}/g, escapedParentName)
-      .replace(/\{\*\}/g, '(?<dynamicPart>[^_]+)'); // Capture the dynamic part
+    let regexPattern = pattern.replace(/\{parent\}/g, escapedParentName).replace(/\{\*\}/g, "(?<dynamicPart>[^_]+)"); // Capture the dynamic part
 
     // Escape other regex special characters that might be in the pattern
     regexPattern = regexPattern.replace(/[.*+?^${}()|[\]\\]/g, (char) => {
       // Don't escape characters we just added for our named group
-      if (regexPattern.includes('(?<dynamicPart>') && (char === '(' || char === '?' || char === '<' || char === '>' || char === ')' || char === '[' || char === ']' || char === '+' || char === '^')) {
+      if (
+        regexPattern.includes("(?<dynamicPart>") &&
+        (char === "(" ||
+          char === "?" ||
+          char === "<" ||
+          char === ">" ||
+          char === ")" ||
+          char === "[" ||
+          char === "]" ||
+          char === "+" ||
+          char === "^")
+      ) {
         return char;
       }
-      return '\\' + char;
+      return "\\" + char;
     });
 
     return new RegExp(`^${regexPattern}$`);
@@ -84,11 +93,11 @@ export class TokenResolverService {
    */
   validatePattern(pattern: string): boolean {
     // Check if pattern contains required placeholders
-    if (!pattern.includes('{parent}')) {
+    if (!pattern.includes("{parent}")) {
       return false;
     }
 
-    if (!pattern.includes('{*}')) {
+    if (!pattern.includes("{*}")) {
       return false;
     }
 

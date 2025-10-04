@@ -12,6 +12,6 @@ export const LoanModel: DataModelInterface<Loan> = {
   entity: undefined as unknown as Loan,
   mapper: mapLoan,
   serialiser: LoanSerialiser,
-  singleChildrenTokens: [companyMeta.nodeName,employeeMeta.nodeName, equipmentMeta.nodeName, ],
-  childrenTokens: []
+  singleChildrenTokens: [companyMeta.nodeName, employeeMeta.nodeName, equipmentMeta.nodeName],
+  childrenTokens: [],
 };

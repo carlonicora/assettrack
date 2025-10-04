@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyRequest } from "fastify";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { LogContext } from "../interfaces/logging.interface";
 import { AppLoggingService } from "../services/logging.service";
@@ -11,10 +11,9 @@ export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> {
     const startTime = Date.now();
     const request = context.switchToHttp().getRequest<FastifyRequest>();
-    const response = context.switchToHttp().getResponse<FastifyReply>();
 
     // Store start time and context on the raw request for the onSend hook
-    (request as any).raw['requestStartTime'] = startTime;
+    (request as any).raw["requestStartTime"] = startTime;
 
     // Extract request details
     const requestId = (request.headers["x-request-id"] as string) || request.id;

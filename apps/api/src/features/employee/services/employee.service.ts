@@ -16,9 +16,9 @@ export class EmployeeService {
     private readonly clsService: ClsService,
   ) {}
 
-  async find(params: { 
-    query: any; 
-    term?: string; 
+  async find(params: {
+    query: any;
+    term?: string;
     fetchAll?: boolean;
     orderBy?: string;
   }): Promise<JsonApiDataInterface> {

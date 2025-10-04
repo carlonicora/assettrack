@@ -3,10 +3,9 @@ import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.curs
 import { Neo4jService } from "src/core/neo4j/services/neo4j.service";
 import { SecurityService } from "src/core/security/services/security.service";
 import { Employee } from "src/features/employee/entities/employee.entity";
+import { employeeMeta } from "src/features/employee/entities/employee.meta";
 import { EmployeeModel } from "src/features/employee/entities/employee.model";
 import { EmployeeCypherService } from "src/features/employee/services/employee.cypher.service";
-import { employeeMeta } from "src/features/employee/entities/employee.meta";
-import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 
 @Injectable()
 export class EmployeeRepository implements OnModuleInit {
@@ -22,7 +21,7 @@ export class EmployeeRepository implements OnModuleInit {
     });
 
     const indexName = "employee_search_index";
-    const expectedProperties = ["name","phone","email","avatar"];
+    const expectedProperties = ["name", "phone", "email", "avatar"];
 
     const result = await this.neo4j.read(
       `
@@ -70,11 +69,11 @@ export class EmployeeRepository implements OnModuleInit {
     if (exists) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
   }
 
-  async find(params: { 
-    fetchAll?: boolean; 
-    term?: string; 
+  async find(params: {
+    fetchAll?: boolean;
+    term?: string;
     orderBy?: string;
-    cursor?: JsonApiCursorInterface
+    cursor?: JsonApiCursorInterface;
   }): Promise<Employee[]> {
     const query = this.neo4j.initQuery({
       cursor: params.cursor,
@@ -134,15 +133,8 @@ export class EmployeeRepository implements OnModuleInit {
     });
   }
 
-  async create(params: {
-    id: string;
-    name: string;
-    phone?: string;
-    email?: string;
-    avatar?: string;
-  }): Promise<void> {
+  async create(params: { id: string; name: string; phone?: string; email?: string; avatar?: string }): Promise<void> {
     const query = this.neo4j.initQuery();
-
 
     query.queryParams = {
       ...query.queryParams,
@@ -166,19 +158,11 @@ export class EmployeeRepository implements OnModuleInit {
       CREATE (employee)-[:BELONGS_TO]->(company)
     `;
 
-
     await this.neo4j.writeOne(query);
   }
 
-  async put(params: {
-    id: string;
-    name: string;
-    phone?: string;
-    email?: string;
-    avatar?: string;
-  }): Promise<void> {
+  async put(params: { id: string; name: string; phone?: string; email?: string; avatar?: string }): Promise<void> {
     const query = this.neo4j.initQuery();
-
 
     query.queryParams = {
       ...query.queryParams,
@@ -201,7 +185,6 @@ export class EmployeeRepository implements OnModuleInit {
       SET employee.updatedAt = datetime(),
       ${set}
     `;
-
 
     await this.neo4j.writeOne(query);
   }

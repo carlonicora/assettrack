@@ -100,6 +100,7 @@ export class RedisMessagingService implements OnModuleInit, OnModuleDestroy {
         await this.publisher.quit();
       }
     } catch (error) {
+      console.error("Error disconnecting Redis publisher:", error);
       this.publisher?.disconnect();
     }
 
@@ -108,6 +109,7 @@ export class RedisMessagingService implements OnModuleInit, OnModuleDestroy {
         await this.subscriber.quit();
       }
     } catch (error) {
+      console.error("Error disconnecting Redis subscriber:", error);
       this.subscriber?.disconnect();
     }
   }

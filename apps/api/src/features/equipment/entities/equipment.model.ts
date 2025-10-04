@@ -11,6 +11,6 @@ export const EquipmentModel: DataModelInterface<Equipment> = {
   entity: undefined as unknown as Equipment,
   mapper: mapEquipment,
   serialiser: EquipmentSerialiser,
-  singleChildrenTokens: [companyMeta.nodeName,supplierMeta.nodeName, ],
-  childrenTokens: []
+  singleChildrenTokens: [companyMeta.nodeName, supplierMeta.nodeName],
+  childrenTokens: [],
 };

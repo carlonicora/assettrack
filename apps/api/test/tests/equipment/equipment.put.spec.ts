@@ -51,8 +51,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id
-            }
+              id: SUPPLIERS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -79,8 +79,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id
-            }
+              id: SUPPLIERS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -109,8 +109,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id
-            }
+              id: SUPPLIERS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -158,8 +158,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Minimal.id
-            }
+              id: SUPPLIERS.CompanyOne_Minimal.id,
+            },
           },
         },
       },
@@ -239,8 +239,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "invalid-uuid"
-            }
+              id: "invalid-uuid",
+            },
           },
         },
       },
@@ -267,8 +267,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000"
-            }
+              id: "00000000-0000-0000-0000-000000000000",
+            },
           },
         },
       },
@@ -295,8 +295,8 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           supplier: {
             data: {
               type: "wrong-type",
-              id: SUPPLIERS.CompanyOne_Full.id
-            }
+              id: SUPPLIERS.CompanyOne_Full.id,
+            },
           },
         },
       },
@@ -308,5 +308,4 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
       .send(updateEquipment)
       .expect(400);
   });
-
 });

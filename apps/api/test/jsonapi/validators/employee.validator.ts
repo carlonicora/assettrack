@@ -8,16 +8,12 @@ export const employeeValidator: ResourceValidator = {
     name: {
       required: true,
     },
-    phone: {
-    },
-    email: {
-    },
-    avatar: {
-    },
+    phone: {},
+    email: {},
+    avatar: {},
   },
   meta: {
     ...standardMeta,
   },
-  relationships: {
-  },
+  relationships: {},
 };

@@ -176,5 +176,4 @@ describe(`PUT /${supplierMeta.endpoint}/{id}`, () => {
       .send(updateSupplier)
       .expect(400);
   });
-
 });

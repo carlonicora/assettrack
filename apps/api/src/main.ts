@@ -87,40 +87,43 @@ async function bootstrapAPI(modeConfig: AppModeConfig): Promise<void> {
   app.useLogger(loggingService);
 
   // Add Fastify onSend hook to capture when responses are actually sent and log immediately
-  app.getHttpAdapter().getInstance().addHook('onSend', async (request, reply, payload) => {
-    const startTime = request.raw['requestStartTime'];
+  app
+    .getHttpAdapter()
+    .getInstance()
+    .addHook("onSend", async (request, reply, payload) => {
+      const startTime = request.raw["requestStartTime"];
 
-    if (startTime) {
-      const responseTime = Date.now() - startTime;
-      const statusCode = reply.statusCode || 200;
-      let resultSize = 0;
-      try {
-        resultSize = payload ? (typeof payload === 'string' ? payload.length : JSON.stringify(payload).length) : 0;
-      } catch {
-        resultSize = 0; // Fallback if payload can't be stringified
+      if (startTime) {
+        const responseTime = Date.now() - startTime;
+        const statusCode = reply.statusCode || 200;
+        let resultSize = 0;
+        try {
+          resultSize = payload ? (typeof payload === "string" ? payload.length : JSON.stringify(payload).length) : 0;
+        } catch {
+          resultSize = 0; // Fallback if payload can't be stringified
+        }
+
+        // Extract request details
+        const requestMethod = request.method;
+        const requestPath = request.url;
+        const userIp = request.ip;
+
+        // Log successful request with accurate timing
+        loggingService.logHttpRequest(requestMethod, requestPath, statusCode, responseTime, userIp);
+
+        // Enhanced logging with additional context
+        loggingService.logWithContext(`✅ Request completed successfully`, "HTTP_SUCCESS", {
+          responseTime,
+          statusCode,
+          resultSize,
+          loggedFromOnSend: true,
+        });
+
+        // Clear context after successful logging (no longer needed)
+        loggingService.clearRequestContext();
       }
-
-      // Extract request details
-      const requestMethod = request.method;
-      const requestPath = request.url;
-      const userIp = request.ip;
-
-      // Log successful request with accurate timing
-      loggingService.logHttpRequest(requestMethod, requestPath, statusCode, responseTime, userIp);
-
-      // Enhanced logging with additional context
-      loggingService.logWithContext(`✅ Request completed successfully`, "HTTP_SUCCESS", {
-        responseTime,
-        statusCode,
-        resultSize,
-        loggedFromOnSend: true,
-      });
-
-      // Clear context after successful logging (no longer needed)
-      loggingService.clearRequestContext();
-    }
-    return payload;
-  });
+      return payload;
+    });
 
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
 

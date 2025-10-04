@@ -13,11 +13,9 @@ describe(`POST /${employeeMeta.endpoint}`, () => {
       throw new Error("testState.app is not initialized. Global setup may have failed.");
     }
     app = testState.app;
-
   });
 
   it(`POST /${employeeMeta.endpoint} → 403 when unauthenticated`, async () => {
-
     const newEmployee = {
       data: {
         type: employeeMeta.endpoint,
@@ -32,7 +30,6 @@ describe(`POST /${employeeMeta.endpoint}`, () => {
   });
 
   it(`POST /${employeeMeta.endpoint} → 201 when authenticated user creates a employee`, async () => {
-
     const newEmployee = {
       data: {
         type: employeeMeta.endpoint,
@@ -94,6 +91,4 @@ describe(`POST /${employeeMeta.endpoint}`, () => {
       .send(newEmployee)
       .expect(400);
   });
-
-
 });

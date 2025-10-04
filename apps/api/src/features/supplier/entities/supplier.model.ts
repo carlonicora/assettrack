@@ -10,6 +10,6 @@ export const SupplierModel: DataModelInterface<Supplier> = {
   entity: undefined as unknown as Supplier,
   mapper: mapSupplier,
   serialiser: SupplierSerialiser,
-  singleChildrenTokens: [companyMeta.nodeName,],
-  childrenTokens: []
+  singleChildrenTokens: [companyMeta.nodeName],
+  childrenTokens: [],
 };

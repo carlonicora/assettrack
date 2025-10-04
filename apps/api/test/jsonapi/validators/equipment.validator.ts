@@ -9,10 +9,8 @@ export const equipmentValidator: ResourceValidator = {
     name: {
       required: true,
     },
-    barcode: {
-    },
-    description: {
-    },
+    barcode: {},
+    description: {},
     startDate: {
       required: true,
       type: "date",

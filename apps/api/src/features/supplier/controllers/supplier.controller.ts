@@ -37,10 +37,10 @@ export class SupplierController {
   @Get(supplierMeta.endpoint)
   async findSuppliers(
     @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply, 
-    @Query() query: any, 
+    @Res() reply: FastifyReply,
+    @Query() query: any,
     @Query("search") search?: string,
-    @Query("fetchAll") fetchAll?: boolean,  
+    @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
   ) {
     const response = await this.supplierService.find({
@@ -54,7 +54,11 @@ export class SupplierController {
   }
 
   @Get(`${supplierMeta.endpoint}/:supplierId`)
-  async findById(@Req() req: AuthenticatedRequest, @Res() reply: FastifyReply, @Param("supplierId") supplierId: string) {
+  async findById(
+    @Req() req: AuthenticatedRequest,
+    @Res() reply: FastifyReply,
+    @Param("supplierId") supplierId: string,
+  ) {
     const response = await this.supplierService.findById({
       id: supplierId,
     });
@@ -69,7 +73,7 @@ export class SupplierController {
     const response = await this.supplierService.create({
       data: body.data,
     });
-    
+
     reply.send(response);
 
     await this.cacheService.invalidateByType(supplierMeta.endpoint);
@@ -99,7 +103,7 @@ export class SupplierController {
   async deleteSupplier(
     @Req() req: AuthenticatedRequest,
     @Res() reply: FastifyReply,
-    @Param("supplierId") supplierId: string
+    @Param("supplierId") supplierId: string,
   ) {
     await this.supplierService.delete({ id: supplierId });
     reply.send();

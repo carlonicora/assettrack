@@ -20,13 +20,11 @@ export class LoanSerialiser extends AbstractJsonApiSerialiser implements JsonApi
 
     this.relationships = {
       employee: {
-        
         data: this.serialiserFactory.create(EmployeeModel),
       },
       equipment: {
-        
         data: this.serialiserFactory.create(EquipmentModel),
-      }
+      },
     };
 
     return super.create();

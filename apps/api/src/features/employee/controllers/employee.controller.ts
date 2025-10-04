@@ -37,10 +37,10 @@ export class EmployeeController {
   @Get(employeeMeta.endpoint)
   async findEmployees(
     @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply, 
-    @Query() query: any, 
+    @Res() reply: FastifyReply,
+    @Query() query: any,
     @Query("search") search?: string,
-    @Query("fetchAll") fetchAll?: boolean,  
+    @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
   ) {
     const response = await this.employeeService.find({
@@ -54,7 +54,11 @@ export class EmployeeController {
   }
 
   @Get(`${employeeMeta.endpoint}/:employeeId`)
-  async findById(@Req() req: AuthenticatedRequest, @Res() reply: FastifyReply, @Param("employeeId") employeeId: string) {
+  async findById(
+    @Req() req: AuthenticatedRequest,
+    @Res() reply: FastifyReply,
+    @Param("employeeId") employeeId: string,
+  ) {
     const response = await this.employeeService.findById({
       id: employeeId,
     });
@@ -69,7 +73,7 @@ export class EmployeeController {
     const response = await this.employeeService.create({
       data: body.data,
     });
-    
+
     reply.send(response);
 
     await this.cacheService.invalidateByType(employeeMeta.endpoint);
@@ -99,7 +103,7 @@ export class EmployeeController {
   async deleteEmployee(
     @Req() req: AuthenticatedRequest,
     @Res() reply: FastifyReply,
-    @Param("employeeId") employeeId: string
+    @Param("employeeId") employeeId: string,
   ) {
     await this.employeeService.delete({ id: employeeId });
     reply.send();

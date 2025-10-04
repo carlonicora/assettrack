@@ -16,9 +16,9 @@ export class LoanService {
     private readonly clsService: ClsService,
   ) {}
 
-  async find(params: { 
-    query: any; 
-    term?: string; 
+  async find(params: {
+    query: any;
+    term?: string;
     fetchAll?: boolean;
     orderBy?: string;
   }): Promise<JsonApiDataInterface> {
@@ -80,9 +80,9 @@ export class LoanService {
   }
 
   async findByEmployee(params: {
-    employeeId: string, 
-    query: any; 
-    term?: string; 
+    employeeId: string;
+    query: any;
+    term?: string;
     fetchAll?: boolean;
     orderBy?: string;
   }) {
@@ -102,9 +102,9 @@ export class LoanService {
   }
 
   async findByEquipment(params: {
-    equipmentId: string, 
-    query: any; 
-    term?: string; 
+    equipmentId: string;
+    query: any;
+    term?: string;
     fetchAll?: boolean;
     orderBy?: string;
   }) {

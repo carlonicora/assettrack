@@ -110,7 +110,7 @@ export class EquipmentMetadataService {
         return cached;
       }
     } catch (error) {
-      console.warn(`Cache retrieval failed for barcode ${barcode}`, "EquipmentMetadataService");
+      console.error(`Cache retrieval failed for barcode ${barcode}`, error);
     }
 
     try {
@@ -136,7 +136,7 @@ export class EquipmentMetadataService {
         try {
           await this.cacheService.set(cacheKey, metadata, this.upcConfig.cacheTtl);
         } catch (error) {
-          console.warn(`Failed to cache metadata for barcode ${barcode}`, "EquipmentMetadataService");
+          console.error(`Failed to cache metadata for barcode ${barcode}`, error);
         }
 
         return metadata;
@@ -167,11 +167,11 @@ export class EquipmentMetadataService {
     try {
       const cached = await this.cacheService.get(cacheKey);
       if (cached) {
-        this.logger.log(`Cache hit for barcode (UpcItemDb): ${barcode}`, "EquipmentMetadataService");
+        console.log(`Cache hit for barcode (UpcItemDb): ${barcode}`, "EquipmentMetadataService");
         return cached;
       }
     } catch (error) {
-      this.logger.warn(`Cache retrieval failed for barcode (UpcItemDb) ${barcode}`, "EquipmentMetadataService");
+      console.error(`Cache retrieval failed for barcode (UpcItemDb) ${barcode}`, error);
     }
 
     try {
@@ -202,30 +202,26 @@ export class EquipmentMetadataService {
         try {
           await this.cacheService.set(cacheKey, metadata, this.upcConfig.cacheTtl);
         } catch (error) {
-          this.logger.warn(`Failed to cache metadata (UpcItemDb) for barcode ${barcode}`, "EquipmentMetadataService");
+          console.error(`Failed to cache metadata (UpcItemDb) for barcode ${barcode}`, error);
         }
 
         return metadata;
       }
 
-      this.logger.log(`No product found for barcode (UpcItemDb): ${barcode}`, "EquipmentMetadataService");
+      console.log(`No product found for barcode (UpcItemDb): ${barcode}`, "EquipmentMetadataService");
       return null;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response?.status === 404) {
-          this.logger.log(`Barcode not found in UpcItemDb: ${barcode}`, "EquipmentMetadataService");
+          console.log(`Barcode not found in UpcItemDb: ${barcode}`, "EquipmentMetadataService");
         } else if (axiosError.response?.status === 429) {
-          this.logger.warn(`Rate limit exceeded for UpcItemDb API`, "EquipmentMetadataService");
+          console.warn(`Rate limit exceeded for UpcItemDb API`, "EquipmentMetadataService");
         } else {
-          this.logger.error(`UpcItemDb API error for barcode ${barcode}`, error, "EquipmentMetadataService");
+          console.error(`UpcItemDb API error for barcode ${barcode}`, error, "EquipmentMetadataService");
         }
       } else {
-        this.logger.error(
-          `Unexpected error looking up barcode (UpcItemDb) ${barcode}`,
-          error,
-          "EquipmentMetadataService",
-        );
+        console.error(`Unexpected error looking up barcode (UpcItemDb) ${barcode}`, error);
       }
       return null;
     }
