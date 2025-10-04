@@ -111,14 +111,17 @@ export default function CommonSidebar() {
           className="mb-4 flex max-h-32 w-full items-center justify-center text-2xl font-semibold"
         >
           {state === "expanded" ? (
-            <Image
-              src={`/logo.webp`}
-              className="max-h-32 object-contain p-4"
-              height={300}
-              width={300}
-              alt={"AssetTrack"}
-              priority
-            />
+            <div className="flex flex-col items-center">
+              <Image
+                src={`/logo.webp`}
+                className="max-h-32 object-contain p-4"
+                height={300}
+                width={300}
+                alt={"AssetTrack"}
+                priority
+              />
+              <h2 className="">{t(`generic.title`)}</h2>
+            </div>
           ) : (
             <Image
               src={`/logo.webp`}
