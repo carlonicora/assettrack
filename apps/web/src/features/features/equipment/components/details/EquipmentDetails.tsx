@@ -19,8 +19,6 @@ function EquipmentDetailsInternal({ equipment }: EquipmentDetailsProps) {
   const t = useTranslations();
   const { title } = useSharedContext();
 
-  console.log(equipment);
-
   return (
     <div className="flex w-full flex-col gap-y-2">
       <ContentTitle type={title.type} element={title.element} functions={title.functions} />
@@ -44,7 +42,6 @@ function EquipmentDetailsInternal({ equipment }: EquipmentDetailsProps) {
       )}
       {equipment.imageUrl && (
         <AttributeElement
-          title={t(`features.equipment.fields.imageUrl.label`)}
           value={<img src={equipment.imageUrl} alt={equipment.name} className="max-h-48 object-contain" />}
         />
       )}
