@@ -6,6 +6,10 @@ export type Equipment = Entity & {
   name: string;
   barcode?: string;
   description?: string;
+  manufacturer?: string;
+  model?: string;
+  category?: string;
+  imageUrl?: string;
   startDate: Date;
   endDate: Date;
 

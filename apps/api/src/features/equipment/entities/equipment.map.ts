@@ -10,6 +10,10 @@ export const mapEquipment = (params: { data: any; record: any; entityFactory: En
     description: params.data.description,
     startDate: params.data.startDate ? new Date(params.data.startDate) : undefined,
     endDate: params.data.endDate ? new Date(params.data.endDate) : undefined,
+    manufacturer: params.data.manufacturer,
+    model: params.data.model,
+    category: params.data.category,
+    imageUrl: params.data.imageUrl,
     company: undefined,
     supplier: undefined,
   };

@@ -1,5 +1,5 @@
-import { ApiDataInterface } from "@/jsonApi/interfaces/ApiDataInterface";
 import { SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
+import { ApiDataInterface } from "@/jsonApi/interfaces/ApiDataInterface";
 
 export type EquipmentInput = {
   id: string;
@@ -18,6 +18,10 @@ export interface EquipmentInterface extends ApiDataInterface {
   get description(): string | undefined;
   get startDate(): Date;
   get endDate(): Date;
+  get manufacturer(): string | undefined;
+  get model(): string | undefined;
+  get category(): string | undefined;
+  get imageUrl(): string | undefined;
 
   get supplier(): SupplierInterface;
 }

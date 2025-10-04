@@ -3,20 +3,15 @@
 import { Link } from "@/components/custom-ui/link";
 import { cellDate } from "@/features/common/components/tables/cells/cell.date";
 import { cellId } from "@/features/common/components/tables/cells/cell.id";
-import { cellLink } from "@/features/common/components/tables/cells/cell.link";
-import { cellText } from "@/features/common/components/tables/cells/cell.text";
 import { TableContent, UseTableStructureHook } from "@/features/common/interfaces/table.structure.generator.interface";
 import { LoanFields } from "@/features/features/loan/data/LoanFields";
 import { LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { registerTableGenerator } from "@/hooks/useTableGenerator";
 import { Modules } from "@/modules/modules";
-import { AuthRole } from "@/permisions/enums/AuthRole";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Badge } from "@/components/ui/badge";
 
 export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFields> = (params) => {
   const t = useTranslations();
@@ -69,11 +64,7 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
       header: t(`features.loan.relationships.employee.label`),
       cell: ({ row }: { row: TableContent<LoanInterface> }) => {
         const loan: LoanInterface = row.original.jsonApiData;
-        return (
-          <Link href={generateUrl({ page: Modules.Employee, id: loan.employee.id })}>
-            {loan.employee.name}
-          </Link>
-        );
+        return <Link href={generateUrl({ page: Modules.Loan, id: loan.id })}>{loan.employee.name}</Link>;
       },
       enableSorting: false,
       enableHiding: false,
@@ -84,20 +75,11 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
       header: t(`features.loan.relationships.equipment.label`),
       cell: ({ row }: { row: TableContent<LoanInterface> }) => {
         const loan: LoanInterface = row.original.jsonApiData;
-        return (
-          <Link href={generateUrl({ page: Modules.Equipment, id: loan.equipment.id })}>
-            {loan.equipment.name}
-          </Link>
-        );
+        return <Link href={generateUrl({ page: Modules.Loan, id: loan.id })}>{loan.equipment.name}</Link>;
       },
       enableSorting: false,
       enableHiding: false,
     }),
-
-
-
-
-
 
     [LoanFields.createdAt]: () =>
       cellDate({
@@ -112,9 +94,9 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
   };
 
   const columns = useMemo(() => {
-      return params.fields
-      .map((field) => fieldColumnMap[field]?.())
-      .filter((col) => col !== undefined) as ColumnDef<TableContent<LoanInterface>>[];
+    return params.fields.map((field) => fieldColumnMap[field]?.()).filter((col) => col !== undefined) as ColumnDef<
+      TableContent<LoanInterface>
+    >[];
   }, [params.fields, fieldColumnMap, t, generateUrl]);
 
   return useMemo(() => ({ data: tableData, columns: columns }), [tableData, columns]);

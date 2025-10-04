@@ -1,8 +1,8 @@
+import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
 import { AbstractApiData } from "@/jsonApi/abstracts/AbstractApiData";
 import { JsonApiHydratedDataInterface } from "@/jsonApi/interfaces/JsonApiHydratedDataInterface";
 import { Modules } from "@/modules/modules";
-import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 
 export class Equipment extends AbstractApiData implements EquipmentInterface {
   private _name?: string;
@@ -10,6 +10,10 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
   private _description?: string;
   private _startDate?: Date;
   private _endDate?: Date;
+  private _manufacturer?: string;
+  private _model?: string;
+  private _category?: string;
+  private _imageUrl?: string;
 
   private _supplier?: SupplierInterface;
 
@@ -36,11 +40,26 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     return this._endDate;
   }
 
+  get manufacturer(): string | undefined {
+    return this._manufacturer;
+  }
+
+  get model(): string | undefined {
+    return this._model;
+  }
+
+  get category(): string | undefined {
+    return this._category;
+  }
+
+  get imageUrl(): string | undefined {
+    return this._imageUrl;
+  }
+
   get supplier(): SupplierInterface {
     if (this._supplier === undefined) throw new Error("JsonApi error: equipment supplier is missing");
     return this._supplier;
   }
-
 
   rehydrate(data: JsonApiHydratedDataInterface): this {
     super.rehydrate(data);
@@ -50,6 +69,10 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     this._description = data.jsonApi.attributes.description;
     this._startDate = data.jsonApi.attributes.startDate ? new Date(data.jsonApi.attributes.startDate) : undefined;
     this._endDate = data.jsonApi.attributes.endDate ? new Date(data.jsonApi.attributes.endDate) : undefined;
+    this._manufacturer = data.jsonApi.attributes.manufacturer;
+    this._model = data.jsonApi.attributes.model;
+    this._category = data.jsonApi.attributes.category;
+    this._imageUrl = data.jsonApi.attributes.imageUrl;
 
     this._supplier = this._readIncluded(data, "supplier", Modules.Supplier) as SupplierInterface;
 

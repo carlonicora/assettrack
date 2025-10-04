@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable, OnModuleInit } from "@nestjs/common";
 import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.cursor.interface";
+import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 import { Neo4jService } from "src/core/neo4j/services/neo4j.service";
 import { SecurityService } from "src/core/security/services/security.service";
 import { Equipment } from "src/features/equipment/entities/equipment.entity";
+import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
 import { EquipmentCypherService } from "src/features/equipment/services/equipment.cypher.service";
-import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
-import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
 
 @Injectable()
@@ -23,7 +23,7 @@ export class EquipmentRepository implements OnModuleInit {
     });
 
     const indexName = "equipment_search_index";
-    const expectedProperties = ["name","barcode","description",];
+    const expectedProperties = ["name", "barcode", "description"];
 
     const result = await this.neo4j.read(
       `
@@ -71,11 +71,11 @@ export class EquipmentRepository implements OnModuleInit {
     if (exists) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
   }
 
-  async find(params: { 
-    fetchAll?: boolean; 
-    term?: string; 
+  async find(params: {
+    fetchAll?: boolean;
+    term?: string;
     orderBy?: string;
-    cursor?: JsonApiCursorInterface
+    cursor?: JsonApiCursorInterface;
   }): Promise<Equipment[]> {
     const query = this.neo4j.initQuery({
       cursor: params.cursor,
@@ -135,6 +135,46 @@ export class EquipmentRepository implements OnModuleInit {
     });
   }
 
+  async updateMetadata(params: {
+    id: string;
+    name?: string;
+    description?: string;
+    manufacturer?: string;
+    model?: string;
+    category?: string;
+    imageUrl?: string;
+  }): Promise<void> {
+    const query = this.neo4j.initQuery();
+
+    query.queryParams = {
+      ...query.queryParams,
+      id: params.id,
+      name: params.name ?? "",
+      description: params.description ?? "",
+      manufacturer: params.manufacturer ?? "",
+      model: params.model ?? "",
+      category: params.category ?? "",
+      imageUrl: params.imageUrl ?? "",
+    };
+
+    const setParams: string[] = [];
+    if (params.name) setParams.push("equipment.name = $name");
+    if (params.description) setParams.push("equipment.description = $description");
+    if (params.manufacturer) setParams.push("equipment.manufacturer = $manufacturer");
+    if (params.model) setParams.push("equipment.model = $model");
+    if (params.category) setParams.push("equipment.category = $category");
+    if (params.imageUrl) setParams.push("equipment.imageUrl = $imageUrl");
+    const set = setParams.join(", ");
+
+    query.query += `
+      MATCH (equipment:Equipment { id: $id })
+      SET ${set},
+          equipment.updatedAt = datetime()
+    `;
+
+    await this.neo4j.writeOne(query);
+  }
+
   async create(params: {
     id: string;
     name: string;
@@ -147,9 +187,7 @@ export class EquipmentRepository implements OnModuleInit {
     const query = this.neo4j.initQuery();
 
     await this.neo4j.validateExistingNodes({
-      nodes: [
-        { id: params.supplierIds, label: supplierMeta.labelName },
-      ],
+      nodes: [{ id: params.supplierIds, label: supplierMeta.labelName }],
     });
 
     query.queryParams = {
@@ -178,7 +216,7 @@ export class EquipmentRepository implements OnModuleInit {
     `;
 
     const relationships = [
-      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false }
+      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false },
     ];
 
     relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
@@ -207,9 +245,7 @@ export class EquipmentRepository implements OnModuleInit {
     const query = this.neo4j.initQuery();
 
     await this.neo4j.validateExistingNodes({
-      nodes: [
-        { id: params.supplierIds, label: supplierMeta.labelName },
-      ],
+      nodes: [{ id: params.supplierIds, label: supplierMeta.labelName }],
     });
 
     query.queryParams = {
@@ -238,7 +274,7 @@ export class EquipmentRepository implements OnModuleInit {
     `;
 
     const relationships = [
-      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false }
+      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false },
     ];
 
     relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
@@ -272,17 +308,17 @@ export class EquipmentRepository implements OnModuleInit {
   }
 
   async findBySupplier(params: {
-    supplierId: string, 
+    supplierId: string;
     term?: string;
     orderBy?: string;
     fetchAll?: boolean;
     cursor?: JsonApiCursorInterface;
   }) {
-    const query = this.neo4j.initQuery({ 
+    const query = this.neo4j.initQuery({
       serialiser: EquipmentModel,
       cursor: params.cursor,
       fetchAll: params.fetchAll,
-     });
+    });
 
     query.queryParams = {
       ...query.queryParams,

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { AbstractJsonApiSerialiser } from "src/core/jsonapi/abstracts/abstract.jsonapi.serialiser";
-import { JsonApiServiceInterface } from "src/core/jsonapi/interfaces/jsonapi.service.interface";
 import { JsonApiDataInterface } from "src/core/jsonapi/interfaces/jsonapi.data.interface";
+import { JsonApiServiceInterface } from "src/core/jsonapi/interfaces/jsonapi.service.interface";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
 import { SupplierModel } from "src/features/supplier/entities/supplier.model";
 
@@ -18,13 +18,16 @@ export class EquipmentSerialiser extends AbstractJsonApiSerialiser implements Js
       description: "description",
       startDate: "startDate",
       endDate: "endDate",
+      manufacturer: "manufacturer",
+      model: "model",
+      category: "category",
+      imageUrl: "imageUrl",
     };
 
     this.relationships = {
       supplier: {
-        
         data: this.serialiserFactory.create(SupplierModel),
-      }
+      },
     };
 
     return super.create();

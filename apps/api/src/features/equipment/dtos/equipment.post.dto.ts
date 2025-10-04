@@ -1,5 +1,14 @@
 import { Type } from "class-transformer";
-import { Equals, IsDefined, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested, IsNumber, IsBoolean, IsDateString } from "class-validator";
+import {
+  Equals,
+  IsDateString,
+  IsDefined,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from "class-validator";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
 import { SupplierDataDTO } from "src/features/supplier/dtos/supplier.dto";
 
