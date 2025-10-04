@@ -1,12 +1,10 @@
-name: Dev
+name: Pull Request
 
 on:
-  push:
-    branches:
-      - dev
-
-permissions:
-  contents: write
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   build:
@@ -18,16 +16,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-          cache: "npm"
+          cache: "pnpm"
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build
-      - name: Create Tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: pnpm run build
