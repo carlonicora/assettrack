@@ -24,7 +24,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
     action: Action.Read,
     data: loan,
   }))
-    ? `[${t(`types.loans`, { count: 1 })}] ${loan.name}`
+    ? `[${t(`types.loans`, { count: 1 })}] ${loan.employee.name} - ${loan.equipment.name}`
     : `${t(`types.loans`, { count: 1 })}`;
 
   return await generateSpecificMetadata({ title: title });

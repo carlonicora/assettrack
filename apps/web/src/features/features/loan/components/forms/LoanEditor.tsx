@@ -6,13 +6,14 @@ import { errorToast } from "@/features/common/components/errors/errorToast";
 import CommonEditorButtons from "@/features/common/components/forms/CommonEditorButtons";
 import CommonEditorHeader from "@/features/common/components/forms/CommonEditorHeader";
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
-import FormInput from "@/features/common/components/forms/FormInput";
-import FormTextarea from "@/features/common/components/forms/FormTextarea";
 import FormDate from "@/features/common/components/forms/FormDate";
+import EmployeeSelector from "@/features/features/employee/components/forms/EmployeeSelector";
+import EquipmentSelector from "@/features/features/equipment/components/forms/EquipmentSelector";
 import { LoanInput, LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { LoanService } from "@/features/features/loan/data/LoanService";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { useRouter } from "@/i18n/routing";
+import { entityObjectSchema } from "@/lib/entity.object.schema";
 import { revalidatePaths } from "@/lib/PageRevalidation";
 import { Modules } from "@/modules/modules";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,9 +22,6 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { entityObjectSchema } from "@/lib/entity.object.schema";
-import EmployeeSelector from "@/features/features/employee/components/forms/EmployeeSelector";
-import EquipmentSelector from "@/features/features/equipment/components/forms/EquipmentSelector";
 
 type LoanEditorProps = {
   loan?: LoanInterface;
@@ -39,7 +37,7 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
   const formSchema = z.object({
     id: z.uuid(),
     startDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.loan.fields.startDate.error`)
+      message: t(`features.loan.fields.startDate.error`),
     }),
     endDate: z.date().optional(),
     employee: entityObjectSchema.refine((data) => data.id && data.id.length > 0, {
@@ -52,10 +50,10 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
 
   const getDefaultValues = () => ({
     id: loan?.id || v4(),
-      startDate: loan?.startDate || undefined,
-      endDate: loan?.endDate || undefined,
-      employee: loan?.employee ? {id: loan.employee.id, name: loan.employee.name} : undefined,
-      equipment: loan?.equipment ? {id: loan.equipment.id, name: loan.equipment.name} : undefined,
+    startDate: loan?.startDate || undefined,
+    endDate: loan?.endDate || undefined,
+    employee: loan?.employee ? { id: loan.employee.id, name: loan.employee.name } : undefined,
+    equipment: loan?.equipment ? { id: loan.equipment.id, name: loan.equipment.name } : undefined,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -79,9 +77,7 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
     };
 
     try {
-      const updatedLoan = loan
-        ? await LoanService.update(payload)
-        : await LoanService.create(payload);
+      const updatedLoan = loan ? await LoanService.update(payload) : await LoanService.create(payload);
 
       revalidatePaths(generateUrl({ page: Modules.Loan, id: updatedLoan.id, language: `[locale]` }));
       if (loan && propagateChanges) {
@@ -102,7 +98,7 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
     <Dialog open={open} onOpenChange={setOpen}>
       <CommonEditorTrigger isEdit={!!loan} />
       <DialogContent className={`flex max-h-[70vh] max-w-3xl flex-col overflow-y-auto`}>
-        <CommonEditorHeader type={t(`types.loans`, { count: 1 })} name={loan?.name} />
+        <CommonEditorHeader type={t(`types.loans`, { count: 1 })} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-y-4">
             <div className="flex flex-col justify-between gap-x-4">

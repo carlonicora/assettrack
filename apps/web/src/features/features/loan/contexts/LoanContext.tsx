@@ -43,7 +43,7 @@ export const LoanProvider = ({ children, dehydratedLoan }: LoanProviderProps) =>
 
     if (loan)
       response.push({
-        name: loan.name,
+        name: `${t(`types.loans`, { count: 1 })} - ${loan.employee.name} - ${loan.equipment.name}`,
         href: generateUrl({ page: Modules.Loan, id: loan.id }),
       });
 
@@ -58,7 +58,7 @@ export const LoanProvider = ({ children, dehydratedLoan }: LoanProviderProps) =>
     const functions: ReactNode[] = [];
 
     if (loan) {
-      response.element = loan.name;
+      response.element = `${t(`types.loans`, { count: 1 })} - ${loan.employee.name} - ${loan.equipment.name}`;
 
       functions.push(<LoanDeleter key={`LoanDeleter`} loan={loan} />);
 
