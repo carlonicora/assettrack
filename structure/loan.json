@@ -7,11 +7,6 @@
     "languages": ["it"],
     "fields": [
       {
-        "name": "name",
-        "type": "string",
-        "nullable": false
-      },
-      {
         "name": "startDate",
         "type": "Date",
         "nullable": false
@@ -19,7 +14,7 @@
       {
         "name": "endDate",
         "type": "Date",
-        "nullable": false
+        "nullable": true
       }
     ],
     "relationships": [

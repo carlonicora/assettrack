@@ -4,18 +4,16 @@ import { EquipmentInterface } from "@/features/features/equipment/data/Equipment
 
 export type LoanInput = {
   id: string;
-  name?: string;
   startDate?: Date;
-  endDate?: Date;
+  endDate?: Date | undefined | null;
 
   employeeId: string;
   equipmentId: string;
 };
 
 export interface LoanInterface extends ApiDataInterface {
-  get name(): string;
   get startDate(): Date;
-  get endDate(): Date;
+  get endDate(): Date | undefined;
 
   get employee(): EmployeeInterface;
   get equipment(): EquipmentInterface;

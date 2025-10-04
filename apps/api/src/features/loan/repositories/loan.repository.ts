@@ -1,14 +1,14 @@
 import { HttpException, HttpStatus, Injectable, OnModuleInit } from "@nestjs/common";
 import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.cursor.interface";
+import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 import { Neo4jService } from "src/core/neo4j/services/neo4j.service";
 import { SecurityService } from "src/core/security/services/security.service";
-import { Loan } from "src/features/loan/entities/loan.entity";
-import { LoanModel } from "src/features/loan/entities/loan.model";
-import { LoanCypherService } from "src/features/loan/services/loan.cypher.service";
-import { loanMeta } from "src/features/loan/entities/loan.meta";
-import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
 import { employeeMeta } from "src/features/employee/entities/employee.meta";
 import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
+import { Loan } from "src/features/loan/entities/loan.entity";
+import { loanMeta } from "src/features/loan/entities/loan.meta";
+import { LoanModel } from "src/features/loan/entities/loan.model";
+import { LoanCypherService } from "src/features/loan/services/loan.cypher.service";
 
 @Injectable()
 export class LoanRepository implements OnModuleInit {
@@ -22,36 +22,6 @@ export class LoanRepository implements OnModuleInit {
     await this.neo4j.writeOne({
       query: `CREATE CONSTRAINT ${loanMeta.nodeName}_id IF NOT EXISTS FOR (${loanMeta.nodeName}:${loanMeta.labelName}) REQUIRE ${loanMeta.nodeName}.id IS UNIQUE`,
     });
-
-    const indexName = "loan_search_index";
-    const expectedProperties = ["name",];
-
-    const result = await this.neo4j.read(
-      `
-    SHOW INDEXES
-    YIELD name, type, entityType, labelsOrTypes, properties
-    WHERE name = $indexName AND type = 'FULLTEXT' AND entityType = 'NODE'
-    RETURN labelsOrTypes AS labels, properties
-  `,
-      { indexName },
-    );
-
-    const match = result.records[0];
-    const labels = match?.get("labels") ?? [];
-    const properties = match?.get("properties") ?? [];
-
-    const arraysEqual = (a, b) => a.length === b.length && a.every((val) => b.includes(val));
-
-    if (!match || !arraysEqual(labels, [loanMeta.labelName]) || !arraysEqual(properties, expectedProperties)) {
-      await this.neo4j.writeOne({
-        query: `
-          CREATE FULLTEXT INDEX \`${indexName}\` IF NOT EXISTS
-          FOR (n:${[loanMeta.labelName].map((l) => `\`${l}\``).join(" | ")})
-          ON EACH [${expectedProperties.map((p) => `n.\`${p}\``).join(", ")}]
-        `,
-        queryParams: {},
-      });
-    }
   }
 
   private async _validateForbidden(params: {
@@ -72,11 +42,11 @@ export class LoanRepository implements OnModuleInit {
     if (exists) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
   }
 
-  async find(params: { 
-    fetchAll?: boolean; 
-    term?: string; 
+  async find(params: {
+    fetchAll?: boolean;
+    term?: string;
     orderBy?: string;
-    cursor?: JsonApiCursorInterface
+    cursor?: JsonApiCursorInterface;
   }): Promise<Loan[]> {
     const query = this.neo4j.initQuery({
       cursor: params.cursor,
@@ -138,9 +108,8 @@ export class LoanRepository implements OnModuleInit {
 
   async create(params: {
     id: string;
-    name: string;
     startDate: Date;
-    endDate: Date;
+    endDate?: Date;
     employeeIds: string;
     equipmentIds: string;
   }): Promise<void> {
@@ -156,9 +125,8 @@ export class LoanRepository implements OnModuleInit {
     query.queryParams = {
       ...query.queryParams,
       id: params.id,
-      name: params.name,
       startDate: params.startDate,
-      endDate: params.endDate,
+      endDate: params.endDate ?? "",
       employeeIds: [params.employeeIds],
       equipmentIds: [params.equipmentIds],
     };
@@ -166,7 +134,6 @@ export class LoanRepository implements OnModuleInit {
     query.query += `
       CREATE (loan:Loan {
         id: $id,
-        name: $name,
         startDate: $startDate,
         endDate: $endDate,
         createdAt: datetime(),
@@ -177,7 +144,12 @@ export class LoanRepository implements OnModuleInit {
 
     const relationships = [
       { relationshipName: "RECEIVES", param: "employeeIds", label: employeeMeta.labelName, relationshipToNode: false },
-      { relationshipName: "LOANED_THROUGH", param: "equipmentIds", label: equipmentMeta.labelName, relationshipToNode: false }
+      {
+        relationshipName: "LOANED_THROUGH",
+        param: "equipmentIds",
+        label: equipmentMeta.labelName,
+        relationshipToNode: false,
+      },
     ];
 
     relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
@@ -196,9 +168,8 @@ export class LoanRepository implements OnModuleInit {
 
   async put(params: {
     id: string;
-    name: string;
     startDate: Date;
-    endDate: Date;
+    endDate?: Date;
     employeeIds: string;
     equipmentIds: string;
   }): Promise<void> {
@@ -214,7 +185,6 @@ export class LoanRepository implements OnModuleInit {
     query.queryParams = {
       ...query.queryParams,
       id: params.id,
-      name: params.name ?? "",
       startDate: params.startDate ?? "",
       endDate: params.endDate ?? "",
       employeeIds: [params.employeeIds],
@@ -222,7 +192,6 @@ export class LoanRepository implements OnModuleInit {
     };
 
     const setParams: string[] = [];
-    setParams.push("loan.name = $name");
     setParams.push("loan.startDate = $startDate");
     setParams.push("loan.endDate = $endDate");
     const set = setParams.join(", ");
@@ -235,7 +204,12 @@ export class LoanRepository implements OnModuleInit {
 
     const relationships = [
       { relationshipName: "RECEIVES", param: "employeeIds", label: employeeMeta.labelName, relationshipToNode: false },
-      { relationshipName: "LOANED_THROUGH", param: "equipmentIds", label: equipmentMeta.labelName, relationshipToNode: false }
+      {
+        relationshipName: "LOANED_THROUGH",
+        param: "equipmentIds",
+        label: equipmentMeta.labelName,
+        relationshipToNode: false,
+      },
     ];
 
     relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
@@ -269,17 +243,17 @@ export class LoanRepository implements OnModuleInit {
   }
 
   async findByEmployee(params: {
-    employeeId: string, 
+    employeeId: string;
     term?: string;
     orderBy?: string;
     fetchAll?: boolean;
     cursor?: JsonApiCursorInterface;
   }) {
-    const query = this.neo4j.initQuery({ 
+    const query = this.neo4j.initQuery({
       serialiser: LoanModel,
       cursor: params.cursor,
       fetchAll: params.fetchAll,
-     });
+    });
 
     query.queryParams = {
       ...query.queryParams,
@@ -316,17 +290,17 @@ export class LoanRepository implements OnModuleInit {
   }
 
   async findByEquipment(params: {
-    equipmentId: string, 
+    equipmentId: string;
     term?: string;
     orderBy?: string;
     fetchAll?: boolean;
     cursor?: JsonApiCursorInterface;
   }) {
-    const query = this.neo4j.initQuery({ 
+    const query = this.neo4j.initQuery({
       serialiser: LoanModel,
       cursor: params.cursor,
       fetchAll: params.fetchAll,
-     });
+    });
 
     query.queryParams = {
       ...query.queryParams,

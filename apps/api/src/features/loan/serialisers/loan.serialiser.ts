@@ -14,7 +14,6 @@ export class LoanSerialiser extends AbstractJsonApiSerialiser implements JsonApi
 
   create(): JsonApiDataInterface {
     this.attributes = {
-      name: "name",
       startDate: "startDate",
       endDate: "endDate",
     };

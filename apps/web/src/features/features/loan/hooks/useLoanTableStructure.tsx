@@ -37,17 +37,6 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
         checkedIds: params.checkedIds,
         toggleId: params.toggleId,
       }),
-    [LoanFields.name]: () => ({
-      id: "name",
-      accessorKey: "name",
-      header: t(`features.loan.fields.name.label`),
-      cell: ({ row }: { row: TableContent<LoanInterface> }) => {
-        const loan: LoanInterface = row.original.jsonApiData;
-        return <Link href={generateUrl({ page: Modules.Loan, id: loan.id })}>{loan.name}</Link>;
-      },
-      enableSorting: false,
-      enableHiding: false,
-    }),
     [LoanFields.startDate]: () =>
       cellDate({
         name: "startDate",
@@ -80,7 +69,6 @@ export const useLoanTableStructure: UseTableStructureHook<LoanInterface, LoanFie
       enableSorting: false,
       enableHiding: false,
     }),
-
     [LoanFields.createdAt]: () =>
       cellDate({
         name: "createdAt",

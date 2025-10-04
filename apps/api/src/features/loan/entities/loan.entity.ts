@@ -4,9 +4,8 @@ import { Equipment } from "src/features/equipment/entities/equipment.entity";
 import { Company } from "src/foundations/company/entities/company.entity";
 
 export type Loan = Entity & {
-  name: string;
   startDate: Date;
-  endDate: Date;
+  endDate?: Date;
 
   company: Company;
   employee: Employee;

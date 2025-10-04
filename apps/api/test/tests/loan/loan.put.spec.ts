@@ -26,9 +26,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyOne_Full.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
       },
     };
@@ -45,9 +43,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyTwo_Full.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -79,9 +75,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: "00000000-0000-0000-0000-000000000000",
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -113,7 +107,6 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyOne_Nullable.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
           endDate: new Date().toISOString(),
         },
@@ -146,7 +139,6 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
       company: COMPANIES.CompanyOne,
       employee: EMPLOYEES.CompanyOne_Full,
       equipment: EQUIPMENTS.CompanyOne_Full,
-      name: "Updated name",
       startDate: updateLoan.data.attributes.startDate,
       endDate: updateLoan.data.attributes.endDate,
     };
@@ -165,7 +157,6 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyOne_Minimal.id,
         attributes: {
-          name: "Partially Updated name",
           startDate: new Date().toISOString(),
           endDate: new Date().toISOString(),
         },
@@ -198,7 +189,6 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
       company: COMPANIES.CompanyOne,
       employee: EMPLOYEES.CompanyOne_Minimal,
       equipment: EQUIPMENTS.CompanyOne_Minimal,
-      name: "Partially Updated name",
       startDate: updateLoan.data.attributes.startDate,
       endDate: updateLoan.data.attributes.endDate,
     };
@@ -231,9 +221,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: "different-id-123e4567-e89b-12d3-a456-426614174000",
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
       },
     };
@@ -251,9 +239,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyOne_Minimal.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -285,9 +271,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyOne_Full.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -319,9 +303,7 @@ describe(`PUT /${loanMeta.endpoint}/{id}`, () => {
         type: loanMeta.endpoint,
         id: LOANS.CompanyTwo_Nullable.id,
         attributes: {
-          name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {

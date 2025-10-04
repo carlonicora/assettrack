@@ -48,7 +48,6 @@ export class LoanService {
   async create(params: { data: LoanPostDataDTO }): Promise<JsonApiDataInterface> {
     await this.loanRepository.create({
       id: params.data.id,
-      name: params.data.attributes.name,
       startDate: params.data.attributes.startDate,
       endDate: params.data.attributes.endDate,
       employeeIds: params.data.relationships.employee.data.id,
@@ -61,7 +60,6 @@ export class LoanService {
   async put(params: { data: LoanPutDataDTO }): Promise<JsonApiDataInterface> {
     await this.loanRepository.put({
       id: params.data.id,
-      name: params.data.attributes.name,
       startDate: params.data.attributes.startDate,
       endDate: params.data.attributes.endDate,
       employeeIds: params.data.relationships.employee.data.id,

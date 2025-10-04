@@ -6,25 +6,18 @@ import { Modules } from "@/modules/modules";
 import { LoanInput, LoanInterface } from "@/features/features/loan/data/LoanInterface";
 
 export class Loan extends AbstractApiData implements LoanInterface {
-  private _name?: string;
   private _startDate?: Date;
   private _endDate?: Date;
 
   private _employee?: EmployeeInterface;
   private _equipment?: EquipmentInterface;
 
-  get name(): string {
-    if (this._name === undefined) throw new Error("JsonApi error: loan name is missing");
-    return this._name;
-  }
-
   get startDate(): Date {
     if (this._startDate === undefined) throw new Error("JsonApi error: loan startDate is missing");
     return this._startDate;
   }
 
-  get endDate(): Date {
-    if (this._endDate === undefined) throw new Error("JsonApi error: loan endDate is missing");
+  get endDate(): Date | undefined {
     return this._endDate;
   }
 
@@ -42,7 +35,6 @@ export class Loan extends AbstractApiData implements LoanInterface {
   rehydrate(data: JsonApiHydratedDataInterface): this {
     super.rehydrate(data);
 
-    this._name = data.jsonApi.attributes.name;
     this._startDate = data.jsonApi.attributes.startDate ? new Date(data.jsonApi.attributes.startDate) : undefined;
     this._endDate = data.jsonApi.attributes.endDate ? new Date(data.jsonApi.attributes.endDate) : undefined;
 
@@ -64,7 +56,6 @@ export class Loan extends AbstractApiData implements LoanInterface {
       included: [],
     };
 
-    if (data.name !== undefined) response.data.attributes.name = data.name;
     if (data.startDate !== undefined) response.data.attributes.startDate = data.startDate;
     if (data.endDate !== undefined) response.data.attributes.endDate = data.endDate;
 

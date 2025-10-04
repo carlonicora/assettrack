@@ -117,11 +117,6 @@
     },
     "loan": {
       "fields": {
-        "name": {
-          "label": "name",
-          "placeholder": "name",
-          "error": "name"
-        },
         "startDate": {
           "label": "startDate",
           "placeholder": "startDate",

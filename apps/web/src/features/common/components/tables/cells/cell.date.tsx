@@ -7,7 +7,9 @@ export const cellDate = (params: { name: string; title: string }): ColumnDef<any
     header: params.title,
     cell: ({ row }) => (
       <span className="text-muted-foreground text-xs">
-        {row.getValue<Date>(params.name).toLocaleDateString("it", { dateStyle: "medium" })}
+        {row.getValue<Date>(params.name)
+          ? row.getValue<Date>(params.name).toLocaleDateString("it", { dateStyle: "medium" })
+          : ""}
       </span>
     ),
     enableSorting: false,

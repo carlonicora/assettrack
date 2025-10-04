@@ -34,9 +34,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
         type: loanMeta.endpoint,
         id: "11023c1a-2fc5-4207-aecf-1a057db57b5c",
         attributes: {
-          name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -65,9 +63,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
         type: loanMeta.endpoint,
         id: "123e4567-e89b-12d3-a456-426614174000",
         attributes: {
-          name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -98,9 +94,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
       company: COMPANIES.CompanyOne,
       employee: companyEmployeeFixtures[0],
       equipment: companyEquipmentFixtures[0],
-      name: "Test name",
       startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
     };
 
     // Validate the response structure matches expected entity
@@ -148,9 +142,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
         type: loanMeta.endpoint,
         id: "123e4567-e89b-12d3-a456-426614174002",
         attributes: {
-          name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -181,9 +173,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
         type: loanMeta.endpoint,
         id: "123e4567-e89b-12d3-a456-426614174003",
         attributes: {
-          name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {
@@ -218,9 +208,7 @@ describe(`POST /${loanMeta.endpoint}`, () => {
         type: loanMeta.endpoint,
         id: "123e4567-e89b-12d3-a456-426614174004",
         attributes: {
-          name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
         },
         relationships: {
           employee: {

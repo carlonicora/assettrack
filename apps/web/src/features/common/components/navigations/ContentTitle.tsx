@@ -9,8 +9,6 @@ type TitleProps = {
 };
 
 export default function ContentTitle({ type, element, functions }: TitleProps) {
-  if (!element) return null;
-
   return (
     <div className="mb-4 flex w-full flex-col">
       {(type || functions) && (

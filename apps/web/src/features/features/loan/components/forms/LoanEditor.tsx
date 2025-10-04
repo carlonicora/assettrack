@@ -38,15 +38,10 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
 
   const formSchema = z.object({
     id: z.uuid(),
-    name: z.string().min(1, {
-      message: t(`features.loan.fields.name.error`),
-    }),
     startDate: z.date().refine((val) => val !== undefined, {
       message: t(`features.loan.fields.startDate.error`)
     }),
-    endDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.loan.fields.endDate.error`)
-    }),
+    endDate: z.date().optional(),
     employee: entityObjectSchema.refine((data) => data.id && data.id.length > 0, {
       message: t(`features.loan.relationships.employee.error`),
     }),
@@ -57,7 +52,6 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
 
   const getDefaultValues = () => ({
     id: loan?.id || v4(),
-      name: loan?.name || "",
       startDate: loan?.startDate || undefined,
       endDate: loan?.endDate || undefined,
       employee: loan?.employee ? {id: loan.employee.id, name: loan.employee.name} : undefined,
@@ -78,7 +72,6 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (values: z.infer<typeof formSchema>) => {
     const payload: LoanInput = {
       id: values.id,
-      name: values.name,
       startDate: values.startDate,
       endDate: values.endDate,
       employeeId: values.employee.id,
@@ -113,13 +106,6 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-y-4">
             <div className="flex flex-col justify-between gap-x-4">
-              <FormInput
-                form={form}
-                id="name"
-                name={t(`features.loan.fields.name.label`)}
-                placeholder={t(`features.loan.fields.name.placeholder`)}
-                isRequired
-              />
               <FormDate
                 form={form}
                 id="startDate"
@@ -132,7 +118,6 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
                 id="endDate"
                 name={t(`features.loan.fields.endDate.label`)}
                 placeholder={t(`features.loan.fields.endDate.placeholder`)}
-                isRequired
               />
               <EmployeeSelector
                 form={form}

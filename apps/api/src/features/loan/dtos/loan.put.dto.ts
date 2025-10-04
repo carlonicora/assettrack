@@ -7,18 +7,12 @@ import { EquipmentDataDTO } from "src/features/equipment/dtos/equipment.dto";
 export class LoanPutAttributesDTO {
   @IsDefined()
   @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsDefined()
-  @IsNotEmpty()
   @IsDateString()
   startDate: Date;
 
-  @IsDefined()
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
-  endDate: Date;
+  endDate?: Date;
 }
 
 export class LoanPutRelationshipsDTO {

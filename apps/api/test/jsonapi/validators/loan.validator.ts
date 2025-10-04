@@ -7,15 +7,11 @@ import { standardMeta } from "test/jsonapi/validators/common";
 export const loanValidator: ResourceValidator = {
   type: loanMeta.type,
   attributes: {
-    name: {
-      required: true,
-    },
     startDate: {
       required: true,
       type: "date",
     },
     endDate: {
-      required: true,
       type: "date",
     },
   },

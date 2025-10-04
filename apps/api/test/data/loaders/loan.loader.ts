@@ -6,9 +6,8 @@ export const generateLoanTestData = (): string[] => {
     response.push(`
       CREATE (loan:Loan {
         id: "${loan.id}",
-        name: "${loan.name}",
         startDate: datetime("${loan.startDate.toISOString()}"),
-        endDate: datetime("${loan.endDate.toISOString()}"),
+        endDate: ${loan.endDate ? `datetime("${loan.endDate.toISOString()}")` : "null"},
         createdAt: datetime(),
         updatedAt: datetime()
       })
