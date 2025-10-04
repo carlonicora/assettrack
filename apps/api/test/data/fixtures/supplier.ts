@@ -2,7 +2,7 @@ import { COMPANIES } from "test/data/fixtures/company";
 
 export const SUPPLIERS = {
   CompanyOne_Full: {
-    id: "40b95e8a-7664-4b46-ae53-05ce14c8d811",
+    id: "9bc0036a-f82f-44a6-9840-f78b750c1d9c",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Supplier Full name",
     address: "CompanyOne Supplier Full address",
@@ -10,7 +10,7 @@ export const SUPPLIERS = {
     phone: "CompanyOne Supplier Full phone",
   },
   CompanyOne_Nullable: {
-    id: "c5ab30ad-ae4d-48db-a651-98d693bae9b8",
+    id: "4654b9b7-fb5c-4289-bbe4-5eb151d8fd44",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Supplier Nullable name",
     address: null,
@@ -18,7 +18,7 @@ export const SUPPLIERS = {
     phone: null,
   },
   CompanyOne_Minimal: {
-    id: "127e2688-1bf4-4af5-8975-47a06d50c063",
+    id: "a8bc1a77-ed57-400e-b059-c18b9094df1c",
     company: COMPANIES.CompanyOne,
     name: "CompanyOne Supplier Minimal name",
     address: undefined,
@@ -26,7 +26,7 @@ export const SUPPLIERS = {
     phone: undefined,
   },
   CompanyTwo_Full: {
-    id: "f7638208-1f00-40b6-9eaf-77749c85dd6b",
+    id: "cc0b2cde-52b3-4e88-afe8-7e93dec968ed",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Supplier Full name",
     address: "CompanyTwo Supplier Full address",
@@ -34,7 +34,7 @@ export const SUPPLIERS = {
     phone: "CompanyTwo Supplier Full phone",
   },
   CompanyTwo_Nullable: {
-    id: "28c9ee99-bcfb-4783-96d1-b49f4bb45ba7",
+    id: "97a4f4a6-b8fd-4268-ab5d-17e2ce1a2c9f",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Supplier Nullable name",
     address: null,
@@ -42,7 +42,7 @@ export const SUPPLIERS = {
     phone: null,
   },
   CompanyTwo_Minimal: {
-    id: "db273ac3-3e63-4d08-b0b5-8447c11c44cf",
+    id: "ed516ae6-79be-40af-8b75-cc7ff319acc6",
     company: COMPANIES.CompanyTwo,
     name: "CompanyTwo Supplier Minimal name",
     address: undefined,

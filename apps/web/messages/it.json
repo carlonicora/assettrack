@@ -136,6 +136,11 @@
         "title": "Loan",
         "subtitle": "loan?",
         "description": "loan"
+      },
+      "search": {
+        "no_results": "no Loan found",
+        "placeholder": "Search Loan...",
+        "select": "Select Loan"
       }
     }
   },

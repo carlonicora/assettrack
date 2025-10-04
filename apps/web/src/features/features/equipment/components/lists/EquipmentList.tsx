@@ -1,6 +1,7 @@
 "use client";
 
 import { ContentListTable } from "@/features/common/components/tables/ContentListTable";
+import EquipmentEditor from "@/features/features/equipment/components/forms/EquipmentEditor";
 import { EquipmentFields } from "@/features/features/equipment/data/EquipmentFields";
 import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { EquipmentService } from "@/features/features/equipment/data/EquipmentService";
@@ -9,7 +10,6 @@ import { DataListRetriever, useDataListRetriever } from "@/hooks/useDataListRetr
 import { Modules } from "@/modules/modules";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
-import EquipmentEditor from "@/features/features/equipment/components/forms/EquipmentEditor";
 
 export default function EquipmentsList() {
   const t = useTranslations();
@@ -25,15 +25,7 @@ export default function EquipmentsList() {
   return (
     <ContentListTable
       data={data}
-      fields={[
-        EquipmentFields.name,
-        EquipmentFields.barcode,
-        EquipmentFields.description,
-        EquipmentFields.startDate,
-        EquipmentFields.endDate,
-        EquipmentFields.createdAt,
-        EquipmentFields.updatedAt
-      ]}
+      fields={[EquipmentFields.name, EquipmentFields.startDate, EquipmentFields.endDate]}
       tableGeneratorType={Modules.Equipment}
       functions={functions}
       title={t(`types.equipments`, { count: 2 })}
