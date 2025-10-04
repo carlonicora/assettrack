@@ -6,12 +6,15 @@ import { errorToast } from "@/features/common/components/errors/errorToast";
 import CommonEditorButtons from "@/features/common/components/forms/CommonEditorButtons";
 import CommonEditorHeader from "@/features/common/components/forms/CommonEditorHeader";
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
+import FormDate from "@/features/common/components/forms/FormDate";
 import FormInput from "@/features/common/components/forms/FormInput";
-import FormTextarea from "@/features/common/components/forms/FormTextarea";
+import EmployeeSelector from "@/features/features/employee/components/forms/EmployeeSelector";
+import EquipmentSelector from "@/features/features/equipment/components/forms/EquipmentSelector";
 import { LoanInput, LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { LoanService } from "@/features/features/loan/data/LoanService";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { useRouter } from "@/i18n/routing";
+import { entityObjectSchema } from "@/lib/entity.object.schema";
 import { revalidatePaths } from "@/lib/PageRevalidation";
 import { Modules } from "@/modules/modules";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,9 +23,6 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { entityObjectSchema } from "@/lib/entity.object.schema";
-import EmployeeSelector from "@/features/features/employee/components/forms/EmployeeSelector";
-import EquipmentSelector from "@/features/features/equipment/components/forms/EquipmentSelector";
 
 type LoanEditorProps = {
   loan?: LoanInterface;
@@ -41,10 +41,10 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
       message: t(`features.loan.fields.name.error`),
     }),
     startDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.loan.fields.startDate.error`)
+      message: t(`features.loan.fields.startDate.error`),
     }),
     endDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.loan.fields.endDate.error`)
+      message: t(`features.loan.fields.endDate.error`),
     }),
     employee: entityObjectSchema.refine((data) => data.id && data.id.length > 0, {
       message: t(`features.loan.relationships.employee.error`),
@@ -56,11 +56,11 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
 
   const getDefaultValues = () => ({
     id: loan?.id || v4(),
-      name: loan?.name || "",
-      startDate: loan?.startDate || undefined,
-      endDate: loan?.endDate || undefined,
-      employee: loan?.employee ? {id: loan.employee.id, name: loan.employee.name} : undefined,
-      equipment: loan?.equipment ? {id: loan.equipment.id, name: loan.equipment.name} : undefined,
+    name: loan?.name || "",
+    startDate: loan?.startDate || undefined,
+    endDate: loan?.endDate || undefined,
+    employee: loan?.employee ? { id: loan.employee.id, name: loan.employee.name } : undefined,
+    equipment: loan?.equipment ? { id: loan.equipment.id, name: loan.equipment.name } : undefined,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -85,9 +85,7 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
     };
 
     try {
-      const updatedLoan = loan
-        ? await LoanService.update(payload)
-        : await LoanService.create(payload);
+      const updatedLoan = loan ? await LoanService.update(payload) : await LoanService.create(payload);
 
       revalidatePaths(generateUrl({ page: Modules.Loan, id: updatedLoan.id, language: `[locale]` }));
       if (loan && propagateChanges) {
@@ -119,14 +117,14 @@ export default function LoanEditor({ loan, propagateChanges }: LoanEditorProps) 
                 placeholder={t(`features.loan.fields.name.placeholder`)}
                 isRequired
               />
-              <FormInput
+              <FormDate
                 form={form}
                 id="startDate"
                 name={t(`features.loan.fields.startDate.label`)}
                 placeholder={t(`features.loan.fields.startDate.placeholder`)}
                 isRequired
               />
-              <FormInput
+              <FormDate
                 form={form}
                 id="endDate"
                 name={t(`features.loan.fields.endDate.label`)}

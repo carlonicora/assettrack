@@ -1,6 +1,7 @@
 "use client";
 
 import { ContentListTable } from "@/features/common/components/tables/ContentListTable";
+import LoanEditor from "@/features/features/loan/components/forms/LoanEditor";
 import { LoanFields } from "@/features/features/loan/data/LoanFields";
 import { LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { LoanService } from "@/features/features/loan/data/LoanService";
@@ -9,7 +10,6 @@ import { DataListRetriever, useDataListRetriever } from "@/hooks/useDataListRetr
 import { Modules } from "@/modules/modules";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
-import LoanEditor from "@/features/features/loan/components/forms/LoanEditor";
 
 export default function LoansList() {
   const t = useTranslations();
@@ -25,13 +25,7 @@ export default function LoansList() {
   return (
     <ContentListTable
       data={data}
-      fields={[
-        LoanFields.name,
-        LoanFields.startDate,
-        LoanFields.endDate,
-        LoanFields.createdAt,
-        LoanFields.updatedAt
-      ]}
+      fields={[LoanFields.startDate, LoanFields.endDate]}
       tableGeneratorType={Modules.Loan}
       functions={functions}
       title={t(`types.loans`, { count: 2 })}

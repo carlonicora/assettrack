@@ -5,8 +5,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import { format, parse, isValid } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { it } from "date-fns/locale";
 import { Calendar as CalendarIcon, CircleXIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -18,6 +17,7 @@ export default function FormDate({
   name,
   minDate,
   onChange,
+  isRequired,
 }: {
   form: any;
   id: string;
@@ -25,6 +25,7 @@ export default function FormDate({
   placeholder?: string;
   minDate?: Date;
   onChange?: (date?: Date) => Promise<void>;
+  isRequired?: boolean;
 }) {
   const [open, setOpen] = useState<boolean>(false);
   const [displayMonth, setDisplayMonth] = useState<Date>(() => {
@@ -43,8 +44,18 @@ export default function FormDate({
 
   // Month names in Italian
   const monthNames = [
-    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
   ];
 
   // Handle text input change
@@ -83,7 +94,12 @@ export default function FormDate({
         name={id}
         render={({ field }) => (
           <FormItem className={`${name ? "mb-5" : "mb-1"} w-full`}>
-            {name && <FormLabel>{name}</FormLabel>}
+            {name && (
+              <FormLabel>
+                {name}
+                {isRequired && <span className="text-destructive ml-2 font-semibold">*</span>}
+              </FormLabel>
+            )}
             <FormControl>
               <div className="relative">
                 <Popover open={open} onOpenChange={setOpen} modal={true}>
@@ -94,11 +110,11 @@ export default function FormDate({
                       placeholder="gg/mm/aaaa"
                       className="pr-16"
                     />
-                    <div className="absolute right-1 top-1/2 flex -translate-y-1/2 items-center space-x-1">
+                    <div className="absolute top-1/2 right-1 flex -translate-y-1/2 items-center space-x-1">
                       <PopoverTrigger asChild>
                         <button
                           type="button"
-                          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                          className="hover:bg-muted flex h-8 w-8 items-center justify-center rounded-md"
                         >
                           <CalendarIcon className="h-4 w-4 opacity-50" />
                         </button>
@@ -106,7 +122,7 @@ export default function FormDate({
                       {field.value && (
                         <button
                           type="button"
-                          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                          className="hover:bg-muted flex h-8 w-8 items-center justify-center rounded-md"
                           onClick={() => {
                             field.onChange(undefined);
                             setInputValue("");
