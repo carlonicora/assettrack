@@ -88,7 +88,6 @@ export class Modules {
     return LoanModule(this._factory);
   }
 
-  // Helper method to find a module by name
   static findByName(moduleName: string): ModuleWithPermissions {
     const moduleNames = Object.getOwnPropertyNames(Modules).filter(
       (name) =>
