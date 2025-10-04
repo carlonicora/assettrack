@@ -1,9 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default function ReactMarkdownContainer({ content }: { content: string }) {
+export default function ReactMarkdownContainer({ content, className }: { content: string; className?: string }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -18,6 +19,7 @@ export default function ReactMarkdownContainer({ content }: { content: string })
         h2: ({ children }) => <h2 className="my-2 mt-4 text-2xl font-semibold">{children}</h2>,
         h3: ({ children }) => <h3 className="my-2 mt-4 text-xl font-semibold">{children}</h3>,
         h4: ({ children }) => <h4 className="my-2 mt-4 text-lg font-semibold">{children}</h4>,
+        p: ({ children }) => <p className={cn(``, className)}>{children}</p>,
       }}
     >
       {content}

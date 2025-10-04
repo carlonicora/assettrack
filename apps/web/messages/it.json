@@ -3,154 +3,145 @@
     "supplier": {
       "fields": {
         "name": {
-          "label": "name",
-          "placeholder": "name",
-          "error": "name"
+          "label": "Nome",
+          "placeholder": "Inserisci il nome del fornitore",
+          "error": "Il nome del fornitore è obbligatorio"
         },
         "address": {
-          "label": "address",
-          "placeholder": "address",
-          "error": "address"
+          "label": "Indirizzo",
+          "placeholder": "Inserisci l'indirizzo del fornitore"
         },
         "email": {
-          "label": "email",
-          "placeholder": "email",
-          "error": "email"
+          "label": "Email",
+          "placeholder": "Inserisci l'email del fornitore"
         },
         "phone": {
-          "label": "phone",
-          "placeholder": "phone",
-          "error": "phone"
+          "label": "Telefono",
+          "placeholder": "Inserisci il numero di telefono del fornitore"
         }
       },
       "delete": {
-        "title": "Supplier",
-        "subtitle": "supplier?",
-        "description": "supplier"
+        "title": "Rimuovi il Fornitore",
+        "subtitle": "Sei sicuro di voler rimuovere questo fornitore? Tutte le informazioni relative a questo fornitore andranno perse per sempre.\n\nTutti le attrezzature e i prestiti associati a questo fornitore andranno persi.\n\nQuesta azione non può essere annullata.",
+        "description": ""
       },
       "search": {
-        "no_results": "no Supplier found",
-        "placeholder": "Search Supplier...",
-        "select": "Select Supplier"
+        "no_results": "Nessun fornitore trovato",
+        "placeholder": "Cerca fornitore...",
+        "select": "Seleziona Fornitore"
       }
     },
     "employee": {
       "fields": {
         "name": {
-          "label": "name",
-          "placeholder": "name",
-          "error": "name"
+          "label": "Nome",
+          "placeholder": "Inserisci il nome del dipendente",
+          "error": "Il nome del dipendente è obbligatorio"
         },
         "phone": {
-          "label": "phone",
-          "placeholder": "phone",
-          "error": "phone"
+          "label": "Telefono",
+          "placeholder": "Inserisci il numero di telefono del dipendente"
         },
         "email": {
-          "label": "email",
-          "placeholder": "email",
-          "error": "email"
+          "label": "Email",
+          "placeholder": "Inserisci l'indirizzo email del dipendente"
         },
         "avatar": {
-          "label": "avatar",
-          "placeholder": "avatar",
-          "error": "avatar"
+          "label": "Avatar",
+          "placeholder": "Inserisci l'URL dell'avatar del dipendente"
         }
       },
       "delete": {
-        "title": "Employee",
-        "subtitle": "employee?",
-        "description": "employee"
+        "title": "Rimuovi il Dipendente",
+        "subtitle": "Sei sicuro di voler rimuovere questo dipendente? Tutte le informazioni relative a questo dipendente andranno perse per sempre.\n\nTutti i prestiti associati a questo dipendente andranno persi.\n\nQuesta azione non può essere annullata.",
+        "description": ""
       },
       "search": {
-        "no_results": "no Employee found",
-        "placeholder": "Search Employee...",
-        "select": "Select Employee"
+        "no_results": "Nessun dipendente trovato",
+        "placeholder": "Cerca dipendente...",
+        "select": "Seleziona dipendente"
       }
     },
     "equipment": {
       "fields": {
         "name": {
-          "label": "name",
-          "placeholder": "name",
-          "error": "name"
+          "label": "Nome",
+          "placeholder": "Inserisci il nome dell'attrezzatura",
+          "error": "Il nome dell'attrezzatura è obbligatorio"
         },
         "barcode": {
-          "label": "barcode",
-          "placeholder": "barcode",
-          "error": "barcode"
+          "label": "Codice a barre",
+          "placeholder": "Inserisci il codice a barre dell'attrezzatura"
         },
         "description": {
-          "label": "description",
-          "placeholder": "description",
-          "error": "description"
+          "label": "Descrizione",
+          "placeholder": "Inserisci una descrizione dell'attrezzatura"
         },
         "startDate": {
-          "label": "startDate",
-          "placeholder": "startDate",
-          "error": "startDate"
+          "label": "Inizio Contratto",
+          "placeholder": "Seleziona la data di inizio del contratto",
+          "error": "La data di inizio del contratto è obbligatoria"
         },
         "endDate": {
-          "label": "endDate",
-          "placeholder": "endDate",
-          "error": "endDate"
+          "label": "Fine Contratto",
+          "placeholder": "Seleziona la data di fine del contratto",
+          "error": "La data di fine del contratto è obbligatoria"
         }
       },
       "relationships": {
         "supplier": {
-          "error": "Supplier is required",
-          "label": "Supplier",
-          "placeholder": "Select Supplier",
-          "list": "Equipment related to Supplier {supplierName}"
+          "error": "Il fornitore è obbligatorio",
+          "label": "Fornitore",
+          "placeholder": "Seleziona Fornitore",
+          "list": "Attrezzature correlate al Fornitore `{supplierName}`"
         }
       },
       "delete": {
-        "title": "Equipment",
-        "subtitle": "equipment?",
-        "description": "equipment"
+        "title": "Rimuovi l'Attrezzatura",
+        "subtitle": "Sei sicuro di voler rimuovere questa attrezzatura? Tutte le informazioni relative a questa attrezzatura andranno perse per sempre.\n\nTutti i prestiti associati a questa attrezzatura andranno persi.\n\nQuesta azione non può essere annullata.",
+        "description": ""
       },
       "search": {
-        "no_results": "no Equipment found",
-        "placeholder": "Search Equipment...",
-        "select": "Select Equipment"
+        "no_results": "Nessuna attrezzatura trovata",
+        "placeholder": "Cerca attrezzatura...",
+        "select": "Seleziona Attrezzatura"
       }
     },
     "loan": {
       "fields": {
         "startDate": {
-          "label": "startDate",
-          "placeholder": "startDate",
-          "error": "startDate"
+          "label": "Inizio Prestito",
+          "placeholder": "Seleziona la data di inizio del prestito",
+          "error": "La data di inizio del prestito è obbligatoria"
         },
         "endDate": {
-          "label": "endDate",
-          "placeholder": "endDate",
-          "error": "endDate"
+          "label": "Fine Prestito",
+          "placeholder": "Seleziona la data di fine del prestito"
         }
       },
       "relationships": {
         "employee": {
-          "error": "Employee is required",
-          "label": "Employee",
-          "placeholder": "Select Employee",
-          "list": "Loan related to Employee {employeeName}"
+          "error": "Il dipendente è obbligatorio",
+          "label": "Dipendente",
+          "placeholder": "Seleziona Dipendente",
+          "list": "Prestito correlato al Dipendente `{employeeName}`"
         },
         "equipment": {
-          "error": "Equipment is required",
-          "label": "Equipment",
-          "placeholder": "Select Equipment",
-          "list": "Loan related to Equipment {equipmentName}"
+          "error": "L'attrezzatura è obbligatoria",
+          "label": "Attrezzatura",
+          "placeholder": "Seleziona Attrezzatura",
+          "list": "Prestito correlato all'Attrezzatura `{equipmentName}`"
         }
       },
       "delete": {
-        "title": "Loan",
-        "subtitle": "loan?",
-        "description": "loan"
+        "title": "Rimuovi il Prestito",
+        "subtitle": "Sei sicuro di voler rimuovere questo prestito? Tutte le informazioni relative a questo prestito andranno perse per sempre.\n\nQuesta azione non può essere annullata.",
+        "description": ""
       },
       "search": {
-        "no_results": "no Loan found",
-        "placeholder": "Search Loan...",
-        "select": "Select Loan"
+        "no_results": "Nessun prestito trovato",
+        "placeholder": "Cerca Prestito...",
+        "select": "Seleziona Prestito"
       }
     }
   },
@@ -158,12 +149,11 @@
     "auth": {
       "accept_invitation": "Accetta Invito",
       "account_activated": "Account Attivato",
-      "account_activated_description": "Il tuo account è pronto. Accedi per accedere ad AssetTrack AI.",
+      "account_activated_description": "Il tuo account è pronto. Accedi per accedere ad AssetTrack.",
       "activation_description": "Il tuo account è stato attivato con successo. Verrai reindirizzato alla pagina di accesso a breve.",
       "activation_wait": "Attendere mentre il tuo account viene attivato...",
       "add_email_to_reset": "Si prega di aggiungere la propria email per reimpostare la password.",
       "buttons": {
-        "continue_with_google": "Continua con Google",
         "forgot_password": "Password Dimenticata",
         "login": "Accedi",
         "logout": "Esci",
@@ -197,27 +187,27 @@
       "password_reset": "Reimposta Password",
       "register": "Registrati",
       "register_confirmation": "Grazie per esserti registrato. Controlla la tua email per il link di conferma.",
-      "register_description": "Registrarsi ad AssetTrack AI crea un nuovo studio legale. Se desideri unirti ad un studio legale esistente, contatta gli amministratori dello studio legale.",
+      "register_description": "Registrarsi ad AssetTrack crea una nuova azienda. Se desideri unirti ad un'azienda esistente, contatta gli amministratori della stessa.",
       "reset_confirmation": "Se la tua email è registrata nel nostro sistema, riceverai un'email con le istruzioni per reimpostare la tua password.",
       "reset_password": "Puoi reimpostare la password del tuo account da questa pagina.",
       "reset_success": "Reimpostazione della Password Riuscita",
       "reset_success_description": "La tua password è stata reimpostata con successo. Verrai reindirizzato alla pagina di accesso a breve.",
-      "select_password": "Si prega di aggiungere la propria password preferita per accedere ad AssetTrack AI."
+      "select_password": "Si prega di aggiungere la propria password preferita per accedere ad AssetTrack."
     },
     "company": {
       "click_drag_logo": "Clicca o trascina un logo per caricarlo",
       "delete": {
-        "confirmation": "Si prega di digitare il nome dello studio legale per confermare l'eliminazione",
-        "description": "Eliminando questo studio legale verrà rimosso dal sistema. Tutti i dati di questo studio legale andranno persi per sempre. Questa azione non può essere annullata. Sei sicuro di voler procedere?",
-        "subtitle": "Sei sicuro di voler eliminare questo studio legale?",
-        "title": "Elimina Studio Legale"
+        "confirmation": "Si prega di digitare il nome dell'azienda per confermare l'eliminazione",
+        "description": "Eliminando questa azienda verrà rimossa dal sistema. Tutti i dati di questa azienda andranno persi per sempre. Questa azione non può essere annullata. Sei sicuro di voler procedere?",
+        "subtitle": "Sei sicuro di voler eliminare questa azienda?",
+        "title": "Elimina Azienda"
       },
-      "description": "Panoramica e metriche dello studio legale",
+      "description": "Panoramica e metriche dell'azienda",
       "features_and_modules": "Funzionalità e Moduli",
       "fields": {
         "available_tokens": {
           "label": "Token Disponibili",
-          "placeholder": "Inserisci i token disponibili per lo studio legale"
+          "placeholder": "Inserisci i token disponibili per l'azienda"
         },
         "codice_fiscale": {
           "error": "Codice Fiscale non valido. Verifica il formato e i caratteri inseriti",
@@ -225,9 +215,9 @@
           "placeholder": "Inserisci il Codice Fiscale (16 caratteri)"
         },
         "name": {
-          "error": "Il nome dello studio legale è obbligatorio",
-          "label": "Nome Studio Legale",
-          "placeholder": "Inserisci il Nome dello Studio Legale"
+          "error": "Il nome dell'azienda è obbligatorio",
+          "label": "Nome Azienda",
+          "placeholder": "Inserisci il Nome dell'Azienda"
         },
         "partita_iva": {
           "error": "Partita IVA non valida. Inserisci un numero di 11 cifre valido",
@@ -315,7 +305,7 @@
         }
       },
       "reactivate": {
-        "description": "Sei sicuro di voler riattivare l'account di {name}? L'utente potrà accedere nuovamente ad AssetTrack AI e interagire con le conoscenze dello studio legale.",
+        "description": "Sei sicuro di voler riattivare l'account di {name}? L'utente potrà accedere nuovamente ad AssetTrack.",
         "subtitle": "Sei sicuro di voler riattivare questo utente?",
         "title": "Riattiva Utente"
       },
@@ -335,7 +325,6 @@
     }
   },
   "generic": {
-    "abstract": "Sintesi",
     "actions": {
       "back": "Indietro",
       "cancel": "Annulla",
@@ -343,7 +332,6 @@
       "create": "Crea",
       "update": "Aggiorna"
     },
-    "ai_status": "{status, select, pending {In attesa di elaborazione} in_progress {Analisi in corso} failed {Analisi Fallita} completed {Analisi Completata} analysing_counterparts {Analisi Controparti in corso} summarising_document {Sintesi del Documento in corso} other {N/A}}",
     "blocknote": {
       "placeholder": "Inserisci testo o digita '/' per i comandi"
     },
@@ -365,7 +353,7 @@
       "create": "Creazione",
       "update": "Ultimo Aggiornamento"
     },
-    "description": "AssetTrack è una piattaforma di gestione degli studi legali alimentata dall'Intelligenza Artificiale.",
+    "description": "AssetTrack è una piattaforma di gestione dei beni aziendali assegnati ai dipendenti.",
     "edit": {
       "create": {
         "description": "Crea un nuovo {type}",
@@ -422,7 +410,7 @@
     "title": "AssetTrack"
   },
   "types": {
-    "companies": "{count, plural, =1 {Studio Legale} other {Studi Legali}}",
+    "companies": "{count, plural, =1 {Azienda} other {Aziende}}",
     "employees": "{count, plural, =1 {Dipendente} other {Dipendenti}}",
     "equipments": "{count, plural, =1 {Attrezzatura} other {Attrezzature}}",
     "loans": "{count, plural, =1 {Prestito} other {Prestiti}}",

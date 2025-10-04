@@ -4,7 +4,7 @@
     "moduleName": "Employee",
     "endpointName": "employees",
     "targetDir": "features",
-    "languages": ["it"],
+    "languages": ["it", "en"],
     "fields": [
       {
         "name": "name",

@@ -1,0 +1,422 @@
+{
+  "features": {
+    "supplier": {
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter supplier name",
+          "error": "Supplier name is required"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter supplier address"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter supplier email"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter supplier phone number"
+        }
+      },
+      "delete": {
+        "title": "Remove Supplier",
+        "subtitle": "Are you sure you want to remove this supplier? All information related to this supplier will be lost forever.\n\nAll equipment and loans associated with this supplier will be lost.\n\nThis action cannot be undone.",
+        "description": ""
+      },
+      "search": {
+        "no_results": "No supplier found",
+        "placeholder": "Search supplier...",
+        "select": "Select Supplier"
+      }
+    },
+    "employee": {
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter employee name",
+          "error": "Employee name is required"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter employee phone number"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter employee email address"
+        },
+        "avatar": {
+          "label": "Avatar",
+          "placeholder": "Enter employee avatar URL"
+        }
+      },
+      "delete": {
+        "title": "Remove Employee",
+        "subtitle": "Are you sure you want to remove this employee? All information related to this employee will be lost forever.\n\nAll loans associated with this employee will be lost.\n\nThis action cannot be undone.",
+        "description": ""
+      },
+      "search": {
+        "no_results": "No employee found",
+        "placeholder": "Search employee...",
+        "select": "Select employee"
+      }
+    },
+    "equipment": {
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter equipment name",
+          "error": "Equipment name is required"
+        },
+        "barcode": {
+          "label": "Barcode",
+          "placeholder": "Enter equipment barcode"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Enter equipment description"
+        },
+        "startDate": {
+          "label": "Contract Start",
+          "placeholder": "Select contract start date",
+          "error": "Contract start date is required"
+        },
+        "endDate": {
+          "label": "Contract End",
+          "placeholder": "Select contract end date",
+          "error": "Contract end date is required"
+        }
+      },
+      "relationships": {
+        "supplier": {
+          "error": "Supplier is required",
+          "label": "Supplier",
+          "placeholder": "Select Supplier",
+          "list": "Equipment related to Supplier `{supplierName}`"
+        }
+      },
+      "delete": {
+        "title": "Remove Equipment",
+        "subtitle": "Are you sure you want to remove this equipment? All information related to this equipment will be lost forever.\n\nAll loans associated with this equipment will be lost.\n\nThis action cannot be undone.",
+        "description": ""
+      },
+      "search": {
+        "no_results": "No equipment found",
+        "placeholder": "Search equipment...",
+        "select": "Select Equipment"
+      }
+    },
+    "loan": {
+      "fields": {
+        "startDate": {
+          "label": "Loan Start",
+          "placeholder": "Select loan start date",
+          "error": "Loan start date is required"
+        },
+        "endDate": {
+          "label": "Loan End",
+          "placeholder": "Select loan end date"
+        }
+      },
+      "relationships": {
+        "employee": {
+          "error": "Employee is required",
+          "label": "Employee",
+          "placeholder": "Select Employee",
+          "list": "Loan related to Employee `{employeeName}`"
+        },
+        "equipment": {
+          "error": "Equipment is required",
+          "label": "Equipment",
+          "placeholder": "Select Equipment",
+          "list": "Loan related to Equipment `{equipmentName}`"
+        }
+      },
+      "delete": {
+        "title": "Remove Loan",
+        "subtitle": "Are you sure you want to remove this loan? All information related to this loan will be lost forever.\n\nThis action cannot be undone.",
+        "description": ""
+      },
+      "search": {
+        "no_results": "No loan found",
+        "placeholder": "Search Loan...",
+        "select": "Select Loan"
+      }
+    }
+  },
+  "foundations": {
+    "auth": {
+      "accept_invitation": "Accept Invitation",
+      "account_activated": "Account Activated",
+      "account_activated_description": "Your account is ready. Log in to access AssetTrack.",
+      "activation_description": "Your account has been successfully activated. You will be redirected to the login page shortly.",
+      "activation_wait": "Please wait while your account is being activated...",
+      "add_email_to_reset": "Please add your email to reset your password.",
+      "buttons": {
+        "forgot_password": "Forgot Password",
+        "login": "Login",
+        "logout": "Logout",
+        "register": "Register",
+        "reset_password": "Reset Password"
+      },
+      "errors": {
+        "activating_account": "An error occurred while activating your account.",
+        "gdpr_consent_required": "You must accept the privacy and data processing terms to proceed",
+        "invalid_invitation_code": "Invalid invitation code",
+        "invalid_password_reset_code": "Invalid password reset code",
+        "password_does_not_match": "Passwords do not match",
+        "password_invalid_format": "Password must contain at least one number and one special character (non-alphanumeric)",
+        "password_reset_error": "An error occurred while resetting your password.",
+        "password_retype_required": "Password confirmation is required",
+        "password_too_short": "Password must be at least 8 characters"
+      },
+      "fields": {
+        "retype_password": {
+          "error": "Password confirmation is required",
+          "error_not_match": "Passwords do not match",
+          "label": "Retype Password",
+          "placeholder": "Retype Password"
+        }
+      },
+      "forgot_password": "Forgot Password",
+      "gdpr_consent_text": "I accept the processing of my personal data according to the Privacy Policy (GDPR) and Terms of Service",
+      "login": "Login",
+      "login_description": "Log in to AssetTrack AI to manage your law firm.",
+      "password": "Password",
+      "password_reset": "Reset Password",
+      "register": "Register",
+      "register_confirmation": "Thank you for registering. Check your email for the confirmation link.",
+      "register_description": "Registering with AssetTrack creates a new company. If you wish to join an existing company, contact its administrators.",
+      "reset_confirmation": "If your email is registered in our system, you will receive an email with instructions to reset your password.",
+      "reset_password": "You can reset your account password from this page.",
+      "reset_success": "Password Reset Successful",
+      "reset_success_description": "Your password has been successfully reset. You will be redirected to the login page shortly.",
+      "select_password": "Please add your preferred password to access AssetTrack."
+    },
+    "company": {
+      "click_drag_logo": "Click or drag a logo to upload it",
+      "delete": {
+        "confirmation": "Please type the company name to confirm deletion",
+        "description": "Deleting this company will remove it from the system. All data for this company will be lost forever. This action cannot be undone. Are you sure you want to proceed?",
+        "subtitle": "Are you sure you want to delete this company?",
+        "title": "Delete Company"
+      },
+      "description": "Company overview and metrics",
+      "features_and_modules": "Features and Modules",
+      "fields": {
+        "available_tokens": {
+          "label": "Available Tokens",
+          "placeholder": "Enter available tokens for the company"
+        },
+        "codice_fiscale": {
+          "error": "Invalid Tax Code. Check the format and characters entered",
+          "label": "Tax Code",
+          "placeholder": "Enter Tax Code (16 characters)"
+        },
+        "name": {
+          "error": "Company name is required",
+          "label": "Company Name",
+          "placeholder": "Enter Company Name"
+        },
+        "partita_iva": {
+          "error": "Invalid VAT Number. Enter a valid 11-digit number",
+          "label": "VAT Number",
+          "placeholder": "Enter VAT Number (11 digits)"
+        }
+      }
+    },
+    "notification": {
+      "archived": "Archived",
+      "buttons": {
+        "archive": "Archive Notification"
+      },
+      "description": "Description",
+      "empty": "No notifications available",
+      "inbox": "Inbox"
+    },
+    "role": {
+      "add_to_user": {
+        "description": "Add user {name} to an existing role",
+        "label": "Add user to role",
+        "success": "User {userName} has been assigned the role of {roleName}"
+      },
+      "description": "System roles and permissions",
+      "fields": {
+        "description": {
+          "label": "Description"
+        }
+      },
+      "remove_user": {
+        "description_allowed": "Are you sure you want to remove the {role} role from {user}?",
+        "description_not_allowed": "You cannot remove the {role} role from user {user} because they are the only user in that role and this role needs at least one user!",
+        "subtitle_allowed": "Remove a role from a user",
+        "subtitle_not_allowed": "Cannot remove user from role",
+        "title": "Remove Role from User"
+      },
+      "roles": "{role, select, 2e1eee006cba45069059ccd24e4ea5b0 {System Administrator} other {N/A}}",
+      "roles_descriptions": "{role, select, 2e1eee006cba45069059ccd24e4ea5b0 {Has FULL ACCESS to law firm data and features.} other {N/A}}",
+      "search": {
+        "no_results": "Role not found",
+        "placeholder": "Search role...",
+        "select": "Select Role"
+      }
+    },
+    "user": {
+      "buttons": {
+        "add": "Add User",
+        "reactivate": "Reactivate User",
+        "resend_activation": "Resend Activation Email"
+      },
+      "delete": {
+        "description": "Deleting this user will remove their ability to access AssetTrack AI. All their knowledge will remain in the system.",
+        "subtitle": "Are you sure you want to delete this user?",
+        "title": "Delete User"
+      },
+      "deleted": "Deleted Users",
+      "description": "List of users in the law firm",
+      "fields": {
+        "bio": {
+          "label": "Bio",
+          "placeholder": "Enter user bio"
+        },
+        "email": {
+          "error": "Email is required",
+          "label": "Email",
+          "placeholder": "Enter Email"
+        },
+        "name": {
+          "error": "Name is required",
+          "label": "Name",
+          "placeholder": "Enter Name"
+        },
+        "password": {
+          "error": "Password is required",
+          "label": "Password",
+          "placeholder": "Enter Password"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter user phone number"
+        },
+        "title": {
+          "label": "Title",
+          "placeholder": "Enter user Title"
+        }
+      },
+      "reactivate": {
+        "description": "Are you sure you want to reactivate {name}'s account? The user will be able to access AssetTrack again.",
+        "subtitle": "Are you sure you want to reactivate this user?",
+        "title": "Reactivate User"
+      },
+      "resend_activation": {
+        "description": "Are you sure you want to resend the activation email to {email}?",
+        "email_sent": "Email Sent",
+        "email_sent_description": "The activation email has been sent to {email}",
+        "subtitle": "Are you sure you want to resend the activation email to this user?",
+        "title": "Resend Activation Email"
+      },
+      "search": {
+        "no_results": "No user found",
+        "placeholder": "Search user...",
+        "select": "Select User"
+      },
+      "send_activation_email": "Send Activation Email"
+    }
+  },
+  "generic": {
+    "actions": {
+      "back": "Back",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "create": "Create",
+      "update": "Update"
+    },
+    "blocknote": {
+      "placeholder": "Enter text or type '/' for commands"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm_create": "Create",
+      "confirm_delete": "Confirm Deletion",
+      "confirm_update": "Update",
+      "create": "Create New",
+      "delete": "Delete",
+      "delete_selected": "Delete Selected",
+      "download": "Download",
+      "edit": "Edit",
+      "load_more": "Load More",
+      "remove": "Remove",
+      "select_all": "Select All"
+    },
+    "date": {
+      "create": "Creation",
+      "update": "Last Update"
+    },
+    "description": "AssetTrack is a platform for managing company assets assigned to employees.",
+    "edit": {
+      "create": {
+        "description": "Create a new {type}",
+        "title": "New {type}"
+      },
+      "update": {
+        "description": "Edit existing {type} details {name}",
+        "title": "Edit {type}"
+      }
+    },
+    "errors": {
+      "create": "Creation Error",
+      "delete": "Deletion Error",
+      "error": "Error",
+      "feature_not_available": "This feature is not available in your plan. Contact your administrator to upgrade the plan.",
+      "file": "File Error",
+      "file_large": "The file appears to be too large",
+      "file_max": "The file is too large. Maximum size is {size}MB",
+      "file_no_select": "No file selected",
+      "invalid_email": "Invalid email address",
+      "missing_company_name": "Law firm name is required",
+      "missing_name": "Name is required",
+      "no_result_found": "No results found",
+      "update": "Update Error",
+      "upload": "Upload Error",
+      "upload_description": "An error occurred while uploading the file. Please try again.",
+      "upload_title": "Upload Error",
+      "valid_url": "Please enter a valid URL"
+    },
+    "global_search": {
+      "button": "Search ⌘J",
+      "no_results": "No results found",
+      "placeholder": "Search...",
+      "recent_searches": "Recent Searches",
+      "searching": "Searching..."
+    },
+    "hide_password": "Hide Password",
+    "home": "Home Page",
+    "last_updated": "Last Updated",
+    "my_profile": "My Profile",
+    "navigation": "Navigation",
+    "no_data_found": "No data found",
+    "not_active": "Not Active",
+    "organisation": "Organisation",
+    "pick_date": "Pick a date",
+    "recent_pages": "Recent Pages",
+    "relevance": "Relevance",
+    "search": "Search...",
+    "sidebar": "{name, select, crm {Customer Relationships Management} other {N/A}}",
+    "settings": "Settings",
+    "settings_sidebar": "{item, select, crm {Customer Relationship Management} other {N/A}}",
+    "show_password": "Show Password",
+    "status": "Status",
+    "title": "AssetTrack"
+  },
+  "types": {
+    "companies": "{count, plural, =1 {Company} other {Companies}}",
+    "employees": "{count, plural, =1 {Employee} other {Employees}}",
+    "equipments": "{count, plural, =1 {Equipment} other {Equipments}}",
+    "loans": "{count, plural, =1 {Loan} other {Loans}}",
+    "notifications": "{count, plural, =1 {Notification} other {Notifications}}",
+    "roles": "{count, plural, =1 {System Role} other {System Roles}}",
+    "suppliers": "{count, plural, =1 {Supplier} other {Suppliers}}",
+    "users": "{count, plural, =1 {User} other {Users}}"
+  }
+}

@@ -4,7 +4,7 @@
     "moduleName": "Loan",
     "endpointName": "loans",
     "targetDir": "features",
-    "languages": ["it"],
+    "languages": ["it", "en"],
     "fields": [
       {
         "name": "startDate",

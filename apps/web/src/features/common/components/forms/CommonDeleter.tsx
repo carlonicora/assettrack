@@ -9,6 +9,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import ReactMarkdownContainer from "@/features/common/components/containers/ReactMarkdownContainer";
 import { errorToast } from "@/features/common/components/errors/errorToast";
 
 import { useRouter } from "@/i18n/routing";
@@ -63,9 +64,11 @@ export default function CommonDeleter({
       <AlertDialogContent className={`flex max-h-[70vh] max-w-3xl flex-col overflow-y-auto`}>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{subtitle}</AlertDialogDescription>
+          <AlertDialogDescription asChild>
+            <ReactMarkdownContainer content={subtitle} className="text-muted-foreground text-sm" />
+          </AlertDialogDescription>
         </AlertDialogHeader>
-        {description}
+        <ReactMarkdownContainer content={description} />
         <div className="flex justify-end">
           <Button
             className="mr-2"
