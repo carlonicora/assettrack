@@ -104,6 +104,7 @@ export default function SupplierEditor({ supplier, propagateChanges }: SupplierE
                 id="name"
                 name={t(`features.supplier.fields.name.label`)}
                 placeholder={t(`features.supplier.fields.name.placeholder`)}
+                isRequired
               />
               <FormInput
                 form={form}

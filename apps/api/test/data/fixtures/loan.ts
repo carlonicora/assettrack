@@ -4,7 +4,7 @@ import { EQUIPMENTS } from "test/data/fixtures/equipment";
 
 export const LOANS = {
   CompanyOne_Full: {
-    id: "382f3c5b-2246-4640-b465-c9be0676b31b",
+    id: "52ed2ec7-2d46-4501-b334-90f7875517f4",
     company: COMPANIES.CompanyOne,
     employee: EMPLOYEES.CompanyOne_Full,
     equipment: EQUIPMENTS.CompanyOne_Full,
@@ -13,7 +13,7 @@ export const LOANS = {
     endDate: new Date('2024-01-01T00:00:00.000Z'),
   },
   CompanyOne_Nullable: {
-    id: "d6212e13-c72a-4484-b4bd-79cb5b7a1e9b",
+    id: "97034800-db17-4b8c-b6fe-df11a483b65a",
     company: COMPANIES.CompanyOne,
     employee: EMPLOYEES.CompanyOne_Nullable,
     equipment: EQUIPMENTS.CompanyOne_Nullable,
@@ -22,7 +22,7 @@ export const LOANS = {
     endDate: new Date('2024-01-02T00:00:00.000Z'),
   },
   CompanyOne_Minimal: {
-    id: "b95132ac-72c1-4ab1-b2f9-703d9567910c",
+    id: "8e2184fd-a216-4924-ba47-ebfce2b5dd0f",
     company: COMPANIES.CompanyOne,
     employee: EMPLOYEES.CompanyOne_Minimal,
     equipment: EQUIPMENTS.CompanyOne_Minimal,
@@ -31,7 +31,7 @@ export const LOANS = {
     endDate: new Date('2024-01-03T00:00:00.000Z'),
   },
   CompanyTwo_Full: {
-    id: "8ef2c3af-38df-4499-905b-4c4859fc1f9f",
+    id: "0cec1887-087d-4d98-925f-5e8f51aad349",
     company: COMPANIES.CompanyTwo,
     employee: EMPLOYEES.CompanyTwo_Full,
     equipment: EQUIPMENTS.CompanyTwo_Full,
@@ -40,7 +40,7 @@ export const LOANS = {
     endDate: new Date('2024-02-01T00:00:00.000Z'),
   },
   CompanyTwo_Nullable: {
-    id: "b7f5b8e2-1b2a-4a02-8eb1-ab49ba37281d",
+    id: "34ceb461-a477-4f59-aad2-29c7a0e73f53",
     company: COMPANIES.CompanyTwo,
     employee: EMPLOYEES.CompanyTwo_Nullable,
     equipment: EQUIPMENTS.CompanyTwo_Nullable,
@@ -49,7 +49,7 @@ export const LOANS = {
     endDate: new Date('2024-02-02T00:00:00.000Z'),
   },
   CompanyTwo_Minimal: {
-    id: "87f5151a-7a07-45f2-906b-b9ad2817123a",
+    id: "2eaf923d-7925-42b3-9fe2-db8690512e5d",
     company: COMPANIES.CompanyTwo,
     employee: EMPLOYEES.CompanyTwo_Minimal,
     equipment: EQUIPMENTS.CompanyTwo_Minimal,

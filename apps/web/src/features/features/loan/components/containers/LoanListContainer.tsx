@@ -1,7 +1,6 @@
 "use client";
 
 import LoanList from "@/features/features/loan/components/lists/LoanList";
-import { LoanInterface } from "@/features/features/loan/data/LoanInterface";
 
 import { Modules } from "@/modules/modules";
 import { Action } from "@/permisions/types";

@@ -143,4 +143,19 @@ export const migration: MigrationInterface[] = [
       ]),
     },
   },
+  {
+    query: moduleQuery,
+    queryParams: {
+      moduleName: "Loan",
+      moduleId: "fa40cf09-63ec-4da1-be30-dc4c7a667954",
+      featureId: null,
+      isCore: true,
+      permissions: JSON.stringify([
+        { type: Action.Create, value: true },
+        { type: Action.Read, value: true },
+        { type: Action.Update, value: true },
+        { type: Action.Delete, value: true },
+      ]),
+    },
+  },
 ];

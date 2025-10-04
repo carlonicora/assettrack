@@ -7,7 +7,7 @@ export const LoanModule = (factory: FactoryType) =>
     pageUrl: "/loans",
     name: "loans",
     model: Loan,
-    moduleId: "",
+    moduleId: "fa40cf09-63ec-4da1-be30-dc4c7a667954",
     inclusions: {
       lists: {
         fields: [createJsonApiInclusion("loans", [`name`,`startDate`,`endDate`])],
