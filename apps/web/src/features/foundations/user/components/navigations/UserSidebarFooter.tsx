@@ -2,11 +2,16 @@
 import { Link } from "@/components/custom-ui/link";
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
@@ -16,10 +21,11 @@ import { RoleInterface } from "@/features/foundations/role/data/RoleInterface";
 import UserAvatar from "@/features/foundations/user/components/widgets/UserAvatar";
 import { useCurrentUserContext } from "@/features/foundations/user/contexts/CurrentUserContext";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { Modules } from "@/modules/modules";
 import { AuthRole } from "@/permisions/enums/AuthRole";
 import { ChevronsUpDown, LogOut, UserIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type UserSidebarFooterProps = {
   notificationModalOpen: boolean;
@@ -31,9 +37,20 @@ export default function UserSidebarFooter({ notificationModalOpen, setNotificati
   const { isMobile } = useSidebar();
   const generateUrl = usePageUrlGenerator();
   const t = useTranslations();
+  const currentLocale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const logOut = async () => {
     window.location.href = generateUrl({ page: `/logout` });
+  };
+
+  const availableLanguages = t.raw("generic.languages" as any) as Record<string, string>;
+
+  const switchLanguage = (locale: string) => {
+    if (locale !== currentLocale) {
+      router.replace(pathname, { locale });
+    }
   };
 
   return (
@@ -75,6 +92,25 @@ export default function UserSidebarFooter({ notificationModalOpen, setNotificati
                 <DropdownMenuItem>
                   <VersionDisplay />
                 </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>{t(`generic.language`)}</DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      {Object.entries(availableLanguages).map(([locale, label]) => (
+                        <DropdownMenuCheckboxItem
+                          key={locale}
+                          checked={currentLocale === locale}
+                          onCheckedChange={() => switchLanguage(locale)}
+                        >
+                          {label}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
