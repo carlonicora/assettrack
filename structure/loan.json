@@ -1,0 +1,44 @@
+[
+  {
+    "moduleId": "",
+    "moduleName": "Loan",
+    "endpointName": "loans",
+    "targetDir": "features",
+    "languages": ["it"],
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": false
+      },
+      {
+        "name": "startDate",
+        "type": "Date",
+        "nullable": false
+      },
+      {
+        "name": "endDate",
+        "type": "Date",
+        "nullable": false
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Employee",
+        "directory": "features",
+        "single": true,
+        "relationshipName": "RECEIVES",
+        "toNode": false,
+        "nullable": false
+      },
+      {
+        "name": "Equipment",
+        "directory": "features",
+        "single": true,
+        "relationshipName": "LOANED_THROUGH",
+        "toNode": false,
+        "nullable": false
+      }
+    ]
+  }
+]

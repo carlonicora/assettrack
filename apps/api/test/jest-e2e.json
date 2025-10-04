@@ -1,0 +1,46 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "rootDir": "..",
+  "testRegex": "test/.*\\.spec\\.ts$",
+  "transform": {
+    "^.+\\.ts$": [
+      "ts-jest",
+      {
+        "tsconfig": {
+          "baseUrl": ".",
+          "paths": {
+            "src/*": ["src/*"]
+          }
+        }
+      }
+    ]
+  },
+  "collectCoverageFrom": ["src/**/*.(t|j)s"],
+  "coverageDirectory": "./coverage",
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1",
+    "^marked$": "<rootDir>/test/__mocks__/marked-mock.js"
+  },
+  "moduleDirectories": ["node_modules", "<rootDir>"],
+  "globalSetup": "<rootDir>/test/setup/global-setup.ts",
+  "globalTeardown": "<rootDir>/test/setup/global-teardown.ts",
+  "setupFilesAfterEnv": ["<rootDir>/test/setup/module-isolation.ts"],
+  "testTimeout": 120000,
+  "maxWorkers": 1,
+  "forceExit": true,
+  "detectOpenHandles": true,
+  "verbose": false,
+  "silent": false,
+  "errorOnDeprecated": false,
+  "reporters": [
+    [
+      "default",
+      {
+        "summaryThreshold": 0
+      }
+    ]
+  ],
+  "testSequencer": "<rootDir>/test/setup/test-sequencer.js"
+}

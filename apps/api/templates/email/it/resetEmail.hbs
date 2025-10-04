@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resetta la password di AssetTrack</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, sans-serif;">
+    <div style="width:100%; padding:20px; background-color:#f4f4f4;">
+      <div style="max-width:600px; margin:0 auto; background-color:#ffffff; padding:40px; border-radius:8px; text-align:center; border:1px solid #5d80ab;">
+        {{> header}}
+        <div style="text-align:left;">
+          <div style="font-size:24px; color:#5d80ab; margin-bottom:20px;">Resetta la tua password di AssetTrack</div>
+          <div style="font-size:16px; color:#555555; margin-bottom:30px; line-height:1.5; text-align:left;">
+            <p style="margin:0;">Ciao!</p>
+            <p style="margin:0;">Abbiamo ricevuto una richiesta per reimpostare la tua password. Fai clic sul pulsante o sul link sottostante per reimpostare la tua password</p>
+            <p style="margin:0; margin-top: 10px;">
+              <strong>
+                <a href="{{resetLink}}" style="color:#5d80ab; text-decoration:none;">{{resetLink}}</a>
+              </strong>
+            </p>
+            <p style="margin:0; margin-top: 10px;">Se non hai richiesto la reimpostazione della tua password, non preoccuparti, non cambieremo la tua password e puoi ignorare questa email.</p>
+            <p style="margin:0; margin-top: 10px;">Il link di reimpostazione è valido fino al {{expirationDate}} alle {{expirationTime}}.</p>
+            <p style="margin:0;">Grazie</p>
+          </div>
+          <div style="text-align:center; margin-bottom:20px;margin-top:75px;">
+            <a href="{{resetLink}}" style="display:inline-block; padding:12px 24px; font-size:16px; color:#ffffff; background-color:#5d80ab; text-decoration:none; border-radius:4px;">Resetta la tua password</a>
+          </div>
+        </div>
+        {{> footer}}
+      </div>
+    </div>
+  </body>
+</html>

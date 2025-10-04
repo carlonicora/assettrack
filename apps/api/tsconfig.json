@@ -1,0 +1,33 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "composite": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2021",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "importHelpers": true,
+    // Override strict settings for API (keeping existing behavior)
+    "strict": false,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "alwaysStrict": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "paths": {
+      "@assettrack/shared": ["../../packages/shared/src"],
+      "@assettrack/shared/*": ["../../packages/shared/src/*"],
+      "src/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*", "test/**/*", "templates"],
+  "exclude": ["dist", "node_modules"]
+}

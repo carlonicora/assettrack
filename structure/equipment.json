@@ -1,0 +1,46 @@
+[
+  {
+    "moduleId": "8e5d7513-58a0-40c6-83d1-4a3bf7744853",
+    "moduleName": "Equipment",
+    "endpointName": "equipments",
+    "targetDir": "features",
+    "languages": ["it"],
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": false
+      },
+      {
+        "name": "barcode",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "startDate",
+        "type": "Date",
+        "nullable": false
+      },
+      {
+        "name": "endDate",
+        "type": "Date",
+        "nullable": false
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Supplier",
+        "directory": "features",
+        "single": true,
+        "relationshipName": "SUPPLIES",
+        "toNode": false,
+        "nullable": false
+      }
+    ]
+  }
+]

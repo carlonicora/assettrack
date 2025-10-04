@@ -1,0 +1,32 @@
+# Development Dockerfile for Web
+FROM node:22-alpine
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.18.0 --activate
+
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 py3-pip make g++ cairo-dev jpeg-dev pango-dev giflib-dev
+
+WORKDIR /app
+
+# Copy workspace configuration files
+COPY ../package.json ../pnpm-lock.yaml ../pnpm-workspace.yaml /app/
+COPY ../packages/shared/package.json /app/packages/shared/
+
+# Copy Web package.json
+COPY ./package.json /app/web/
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source files
+COPY . /app/web/
+COPY ../packages/shared /app/packages/shared/
+
+WORKDIR /app/web
+
+# Expose port
+EXPOSE 3191
+
+# Default command (will be overridden by docker-compose)
+CMD ["npm", "run", "dev"]

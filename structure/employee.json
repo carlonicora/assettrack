@@ -1,0 +1,31 @@
+[
+  {
+    "moduleId": "ce64ac33-8d42-4178-97ec-902979cd461a",
+    "moduleName": "Employee",
+    "endpointName": "employees",
+    "targetDir": "features",
+    "languages": ["it"],
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": false
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "avatar",
+        "type": "string",
+        "nullable": true
+      }
+    ]
+  }
+]

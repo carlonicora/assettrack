@@ -1,0 +1,320 @@
+import { HttpException, HttpStatus, Injectable, OnModuleInit } from "@nestjs/common";
+import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.cursor.interface";
+import { Neo4jService } from "src/core/neo4j/services/neo4j.service";
+import { SecurityService } from "src/core/security/services/security.service";
+import { Equipment } from "src/features/equipment/entities/equipment.entity";
+import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
+import { EquipmentCypherService } from "src/features/equipment/services/equipment.cypher.service";
+import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
+import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
+import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
+
+@Injectable()
+export class EquipmentRepository implements OnModuleInit {
+  constructor(
+    private readonly neo4j: Neo4jService,
+    private readonly equipmentCypherService: EquipmentCypherService,
+    private readonly securityService: SecurityService,
+  ) {}
+
+  async onModuleInit() {
+    await this.neo4j.writeOne({
+      query: `CREATE CONSTRAINT ${equipmentMeta.nodeName}_id IF NOT EXISTS FOR (${equipmentMeta.nodeName}:${equipmentMeta.labelName}) REQUIRE ${equipmentMeta.nodeName}.id IS UNIQUE`,
+    });
+
+    const indexName = "equipment_search_index";
+    const expectedProperties = ["name","barcode","description",];
+
+    const result = await this.neo4j.read(
+      `
+    SHOW INDEXES
+    YIELD name, type, entityType, labelsOrTypes, properties
+    WHERE name = $indexName AND type = 'FULLTEXT' AND entityType = 'NODE'
+    RETURN labelsOrTypes AS labels, properties
+  `,
+      { indexName },
+    );
+
+    const match = result.records[0];
+    const labels = match?.get("labels") ?? [];
+    const properties = match?.get("properties") ?? [];
+
+    const arraysEqual = (a, b) => a.length === b.length && a.every((val) => b.includes(val));
+
+    if (!match || !arraysEqual(labels, [equipmentMeta.labelName]) || !arraysEqual(properties, expectedProperties)) {
+      await this.neo4j.writeOne({
+        query: `
+          CREATE FULLTEXT INDEX \`${indexName}\` IF NOT EXISTS
+          FOR (n:${[equipmentMeta.labelName].map((l) => `\`${l}\``).join(" | ")})
+          ON EACH [${expectedProperties.map((p) => `n.\`${p}\``).join(", ")}]
+        `,
+        queryParams: {},
+      });
+    }
+  }
+
+  private async _validateForbidden(params: {
+    response: Equipment | null;
+    searchField: string;
+    searchValue: string;
+  }): Promise<Equipment | null> {
+    if (params.response) return params.response;
+
+    const existsQuery = this.neo4j.initQuery({ serialiser: EquipmentModel });
+    existsQuery.queryParams = { companyId: null, currentUserId: null, searchValue: params.searchValue };
+    existsQuery.query = `
+      ${this.equipmentCypherService.default({ searchField: "id", blockCompanyAndUser: true })}
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+    const exists = await this.neo4j.readOne(existsQuery);
+
+    if (exists) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
+  }
+
+  async find(params: { 
+    fetchAll?: boolean; 
+    term?: string; 
+    orderBy?: string;
+    cursor?: JsonApiCursorInterface
+  }): Promise<Equipment[]> {
+    const query = this.neo4j.initQuery({
+      cursor: params.cursor,
+      serialiser: EquipmentModel,
+      fetchAll: params.fetchAll,
+    });
+
+    query.queryParams = {
+      ...query.queryParams,
+      term: params.term,
+    };
+
+    if (params.term) {
+      query.query += `CALL db.index.fulltext.queryNodes("equipment_search_index", $term)
+      YIELD node, score
+      WHERE (node)-[:BELONGS_TO]->(company)
+
+      WITH node as equipment, score
+      ORDER BY score DESC
+    `;
+    } else {
+      query.query += `
+      ${this.equipmentCypherService.default()}
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      
+      ORDER BY ${equipmentMeta.nodeName}.${params.orderBy ? `${params.orderBy}` : `updatedAt DESC`}
+    `;
+    }
+
+    query.query += `
+      {CURSOR}
+
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+
+  async findById(params: { id: string }): Promise<Equipment> {
+    const query = this.neo4j.initQuery({ serialiser: EquipmentModel });
+
+    query.queryParams = {
+      ...query.queryParams,
+      searchValue: params.id,
+    };
+
+    query.query += `
+      ${this.equipmentCypherService.default({ searchField: "id" })}
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this._validateForbidden({
+      response: await this.neo4j.readOne(query),
+      searchField: "id",
+      searchValue: params.id,
+    });
+  }
+
+  async create(params: {
+    id: string;
+    name: string;
+    barcode?: string;
+    description?: string;
+    startDate: Date;
+    endDate: Date;
+    supplierIds: string;
+  }): Promise<void> {
+    const query = this.neo4j.initQuery();
+
+    await this.neo4j.validateExistingNodes({
+      nodes: [
+        { id: params.supplierIds, label: supplierMeta.labelName },
+      ],
+    });
+
+    query.queryParams = {
+      ...query.queryParams,
+      id: params.id,
+      name: params.name,
+      barcode: params.barcode ?? "",
+      description: params.description ?? "",
+      startDate: params.startDate,
+      endDate: params.endDate,
+      supplierIds: [params.supplierIds],
+    };
+
+    query.query += `
+      CREATE (equipment:Equipment {
+        id: $id,
+        name: $name,
+        barcode: $barcode,
+        description: $description,
+        startDate: $startDate,
+        endDate: $endDate,
+        createdAt: datetime(),
+        updatedAt: datetime()
+      })
+      CREATE (equipment)-[:BELONGS_TO]->(company)
+    `;
+
+    const relationships = [
+      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false }
+    ];
+
+    relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
+      query.query += updateRelationshipQuery({
+        node: equipmentMeta.nodeName,
+        relationshipName: relationshipName,
+        relationshipToNode: relationshipToNode,
+        label: label,
+        param: param,
+        values: params[param],
+      });
+    });
+
+    await this.neo4j.writeOne(query);
+  }
+
+  async put(params: {
+    id: string;
+    name: string;
+    barcode?: string;
+    description?: string;
+    startDate: Date;
+    endDate: Date;
+    supplierIds: string;
+  }): Promise<void> {
+    const query = this.neo4j.initQuery();
+
+    await this.neo4j.validateExistingNodes({
+      nodes: [
+        { id: params.supplierIds, label: supplierMeta.labelName },
+      ],
+    });
+
+    query.queryParams = {
+      ...query.queryParams,
+      id: params.id,
+      name: params.name ?? "",
+      barcode: params.barcode ?? "",
+      description: params.description ?? "",
+      startDate: params.startDate ?? "",
+      endDate: params.endDate ?? "",
+      supplierIds: [params.supplierIds],
+    };
+
+    const setParams: string[] = [];
+    setParams.push("equipment.name = $name");
+    setParams.push("equipment.barcode = $barcode");
+    setParams.push("equipment.description = $description");
+    setParams.push("equipment.startDate = $startDate");
+    setParams.push("equipment.endDate = $endDate");
+    const set = setParams.join(", ");
+
+    query.query += `
+      MATCH (equipment:Equipment {id: $id})-[:BELONGS_TO]->(company)
+      SET equipment.updatedAt = datetime(),
+      ${set}
+    `;
+
+    const relationships = [
+      { relationshipName: "SUPPLIES", param: "supplierIds", label: supplierMeta.labelName, relationshipToNode: false }
+    ];
+
+    relationships.forEach(({ relationshipName, param, label, relationshipToNode }) => {
+      query.query += updateRelationshipQuery({
+        node: equipmentMeta.nodeName,
+        relationshipName: relationshipName,
+        relationshipToNode: relationshipToNode,
+        label: label,
+        param: param,
+        values: params[param] ? (Array.isArray(params[param]) ? params[param] : [params[param]]) : [],
+      });
+    });
+
+    await this.neo4j.writeOne(query);
+  }
+
+  async delete(params: { id: string }): Promise<void> {
+    const query = this.neo4j.initQuery();
+
+    query.queryParams = {
+      ...query.queryParams,
+      id: params.id,
+    };
+
+    query.query += `
+      MATCH (equipment:Equipment {id: $id})-[:BELONGS_TO]->(company)
+      DETACH DELETE equipment;
+    `;
+
+    await this.neo4j.writeOne(query);
+  }
+
+  async findBySupplier(params: {
+    supplierId: string, 
+    term?: string;
+    orderBy?: string;
+    fetchAll?: boolean;
+    cursor?: JsonApiCursorInterface;
+  }) {
+    const query = this.neo4j.initQuery({ 
+      serialiser: EquipmentModel,
+      cursor: params.cursor,
+      fetchAll: params.fetchAll,
+     });
+
+    query.queryParams = {
+      ...query.queryParams,
+      supplierId: params.supplierId,
+      term: params.term,
+    };
+
+    if (params.term) {
+      query.query += `
+        CALL db.index.fulltext.queryNodes("equipment_search_index", $term)
+        YIELD node, score
+        WHERE (node)-[:BELONGS_TO]->(company)
+
+        WITH node as ${equipmentMeta.nodeName}, score
+        ORDER BY score DESC
+      `;
+    } else {
+      query.query += `
+      ${this.equipmentCypherService.default()}
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      
+      ORDER BY ${equipmentMeta.nodeName}.${params.orderBy ? `${params.orderBy}` : `updatedAt DESC`}
+    `;
+    }
+
+    query.query += `
+      MATCH (${equipmentMeta.nodeName})<-[:SUPPLIES]-(:${supplierMeta.labelName} {id: $supplierId})
+      {CURSOR}
+
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+}

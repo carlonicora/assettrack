@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # Neo4j database
+  neo4j:
+    image: neo4j:5-community
+    container_name: assettrack-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/password123
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4JLABS_PLUGINS=["apoc"]
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    networks:
+      - assettrack-network
+
+  # Redis cache and queue
+  redis:
+    image: redis:7-alpine
+    container_name: assettrack-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - assettrack-network
+
+  # API server
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    container_name: assettrack-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - NEO4J_URI=neo4j://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password123
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./apps/api/src:/app/src
+      - ./packages/shared:/app/packages/shared
+    depends_on:
+      - neo4j
+      - redis
+    networks:
+      - assettrack-network
+    command: npm run dev
+
+  # Worker process
+  worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    container_name: assettrack-worker
+    environment:
+      - NODE_ENV=development
+      - NEO4J_URI=neo4j://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password123
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./apps/api/src:/app/src
+      - ./packages/shared:/app/packages/shared
+    depends_on:
+      - neo4j
+      - redis
+    networks:
+      - assettrack-network
+    command: npm run start:worker:dev
+
+  # Web application
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile.dev
+    container_name: assettrack-web
+    ports:
+      - "3191:3191"
+    environment:
+      - NODE_ENV=development
+      - PORT=3191
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+    volumes:
+      - ./apps/web/src:/app/src
+      - ./apps/web/public:/app/public
+      - ./packages/shared:/app/packages/shared
+    depends_on:
+      - api
+    networks:
+      - assettrack-network
+    command: npm run dev
+
+networks:
+  assettrack-network:
+    driver: bridge
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  redis_data:

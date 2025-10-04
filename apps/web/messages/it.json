@@ -1,0 +1,419 @@
+{
+  "features": {
+    "supplier": {
+      "fields": {
+        "name": {
+          "label": "name",
+          "placeholder": "name",
+          "error": "name"
+        },
+        "address": {
+          "label": "address",
+          "placeholder": "address",
+          "error": "address"
+        },
+        "email": {
+          "label": "email",
+          "placeholder": "email",
+          "error": "email"
+        },
+        "phone": {
+          "label": "phone",
+          "placeholder": "phone",
+          "error": "phone"
+        }
+      },
+      "delete": {
+        "title": "Supplier",
+        "subtitle": "supplier?",
+        "description": "supplier"
+      }
+    },
+    "employee": {
+      "fields": {
+        "name": {
+          "label": "name",
+          "placeholder": "name",
+          "error": "name"
+        },
+        "phone": {
+          "label": "phone",
+          "placeholder": "phone",
+          "error": "phone"
+        },
+        "email": {
+          "label": "email",
+          "placeholder": "email",
+          "error": "email"
+        },
+        "avatar": {
+          "label": "avatar",
+          "placeholder": "avatar",
+          "error": "avatar"
+        }
+      },
+      "delete": {
+        "title": "Employee",
+        "subtitle": "employee?",
+        "description": "employee"
+      }
+    },
+    "equipment": {
+      "fields": {
+        "name": {
+          "label": "name",
+          "placeholder": "name",
+          "error": "name"
+        },
+        "barcode": {
+          "label": "barcode",
+          "placeholder": "barcode",
+          "error": "barcode"
+        },
+        "description": {
+          "label": "description",
+          "placeholder": "description",
+          "error": "description"
+        },
+        "startDate": {
+          "label": "startDate",
+          "placeholder": "startDate",
+          "error": "startDate"
+        },
+        "endDate": {
+          "label": "endDate",
+          "placeholder": "endDate",
+          "error": "endDate"
+        }
+      },
+      "relationships": {
+        "supplier": {
+          "error": "Supplier is required",
+          "label": "Supplier",
+          "placeholder": "Select Supplier",
+          "list": "Equipment related to Supplier {supplierName}"
+        }
+      },
+      "delete": {
+        "title": "Equipment",
+        "subtitle": "equipment?",
+        "description": "equipment"
+      }
+    },
+    "loan": {
+      "fields": {
+        "name": {
+          "label": "name",
+          "placeholder": "name",
+          "error": "name"
+        },
+        "startDate": {
+          "label": "startDate",
+          "placeholder": "startDate",
+          "error": "startDate"
+        },
+        "endDate": {
+          "label": "endDate",
+          "placeholder": "endDate",
+          "error": "endDate"
+        }
+      },
+      "relationships": {
+        "employee": {
+          "error": "Employee is required",
+          "label": "Employee",
+          "placeholder": "Select Employee",
+          "list": "Loan related to Employee {employeeName}"
+        },
+        "equipment": {
+          "error": "Equipment is required",
+          "label": "Equipment",
+          "placeholder": "Select Equipment",
+          "list": "Loan related to Equipment {equipmentName}"
+        }
+      },
+      "delete": {
+        "title": "Loan",
+        "subtitle": "loan?",
+        "description": "loan"
+      }
+    }
+  },
+  "foundations": {
+    "auth": {
+      "accept_invitation": "Accetta Invito",
+      "account_activated": "Account Attivato",
+      "account_activated_description": "Il tuo account è pronto. Accedi per accedere ad AssetTrack AI.",
+      "activation_description": "Il tuo account è stato attivato con successo. Verrai reindirizzato alla pagina di accesso a breve.",
+      "activation_wait": "Attendere mentre il tuo account viene attivato...",
+      "add_email_to_reset": "Si prega di aggiungere la propria email per reimpostare la password.",
+      "buttons": {
+        "continue_with_google": "Continua con Google",
+        "forgot_password": "Password Dimenticata",
+        "login": "Accedi",
+        "logout": "Esci",
+        "register": "Registrati",
+        "reset_password": "Reimposta Password"
+      },
+      "errors": {
+        "activating_account": "Si è verificato un errore durante l'attivazione del tuo account.",
+        "gdpr_consent_required": "È necessario accettare i termini per la privacy e il trattamento dei dati per procedere",
+        "invalid_invitation_code": "Codice di invito non valido",
+        "invalid_password_reset_code": "Codice di reimpostazione della password non valido",
+        "password_does_not_match": "Le password non corrispondono",
+        "password_invalid_format": "La password deve contenere almeno un numero e un carattere speciale (non alfanumerico)",
+        "password_reset_error": "Si è verificato un errore durante la reimpostazione della password.",
+        "password_retype_required": "È richiesta la reimpostazione della password",
+        "password_too_short": "La password deve avere almeno 8 caratteri"
+      },
+      "fields": {
+        "retype_password": {
+          "error": "È richiesta la reimpostazione della password",
+          "error_not_match": "Le password non corrispondono",
+          "label": "Ripeti Password",
+          "placeholder": "Ripeti Password"
+        }
+      },
+      "forgot_password": "Password Dimenticata",
+      "gdpr_consent_text": "Accetto il trattamento dei miei dati personali secondo la Normativa sulla Privacy (GDPR) e i Termini di Servizio",
+      "login": "Accedi",
+      "login_description": "Accedi ad AssetTrack AI per gestire il tuo studio legale.",
+      "password": "Password",
+      "password_reset": "Reimposta Password",
+      "register": "Registrati",
+      "register_confirmation": "Grazie per esserti registrato. Controlla la tua email per il link di conferma.",
+      "register_description": "Registrarsi ad AssetTrack AI crea un nuovo studio legale. Se desideri unirti ad un studio legale esistente, contatta gli amministratori dello studio legale.",
+      "reset_confirmation": "Se la tua email è registrata nel nostro sistema, riceverai un'email con le istruzioni per reimpostare la tua password.",
+      "reset_password": "Puoi reimpostare la password del tuo account da questa pagina.",
+      "reset_success": "Reimpostazione della Password Riuscita",
+      "reset_success_description": "La tua password è stata reimpostata con successo. Verrai reindirizzato alla pagina di accesso a breve.",
+      "select_password": "Si prega di aggiungere la propria password preferita per accedere ad AssetTrack AI."
+    },
+    "company": {
+      "click_drag_logo": "Clicca o trascina un logo per caricarlo",
+      "delete": {
+        "confirmation": "Si prega di digitare il nome dello studio legale per confermare l'eliminazione",
+        "description": "Eliminando questo studio legale verrà rimosso dal sistema. Tutti i dati di questo studio legale andranno persi per sempre. Questa azione non può essere annullata. Sei sicuro di voler procedere?",
+        "subtitle": "Sei sicuro di voler eliminare questo studio legale?",
+        "title": "Elimina Studio Legale"
+      },
+      "description": "Panoramica e metriche dello studio legale",
+      "features_and_modules": "Funzionalità e Moduli",
+      "fields": {
+        "available_tokens": {
+          "label": "Token Disponibili",
+          "placeholder": "Inserisci i token disponibili per lo studio legale"
+        },
+        "codice_fiscale": {
+          "error": "Codice Fiscale non valido. Verifica il formato e i caratteri inseriti",
+          "label": "Codice Fiscale",
+          "placeholder": "Inserisci il Codice Fiscale (16 caratteri)"
+        },
+        "name": {
+          "error": "Il nome dello studio legale è obbligatorio",
+          "label": "Nome Studio Legale",
+          "placeholder": "Inserisci il Nome dello Studio Legale"
+        },
+        "partita_iva": {
+          "error": "Partita IVA non valida. Inserisci un numero di 11 cifre valido",
+          "label": "Partita IVA",
+          "placeholder": "Inserisci la Partita IVA (11 cifre)"
+        }
+      }
+    },
+    "notification": {
+      "archived": "Archiviato",
+      "buttons": {
+        "archive": "Archivia Notifica"
+      },
+      "description": "Descrizione",
+      "empty": "Nessuna notifica disponibile",
+      "inbox": "Inbox"
+    },
+    "role": {
+      "add_to_user": {
+        "description": "Aggiungi l'utente {name} a un ruolo esistente",
+        "label": "Aggiungi utente al ruolo",
+        "success": "L'utente {userName} ha ricevuto il ruolo di {roleName}"
+      },
+      "description": "Ruoli e permessi di sistema",
+      "fields": {
+        "description": {
+          "label": "Descrizione"
+        }
+      },
+      "remove_user": {
+        "description_allowed": "Sei sicuro di voler rimuovere il ruolo di {role} da {user}?",
+        "description_not_allowed": "Non puoi rimuovere il ruolo {role} dall'utente {user} perché è l'unico utente nel ruolo e questo ruolo ha bisogno di almeno un utente!",
+        "subtitle_allowed": "Rimuovi un ruolo da un utente",
+        "subtitle_not_allowed": "Impossibile rimuovere l'utente dal ruolo",
+        "title": "Rimuovi Ruolo da Utente"
+      },
+      "roles": "{role, select, 2e1eee006cba45069059ccd24e4ea5b0 {Amministratore di Sistema} other {N/A}}",
+      "roles_descriptions": "{role, select, 2e1eee006cba45069059ccd24e4ea5b0 {Ha ACCESSO COMPLETO ai dati e alle funzionalità dello studio legale.} other {N/A}}",
+      "search": {
+        "no_results": "Ruolo non trovato",
+        "placeholder": "Cerca ruolo...",
+        "select": "Seleziona Ruolo"
+      }
+    },
+    "user": {
+      "buttons": {
+        "add": "Aggiungi Utente",
+        "reactivate": "Riattiva Utente",
+        "resend_activation": "Reinvia Email di Attivazione"
+      },
+      "delete": {
+        "description": "Eliminando questo utente verrà rimossa la sua capacità di accedere ad AssetTrack AI. Tutte le sue conoscenze rimarranno nel sistema.",
+        "subtitle": "Sei sicuro di voler eliminare questo utente?",
+        "title": "Elimina Utente"
+      },
+      "deleted": "Utenti Eliminati",
+      "description": "Elenco degli utenti nello studio legale",
+      "fields": {
+        "bio": {
+          "label": "Bio",
+          "placeholder": "Inserisci la bio dell'utente"
+        },
+        "email": {
+          "error": "Email è obbligatoria",
+          "label": "Email",
+          "placeholder": "Inserisci Email"
+        },
+        "name": {
+          "error": "Nome è obbligatorio",
+          "label": "Nome",
+          "placeholder": "Inserisci Nome"
+        },
+        "password": {
+          "error": "Password è obbligatoria",
+          "label": "Password",
+          "placeholder": "Inserisci Password"
+        },
+        "phone": {
+          "label": "Telefono",
+          "placeholder": "Inserisci il numero di telefono dell'utente"
+        },
+        "title": {
+          "label": "Titolo",
+          "placeholder": "Inserisci il Titolo dell'utente"
+        }
+      },
+      "reactivate": {
+        "description": "Sei sicuro di voler riattivare l'account di {name}? L'utente potrà accedere nuovamente ad AssetTrack AI e interagire con le conoscenze dello studio legale.",
+        "subtitle": "Sei sicuro di voler riattivare questo utente?",
+        "title": "Riattiva Utente"
+      },
+      "resend_activation": {
+        "description": "Sei sicuro di voler reinviare l'email di attivazione a {email}?",
+        "email_sent": "Email Inviata",
+        "email_sent_description": "L'email di attivazione è stata inviata a {email}",
+        "subtitle": "Sei sicuro di voler reinviare l'email di attivazione a questo utente?",
+        "title": "Reinvia Email di Attivazione"
+      },
+      "search": {
+        "no_results": "Nessun utente trovato",
+        "placeholder": "Cerca utente...",
+        "select": "Seleziona Utente"
+      },
+      "send_activation_email": "Invia Email di Attivazione"
+    }
+  },
+  "generic": {
+    "abstract": "Sintesi",
+    "actions": {
+      "back": "Indietro",
+      "cancel": "Annulla",
+      "continue": "Continua",
+      "create": "Crea",
+      "update": "Aggiorna"
+    },
+    "ai_status": "{status, select, pending {In attesa di elaborazione} in_progress {Analisi in corso} failed {Analisi Fallita} completed {Analisi Completata} analysing_counterparts {Analisi Controparti in corso} summarising_document {Sintesi del Documento in corso} other {N/A}}",
+    "blocknote": {
+      "placeholder": "Inserisci testo o digita '/' per i comandi"
+    },
+    "buttons": {
+      "cancel": "Annulla",
+      "confirm_create": "Crea",
+      "confirm_delete": "Conferma Eliminazione",
+      "confirm_update": "Aggiorna",
+      "create": "Crea Nuovo",
+      "delete": "Elimina",
+      "delete_selected": "Elimina Selezionati",
+      "download": "Scarica",
+      "edit": "Modifica",
+      "load_more": "Carica Altro",
+      "remove": "Rimuovi",
+      "select_all": "Seleziona Tutto"
+    },
+    "date": {
+      "create": "Creazione",
+      "update": "Ultimo Aggiornamento"
+    },
+    "description": "AssetTrack è una piattaforma di gestione degli studi legali alimentata dall'Intelligenza Artificiale.",
+    "edit": {
+      "create": {
+        "description": "Crea un nuovo {type}",
+        "title": "Nuovo {type}"
+      },
+      "update": {
+        "description": "Modifica i dettagli del {type} esistente {name}",
+        "title": "Modifica {type}"
+      }
+    },
+    "errors": {
+      "create": "Errore di Creazione",
+      "delete": "Errore di Eliminazione",
+      "error": "Errore",
+      "feature_not_available": "Questa funzionalità non è disponibile nel tuo piano. Contatta il tuo amministratore per aggiornare il piano.",
+      "file": "Errore di File",
+      "file_large": "Il file sembra essere troppo grande",
+      "file_max": "Il file è troppo grande. La dimensione massima è {size}MB",
+      "file_no_select": "Nessun file selezionato",
+      "invalid_email": "Indirizzo email non valido",
+      "missing_company_name": "Il nome dello studio legale è obbligatorio",
+      "missing_name": "Il nome è obbligatorio",
+      "no_result_found": "Nessun risultato trovato",
+      "update": "Errore di Aggiornamento",
+      "upload": "Errore di Upload",
+      "upload_description": "Si è verificato un errore durante il caricamento del file. Riprova.",
+      "upload_title": "Errore di Upload",
+      "valid_url": "Si prega di inserire un URL valido"
+    },
+    "global_search": {
+      "button": "Cerca ⌘J",
+      "no_results": "Nessun risultato trovato",
+      "placeholder": "Cerca...",
+      "recent_searches": "Ricerche Recenti",
+      "searching": "Ricerca in corso..."
+    },
+    "hide_password": "Nascondi Password",
+    "home": "Home Page",
+    "last_updated": "Ultimo Aggiornamento",
+    "my_profile": "Il mio Profilo",
+    "navigation": "Navigazione",
+    "no_data_found": "Nessun dato trovato",
+    "not_active": "Non Attivo",
+    "organisation": "Organizzazione",
+    "pick_date": "Seleziona una data",
+    "recent_pages": "Pagine Recenti",
+    "relevance": "Rilevanza",
+    "search": "Cerca...",
+    "sidebar": "{name, select, crm {Customer Relationships Management} other {N/A}}",
+    "settings": "Impostazioni",
+    "settings_sidebar": "{item, select, crm {Customer Relationship Management} other {N/A}}",
+    "show_password": "Mostra Password",
+    "status": "Stato",
+    "title": "AssetTrack"
+  },
+  "types": {
+    "companies": "{count, plural, =1 {Studio Legale} other {Studi Legali}}",
+    "employees": "{count, plural, =1 {Dipendente} other {Dipendenti}}",
+    "equipments": "{count, plural, =1 {Attrezzatura} other {Attrezzature}}",
+    "loans": "{count, plural, =1 {Prestito} other {Prestiti}}",
+    "notifications": "{count, plural, =1 {Notifica} other {Notifiche}}",
+    "roles": "{count, plural, =1 {Ruolo di Sistema} other {Ruoli di Sistema}}",
+    "suppliers": "{count, plural, =1 {Fornitore} other {Fornitori}}",
+    "users": "{count, plural, =1 {Utente} other {Utenti}}"
+  }
+}

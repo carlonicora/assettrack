@@ -1,0 +1,12 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "i18n-ally.localesPaths": [
+    "apps/web/messages",
+    "apps/api/src/i18n"
+  ],
+  "i18n-ally.sourceLanguage": "it",
+  "i18n-ally.displayLanguage": "it",
+  "i18n-ally.enabledFrameworks": ["next-intl", "i18next"]
+}

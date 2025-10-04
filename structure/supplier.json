@@ -1,0 +1,31 @@
+[
+  {
+    "moduleId": "92026e55-4f3a-4782-823a-b44ad5ca1b04",
+    "moduleName": "Supplier",
+    "endpointName": "suppliers",
+    "targetDir": "features",
+    "languages": ["it"],
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": false
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "nullable": true
+      }
+    ]
+  }
+]
