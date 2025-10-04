@@ -1,6 +1,6 @@
 "use client";
 
-import SupplierEquipmentsList from "@/features/features/equipment/components/lists/SupplierEquipmentList copy";
+import SupplierEquipmentsList from "@/features/features/equipment/components/lists/SupplierEquipmentList";
 import SupplierDetails from "@/features/features/supplier/components/details/SupplierDetails";
 import { useSupplierContext } from "@/features/features/supplier/contexts/SupplierContext";
 import { SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
