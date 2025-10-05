@@ -1,3 +1,9 @@
+## [1.3.6](https://github.com/carlonicora/assettrack/compare/v1.3.5...v1.3.6) (2025-10-05)
+
+### 🐛 Bug Fixes
+
+* remove .env-backup from repository and add to gitignore ([9db5423](https://github.com/carlonicora/assettrack/commit/9db542332c30aa9222bb88ddef23f7e540573ba2))
+
 ## [1.3.5](https://github.com/carlonicora/assettrack/compare/v1.3.4...v1.3.5) (2025-10-05)
 
 ### 🐛 Bug Fixes
