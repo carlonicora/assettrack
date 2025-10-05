@@ -1,3 +1,22 @@
+## [1.5.0](https://github.com/carlonicora/assettrack/compare/v1.4.0...v1.5.0) (2025-10-05)
+
+### 🚀 Features
+
+* add active loans ([7d01e8e](https://github.com/carlonicora/assettrack/commit/7d01e8ec2ecc9074990976acdf3ca545eda181e4))
+* add analytic ([8897666](https://github.com/carlonicora/assettrack/commit/8897666d624b81b093e8cd887e6559b216dfdede))
+* add highlightExpired ([07c34ea](https://github.com/carlonicora/assettrack/commit/07c34eafa7b9edeea26240f53bee11101df6ca70))
+* add unassigned or expiring equipment ([213d681](https://github.com/carlonicora/assettrack/commit/213d68146887be007a052ebd83a42b8342b7e16c))
+* redesign home screen ([39864c2](https://github.com/carlonicora/assettrack/commit/39864c29d9aa3679dc0e4bd0bdb8081022b51b1e))
+
+### 🐛 Bug Fixes
+
+* coddect ci/cd build ([65a17db](https://github.com/carlonicora/assettrack/commit/65a17dbd9f270915dbc5e36a9ddac7bc5482e96d))
+* correct expired highlight ([6fa9566](https://github.com/carlonicora/assettrack/commit/6fa956689675dddd81b32105a0307be97e0d003f))
+* correct internationalisation ([ac908ce](https://github.com/carlonicora/assettrack/commit/ac908ce04e1ce4f706717c32f1863f60c89d943c))
+* correct next config ([130cb56](https://github.com/carlonicora/assettrack/commit/130cb56e6ee42809300ab637984cf7f7ceab7905))
+* correct next env ([eb6d9a9](https://github.com/carlonicora/assettrack/commit/eb6d9a9452740584df4ade9910ab77112709fa4f))
+* hide footer if no functions or navigation is active ([ac4c086](https://github.com/carlonicora/assettrack/commit/ac4c086ae0769d075b7f3271563d4756077620b6))
+
 ## [1.4.0](https://github.com/carlonicora/assettrack/compare/v1.3.5...v1.4.0) (2025-10-05)
 
 ### 🚀 Features
