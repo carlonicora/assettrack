@@ -1,3 +1,4 @@
+import { ENV } from "@/config/env";
 import { DataBootstrapper } from "@/data/DataBootstrapper";
 import { DataClass } from "@/jsonApi/DataClass";
 import { JsonApiDataFactory } from "@/jsonApi/factories/JsonApiDataFactory";
@@ -236,7 +237,6 @@ export async function JsonApiGet(params: {
   language: string;
 }): Promise<ApiResponseInterface> {
   const token = await getToken();
-  const start = new Date();
 
   let apiResponse: ApiData;
 
@@ -244,7 +244,7 @@ export async function JsonApiGet(params: {
   if (typeof window !== "undefined") {
     apiResponse = await directFetch({
       method: "GET",
-      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      link: `${params.endpoint.startsWith("http") ? "" : ENV.API_URL}${params.endpoint}`,
       companyId: params.companyId,
       language: params.language,
       token: token,
@@ -253,15 +253,13 @@ export async function JsonApiGet(params: {
     // Use server action for SSR
     apiResponse = await JsonApiServerRequest({
       detail: "GET",
-      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      link: `${params.endpoint.startsWith("http") ? "" : ENV.API_URL}${params.endpoint}`,
       cache: params.classKey.cache,
       companyId: params.companyId,
       language: params.language,
       token: token,
     });
   }
-
-  console.log("GET completed in", new Date().getTime() - start.getTime(), params.endpoint);
 
   return translateResponse({
     classKey: params.classKey,

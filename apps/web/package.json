@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "dotenv -e ../../.env -- next build",
     "dev": "dotenv -e ../../.env -- next dev --turbopack",
     "lint": "next lint",
     "start": "dotenv -e ../../.env -- next start -H 0.0.0.0",
