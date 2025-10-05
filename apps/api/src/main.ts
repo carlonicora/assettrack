@@ -1,5 +1,8 @@
 import * as dotenv from "dotenv";
-dotenv.config();
+import * as path from "path";
+
+// Load .env from monorepo root (../../.env relative to dist/main.js)
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 // Initialize tracing before any other imports
 import { tracingSetup } from "./core/tracing/tracing.setup";

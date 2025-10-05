@@ -55,12 +55,13 @@ assettrack/
 
 3. **Set up environment variables**
 
-   Copy the example environment files:
+   Copy the example environment file to the root:
 
    ```bash
-   cp apps/api/.env.example apps/api/.env
-   cp apps/web/.env.example apps/web/.env
+   cp .env.example .env
    ```
+
+   Then edit `.env` and fill in your configuration values.
 
 ### Development
 
@@ -259,26 +260,45 @@ pnpm test:cov
 
 ## 🔒 Environment Variables
 
-### API Environment (.env)
+This monorepo uses a **centralized `.env` file** located at the root of the repository. All environment variables for both the API and Web applications are configured in this single file.
 
-Key variables needed:
+### Location
 
-- `NODE_ENV` - Environment (development/production)
-- `PORT` - API server port
+- **Main configuration**: `.env` (root of monorepo)
+- **Example/template**: `.env.example` (root of monorepo)
+- **E2E testing**: `.env.e2e` (root of monorepo)
+
+### How It Works
+
+- **API**: Loads environment variables from root `.env` via `dotenv.config()` in `apps/api/src/main.ts`
+- **Web**: Loads environment variables from root `.env` via `dotenv-cli -c` (cascades up from app directory)
+- **Tests**: E2E tests use `.env.e2e` for isolated test environment
+
+### Key Variables
+
+**API Server:**
+- `API_URL` - API server URL
+- `API_PORT` - API server port
+- `PORT` - APP server port
 - `NEO4J_URI` - Neo4j connection URI
 - `NEO4J_USER` - Neo4j username
 - `NEO4J_PASSWORD` - Neo4j password
+- `NEO4J_DATABASE` - Neo4j database name
 - `REDIS_HOST` - Redis host
 - `REDIS_PORT` - Redis port
 - `JWT_SECRET` - JWT signing secret
 
-### Web Environment (.env)
+**Web Application:**
+- `APP_URL` - Web application URL
+- `NEXT_PUBLIC_API_URL` - API server URL (client-side)
+- `NEXT_PUBLIC_ADDRESS` - Web application address (client-side)
+- `NEXT_PUBLIC_VAPID_PUBLIC_KEY` - VAPID public key for push notifications
+- `IMAGE_SOURCES` - Comma-separated list of allowed image sources
 
-Key variables needed:
-
+**Shared:**
 - `NODE_ENV` - Environment (development/production)
-- `PORT` - Web server port
-- `NEXT_PUBLIC_API_URL` - API server URL
+
+See `.env.example` for a complete list of all available configuration options.
 
 ## 🤝 Contributing
 
