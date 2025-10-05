@@ -24,7 +24,16 @@ import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { Modules } from "@/modules/modules";
 import { AuthRole } from "@/permisions/enums/AuthRole";
 import { useAtomValue } from "jotai";
-import { BellIcon, Building2Icon, HistoryIcon, HomeIcon } from "lucide-react";
+import {
+  BellIcon,
+  Building2Icon,
+  HammerIcon,
+  HandCoinsIcon,
+  HistoryIcon,
+  HomeIcon,
+  PackageIcon,
+  UsersIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Fragment, ReactNode, useMemo, useState } from "react";
@@ -55,7 +64,6 @@ export default function CommonSidebar() {
   const navigationMap = useMemo(() => {
     const navMap = new Map<string, { hasTitle: boolean; items: NavigationItem[] }>([
       ["/", { hasTitle: false, items: [] }],
-      ["crm", { hasTitle: true, items: [] }],
       ["", { hasTitle: false, items: [] }],
     ]);
 
@@ -97,6 +105,34 @@ export default function CommonSidebar() {
         url: generateUrl({ page: Modules.Company }),
         icon: <Building2Icon />,
         testId: "sidebar-my-company-link",
+      });
+
+      navMap.get("")?.items.push({
+        title: t(`types.equipments`, { count: 2 }),
+        url: generateUrl({ page: Modules.Equipment }),
+        icon: <HammerIcon />,
+        testId: "sidebar-equipment-link",
+      });
+
+      navMap.get("")?.items.push({
+        title: t(`types.suppliers`, { count: 2 }),
+        url: generateUrl({ page: Modules.Supplier }),
+        icon: <PackageIcon />,
+        testId: "sidebar-supplier-link",
+      });
+
+      navMap.get("")?.items.push({
+        title: t(`types.employees`, { count: 2 }),
+        url: generateUrl({ page: Modules.Employee }),
+        icon: <UsersIcon />,
+        testId: "sidebar-employee-link",
+      });
+
+      navMap.get("")?.items.push({
+        title: t(`types.loans`, { count: 2 }),
+        url: generateUrl({ page: Modules.Loan }),
+        icon: <HandCoinsIcon />,
+        testId: "sidebar-loan-link",
       });
     }
 
