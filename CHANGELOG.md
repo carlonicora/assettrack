@@ -1,3 +1,26 @@
+## [1.4.0](https://github.com/carlonicora/assettrack/compare/v1.3.5...v1.4.0) (2025-10-05)
+
+### 🚀 Features
+
+* add equipment status ([406c509](https://github.com/carlonicora/assettrack/commit/406c509d5f4880d8bb648039623022ed0a363f8b))
+* add equipment status ([5e9ca5c](https://github.com/carlonicora/assettrack/commit/5e9ca5ceb4d6b11ef408eb8de8e545188960e5b2))
+* add equipment status ([6e157ec](https://github.com/carlonicora/assettrack/commit/6e157ec14b433f3f00b3317aa54de7e166916737))
+* add equipment status ([82f78ab](https://github.com/carlonicora/assettrack/commit/82f78abd8c80692da47271110b46a5bb657136cd))
+* add list navigation to sidebar ([91b9ca8](https://github.com/carlonicora/assettrack/commit/91b9ca83db689ec4640c1bf426bef7d345419389))
+* add neo4j data function ([308d40a](https://github.com/carlonicora/assettrack/commit/308d40a22e70d5cae60ec718ec9521e79275a6a0))
+
+### 🐛 Bug Fixes
+
+* remove .env-backup from repository and add to gitignore ([77d1057](https://github.com/carlonicora/assettrack/commit/77d105703d0f5385df851267d18719a2cb1618c2))
+
+### 📦 Code Refactoring
+
+* split api request in client/server ([7223d57](https://github.com/carlonicora/assettrack/commit/7223d57db39ada343a712def74aa9216f953777f))
+
+### ♻️ Chores
+
+* **release:** 1.3.6 [skip ci] ([fa486a9](https://github.com/carlonicora/assettrack/commit/fa486a9cc97f9a4e83451a02caee5c7485498b94))
+
 ## [1.3.6](https://github.com/carlonicora/assettrack/compare/v1.3.5...v1.3.6) (2025-10-05)
 
 ### 🐛 Bug Fixes
