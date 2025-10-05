@@ -14,6 +14,7 @@ import { S3Module } from "@/features/foundations/s3/S3Module";
 import { UserModule } from "@/features/foundations/user/UserModule";
 import { FieldSelector } from "@/jsonApi/FieldSelector";
 import { ModuleWithPermissions } from "@/permisions/types";
+import { AnalyticModule } from "@/features/features/analytic/AnalyticModule";
 
 export class Modules {
   private static _factory(params: {
@@ -86,6 +87,10 @@ export class Modules {
 
   static get Loan() {
     return LoanModule(this._factory);
+  }
+
+  static get Analytic() {
+      return AnalyticModule(this._factory);
   }
 
   static findByName(moduleName: string): ModuleWithPermissions {

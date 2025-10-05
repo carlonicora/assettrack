@@ -1,0 +1,41 @@
+[
+  {
+    "moduleId": "ee1f7bf6-92a1-4b22-b36f-adcff4b557ca",
+    "moduleName": "Analytic",
+    "endpointName": "analytics",
+    "targetDir": "features",
+    "languages": ["it", "en"],
+    "fields": [
+      {
+        "name": "equipment",
+        "type": "number",
+        "nullable": false
+      },
+      {
+        "name": "loan",
+        "type": "number",
+        "nullable": false
+      },
+      {
+        "name": "expiring30",
+        "type": "number",
+        "nullable": false
+      },
+      {
+        "name": "expiring60",
+        "type": "number",
+        "nullable": false
+      },
+      {
+        "name": "expiring90",
+        "type": "number",
+        "nullable": false
+      },
+      {
+        "name": "expired",
+        "type": "number",
+        "nullable": false
+      }
+    ]
+  }
+]

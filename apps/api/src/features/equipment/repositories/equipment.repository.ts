@@ -139,6 +139,27 @@ export class EquipmentRepository implements OnModuleInit {
     return this.neo4j.readMany(query);
   }
 
+  async findActive(): Promise<Equipment[]> {
+    const query = this.neo4j.initQuery({
+      serialiser: EquipmentModel,
+      fetchAll: true,
+    });
+
+    query.queryParams = { ...query.queryParams, status: EquipmentStatus.Available };
+
+    query.query += `
+      ${this.equipmentCypherService.default()}
+      WHERE ${equipmentMeta.nodeName}.status = $status
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      
+      {CURSOR}
+
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+
   async findUnassigned(params: { cursor?: JsonApiCursorInterface }): Promise<Equipment[]> {
     const query = this.neo4j.initQuery({
       cursor: params.cursor,

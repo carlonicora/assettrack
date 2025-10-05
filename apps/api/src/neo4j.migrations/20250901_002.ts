@@ -158,4 +158,14 @@ export const migration: MigrationInterface[] = [
       ]),
     },
   },
+  {
+    query: moduleQuery,
+    queryParams: {
+      moduleName: "Analytic",
+      moduleId: "ee1f7bf6-92a1-4b22-b36f-adcff4b557ca",
+      featureId: null,
+      isCore: true,
+      permissions: JSON.stringify([{ type: Action.Read, value: true }]),
+    },
+  },
 ];
