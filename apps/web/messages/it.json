@@ -87,6 +87,12 @@
           "placeholder": "Seleziona la data di fine del contratto",
           "error": "La data di fine del contratto è obbligatoria"
         },
+        "status": {
+          "label": "Stato",
+          "placeholder": "Seleziona lo stato dell'attrezzatura",
+          "error": "Lo stato è obbligatorio",
+          "select": "{type, select, ordered {Ordinato} available {Disponibile} returned {Restituito} other {N/A}}"
+        },
         "manufacturer": {
           "label": "Produttore"
         },

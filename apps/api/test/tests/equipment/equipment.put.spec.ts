@@ -26,7 +26,7 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
       },
     };
@@ -45,14 +45,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id,
-            },
+              id: SUPPLIERS.CompanyOne_Full.id
+            }
           },
         },
       },
@@ -73,14 +73,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id,
-            },
+              id: SUPPLIERS.CompanyOne_Full.id
+            }
           },
         },
       },
@@ -104,13 +104,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           description: "Updated description",
           startDate: new Date().toISOString(),
           endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Full.id,
-            },
+              id: SUPPLIERS.CompanyOne_Full.id
+            }
           },
         },
       },
@@ -132,6 +133,7 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
       description: "Updated description",
       startDate: updateEquipment.data.attributes.startDate,
       endDate: updateEquipment.data.attributes.endDate,
+      status: "Updated status",
     };
 
     // Validate the response structure matches expected entity
@@ -153,13 +155,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
           description: "Partially Updated description",
           startDate: new Date().toISOString(),
           endDate: new Date().toISOString(),
+          status: "Partially Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: SUPPLIERS.CompanyOne_Minimal.id,
-            },
+              id: SUPPLIERS.CompanyOne_Minimal.id
+            }
           },
         },
       },
@@ -181,6 +184,7 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
       description: "Partially Updated description",
       startDate: updateEquipment.data.attributes.startDate,
       endDate: updateEquipment.data.attributes.endDate,
+      status: "Partially Updated status",
     };
 
     jsonApiValidator.validateResponse({
@@ -213,7 +217,7 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
       },
     };
@@ -233,14 +237,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "invalid-uuid",
-            },
+              id: "invalid-uuid"
+            }
           },
         },
       },
@@ -261,14 +265,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000",
-            },
+              id: "00000000-0000-0000-0000-000000000000"
+            }
           },
         },
       },
@@ -289,14 +293,14 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
         attributes: {
           name: "Updated name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Updated status",
         },
         relationships: {
           supplier: {
             data: {
               type: "wrong-type",
-              id: SUPPLIERS.CompanyOne_Full.id,
-            },
+              id: SUPPLIERS.CompanyOne_Full.id
+            }
           },
         },
       },
@@ -308,4 +312,5 @@ describe(`PUT /${equipmentMeta.endpoint}/{id}`, () => {
       .send(updateEquipment)
       .expect(400);
   });
+
 });

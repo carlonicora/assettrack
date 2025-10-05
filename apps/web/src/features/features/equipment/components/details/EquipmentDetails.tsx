@@ -30,6 +30,10 @@ function EquipmentDetailsInternal({ equipment }: EquipmentDetailsProps) {
         title={t(`features.equipment.fields.endDate.label`)}
         value={equipment.endDate ? formatDate(equipment.endDate, "date") : undefined}
       />
+      <AttributeElement
+        title={t(`features.equipment.fields.status.label`)}
+        value={t(`features.equipment.fields.status.select`, { type: equipment.status })}
+      />
       <AttributeElement title={t(`features.equipment.fields.barcode.label`)} value={equipment.barcode} />
       {equipment.manufacturer && (
         <AttributeElement title={t(`features.equipment.fields.manufacturer.label`)} value={equipment.manufacturer} />

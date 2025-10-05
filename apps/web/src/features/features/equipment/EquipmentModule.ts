@@ -10,7 +10,7 @@ export const EquipmentModule = (factory: FactoryType) =>
     moduleId: "8e5d7513-58a0-40c6-83d1-4a3bf7744853",
     inclusions: {
       lists: {
-        fields: [createJsonApiInclusion("equipments", [`name`,`barcode`,`description`,`startDate`,`endDate`])],
+        fields: [createJsonApiInclusion("equipments", [`name`,`barcode`,`description`,`startDate`,`endDate`,`status`])],
       },
     },
   });

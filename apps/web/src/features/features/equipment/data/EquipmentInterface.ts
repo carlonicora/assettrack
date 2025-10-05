@@ -8,6 +8,7 @@ export type EquipmentInput = {
   description?: string | undefined | null;
   startDate?: Date;
   endDate?: Date;
+  status: string;
 
   supplierId: string;
 };
@@ -22,7 +23,7 @@ export interface EquipmentInterface extends ApiDataInterface {
   get model(): string | undefined;
   get category(): string | undefined;
   get imageUrl(): string | undefined;
-  get returned(): boolean;
+  get status(): string;
 
   get supplier(): SupplierInterface;
 }

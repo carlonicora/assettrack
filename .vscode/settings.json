@@ -8,5 +8,9 @@
   ],
   "i18n-ally.sourceLanguage": "it",
   "i18n-ally.displayLanguage": "it",
-  "i18n-ally.enabledFrameworks": ["next-intl", "i18next"]
+  "i18n-ally.enabledFrameworks": [
+    "next-intl",
+    "i18next"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

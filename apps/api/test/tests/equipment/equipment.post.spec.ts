@@ -20,10 +20,11 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
     app = testState.app;
 
     // Initialize company-filtered fixtures
-    companySupplierFixtures = Object.values(SUPPLIERS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
+    companySupplierFixtures = Object.values(SUPPLIERS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
   });
 
   it(`POST /${equipmentMeta.endpoint} → 403 when unauthenticated`, async () => {
+
     const newEquipment = {
       data: {
         type: equipmentMeta.endpoint,
@@ -31,14 +32,14 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: companySupplierFixtures[0].id,
-            },
+              id: companySupplierFixtures[0].id
+            }
           },
         },
       },
@@ -48,6 +49,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
   });
 
   it(`POST /${equipmentMeta.endpoint} → 201 when authenticated user creates a equipment`, async () => {
+
     const newEquipment = {
       data: {
         type: equipmentMeta.endpoint,
@@ -55,14 +57,14 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: companySupplierFixtures[0].id,
-            },
+              id: companySupplierFixtures[0].id
+            }
           },
         },
       },
@@ -81,7 +83,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
       supplier: companySupplierFixtures[0],
       name: "Test name",
       startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
+      status: "Test status",
     };
 
     // Validate the response structure matches expected entity
@@ -131,14 +133,14 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "invalid-uuid",
-            },
+              id: "invalid-uuid"
+            }
           },
         },
       },
@@ -158,14 +160,14 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
             data: {
               type: supplierMeta.endpoint,
-              id: "00000000-0000-0000-0000-000000000000",
-            },
+              id: "00000000-0000-0000-0000-000000000000"
+            }
           },
         },
       },
@@ -179,7 +181,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
 
   it(`POST /${equipmentMeta.endpoint} → 400 when relationship type is incorrect`, async () => {
     // Use company-filtered fixtures for relationship IDs
-    const companySupplierFixtures = Object.values(SUPPLIERS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
+    const companySupplierFixtures = Object.values(SUPPLIERS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
 
     const newEquipment = {
       data: {
@@ -188,14 +190,14 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
             data: {
               type: "wrong-type",
-              id: companySupplierFixtures[0].id,
-            },
+              id: companySupplierFixtures[0].id
+            }
           },
         },
       },
@@ -206,4 +208,5 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
       .send(newEquipment)
       .expect(400);
   });
+
 });

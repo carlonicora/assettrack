@@ -6,13 +6,16 @@ import { errorToast } from "@/features/common/components/errors/errorToast";
 import CommonEditorButtons from "@/features/common/components/forms/CommonEditorButtons";
 import CommonEditorHeader from "@/features/common/components/forms/CommonEditorHeader";
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
+import FormDate from "@/features/common/components/forms/FormDate";
 import FormInput from "@/features/common/components/forms/FormInput";
 import FormTextarea from "@/features/common/components/forms/FormTextarea";
-import FormDate from "@/features/common/components/forms/FormDate";
+import FormTypeSelect from "@/features/common/components/forms/FormTypeSelect";
 import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { EquipmentService } from "@/features/features/equipment/data/EquipmentService";
+import SupplierSelector from "@/features/features/supplier/components/forms/SupplierSelector";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { useRouter } from "@/i18n/routing";
+import { entityObjectSchema } from "@/lib/entity.object.schema";
 import { revalidatePaths } from "@/lib/PageRevalidation";
 import { Modules } from "@/modules/modules";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,8 +24,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { entityObjectSchema } from "@/lib/entity.object.schema";
-import SupplierSelector from "@/features/features/supplier/components/forms/SupplierSelector";
+import { EquipmentStatus } from "../../../../../../../../packages/shared/dist";
 
 type EquipmentEditorProps = {
   equipment?: EquipmentInterface;
@@ -43,10 +45,11 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
     barcode: z.string().optional(),
     description: z.string().optional(),
     startDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.equipment.fields.startDate.error`)
+      message: t(`features.equipment.fields.startDate.error`),
     }),
-    endDate: z.date().refine((val) => val !== undefined, {
-      message: t(`features.equipment.fields.endDate.error`)
+    endDate: z.date().optional(),
+    status: z.string().min(1, {
+      message: t(`features.equipment.fields.status.error`),
     }),
     supplier: entityObjectSchema.refine((data) => data.id && data.id.length > 0, {
       message: t(`features.equipment.relationships.supplier.error`),
@@ -55,12 +58,13 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
 
   const getDefaultValues = () => ({
     id: equipment?.id || v4(),
-      name: equipment?.name || "",
-      barcode: equipment?.barcode || "",
-      description: equipment?.description || "",
-      startDate: equipment?.startDate || undefined,
-      endDate: equipment?.endDate || undefined,
-      supplier: equipment?.supplier ? {id: equipment.supplier.id, name: equipment.supplier.name} : undefined,
+    name: equipment?.name || "",
+    barcode: equipment?.barcode || "",
+    description: equipment?.description || "",
+    startDate: equipment?.startDate || undefined,
+    endDate: equipment?.endDate || undefined,
+    status: equipment?.status || "",
+    supplier: equipment?.supplier ? { id: equipment.supplier.id, name: equipment.supplier.name } : undefined,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -82,6 +86,7 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
       description: values.description,
       startDate: values.startDate,
       endDate: values.endDate,
+      status: values.status,
       supplierId: values.supplier.id,
     };
 
@@ -145,6 +150,21 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 id="endDate"
                 name={t(`features.equipment.fields.endDate.label`)}
                 placeholder={t(`features.equipment.fields.endDate.placeholder`)}
+              />
+              <FormTypeSelect
+                form={form}
+                id="status"
+                name={t(`features.equipment.fields.status.label`)}
+                placeholder={t(`features.equipment.fields.status.placeholder`)}
+                type={EquipmentStatus}
+                translationKey="features.equipment.fields.status.select"
+                isRequired
+              />
+              <FormInput
+                form={form}
+                id="status"
+                name={t(`features.equipment.fields.status.label`)}
+                placeholder={t(`features.equipment.fields.status.placeholder`)}
                 isRequired
               />
               <SupplierSelector

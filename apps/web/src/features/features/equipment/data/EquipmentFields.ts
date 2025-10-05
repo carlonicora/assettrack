@@ -6,6 +6,7 @@ export enum EquipmentFields {
   description = "description",
   startDate = "startDate",
   endDate = "endDate",
+  status = "status",
 
   supplier = "supplier",
 
