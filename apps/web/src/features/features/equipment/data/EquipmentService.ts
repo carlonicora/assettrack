@@ -16,12 +16,16 @@ export class EquipmentService extends AbstractService {
   static async findMany(params: {
     search?: string;
     status?: EquipmentStatus;
+    expiring?: boolean;
+    unassigned?: boolean;
     fetchAll?: boolean;
     next?: NextRef;
     prev?: PreviousRef;
   }): Promise<EquipmentInterface[]> {
     const endpoint = new EndpointCreator({ endpoint: Modules.Equipment });
 
+    if (params.unassigned) endpoint.addAdditionalParam("unassigned", "true");
+    if (params.expiring) endpoint.addAdditionalParam("expiring", "true");
     if (params.status) endpoint.addAdditionalParam("status", params.status);
     if (params.fetchAll) endpoint.addAdditionalParam("fetchAll", "true");
     if (params.search) endpoint.addAdditionalParam("search", params.search);

@@ -25,7 +25,7 @@ export default function EquipmentLoansList({ equipment }: EquipmentLoansListProp
     retrieverParams: { equipmentId: equipment.id },
   });
 
-  const functions: ReactNode[] = [<LoanEditor key="create-loan" />];
+  const functions: ReactNode[] = [equipment.currentLoan ? null : <LoanEditor key="create-loan" />];
 
   return (
     <ContentListTable

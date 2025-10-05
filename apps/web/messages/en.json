@@ -117,7 +117,9 @@
         "no_results": "No equipment found",
         "placeholder": "Search equipment...",
         "select": "Select Equipment"
-      }
+      },
+      "due_soon": "Equipment Due Soon",
+      "unassigned": "Unassigned Equipment"
     },
     "loan": {
       "fields": {
@@ -154,6 +156,29 @@
         "no_results": "No loan found",
         "placeholder": "Search Loan...",
         "select": "Select Loan"
+      },
+      "active": "Active Loans"
+    },
+    "analytic": {
+      "fields": {
+        "equipment": {
+          "label": "Equipments"
+        },
+        "loan": {
+          "label": "Loans"
+        },
+        "expiring30": {
+          "label": "Expiring in 30 Days"
+        },
+        "expiring60": {
+          "label": "Expiring in 60 Days"
+        },
+        "expiring90": {
+          "label": "Expiring in 90 Days"
+        },
+        "expired": {
+          "label": "Expired"
+        }
       }
     }
   },
@@ -407,7 +432,10 @@
     "last_updated": "Last Updated",
     "my_profile": "My Profile",
     "language": "Language",
-    "languages": { "en": "🇬🇧 English", "it": "🇮🇹 Italiano" },
+    "languages": {
+      "en": "🇬🇧 English",
+      "it": "🇮🇹 Italiano"
+    },
     "navigation": "Navigation",
     "no_data_found": "No data found",
     "not_active": "Not Active",

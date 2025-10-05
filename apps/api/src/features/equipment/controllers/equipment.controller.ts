@@ -49,6 +49,8 @@ export class EquipmentController {
     @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
     @Query("status") status?: EquipmentStatus,
+    @Query("expiring") expiring?: boolean,
+    @Query("unassigned") unassigned?: boolean,
   ) {
     const response = await this.equipmentService.find({
       term: search,
@@ -56,6 +58,8 @@ export class EquipmentController {
       fetchAll: fetchAll,
       orderBy: orderBy,
       status: status,
+      expiring: expiring,
+      unassigned: unassigned,
     });
 
     reply.send(response);

@@ -30,7 +30,7 @@ export default function EmployeeLoansList({ employee }: EmployeeLoansListProps) 
   return (
     <ContentListTable
       data={data}
-      fields={[LoanFields.equipment, LoanFields.startDate]}
+      fields={[LoanFields.equipment, LoanFields.startDate, LoanFields.endDate]}
       tableGeneratorType={Modules.Loan}
       functions={functions}
       title={t(`types.loans`, { count: 2 })}

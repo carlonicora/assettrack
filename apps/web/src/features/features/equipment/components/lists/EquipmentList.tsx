@@ -35,7 +35,7 @@ export default function EquipmentsList({ status }: EquipmentListProps) {
         EquipmentFields.supplier,
         EquipmentFields.status,
         EquipmentFields.startDate,
-        EquipmentFields.endDate,
+        EquipmentFields.endDateOverdue,
       ]}
       tableGeneratorType={Modules.Equipment}
       functions={functions}

@@ -29,11 +29,11 @@ export class EquipmentPutAttributesDTO {
 
   @IsOptional()
   @IsDateString()
-  startDate: Date;
+  startDate: string;
 
   @IsOptional()
   @IsDateString()
-  endDate: Date;
+  endDate: string;
 
   @IsDefined()
   @IsNotEmpty()

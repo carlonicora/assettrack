@@ -33,6 +33,14 @@ jobs:
       
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          NEXT_PUBLIC_API_URL=http://localhost:3000
+          NEXT_PUBLIC_ADDRESS=http://localhost:3001
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY=placeholder
+          EOF
+
       - name: Build
         run: pnpm run build

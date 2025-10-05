@@ -19,7 +19,7 @@ import { AuditModule } from "src/foundations/audit/audit.module";
     EquipmentCypherService,
     EquipmentMetadataService,
   ],
-  exports: [],
+  exports: [EquipmentRepository],
   imports: [AuditModule, CacheModule],
 })
 export class EquipmentModule implements OnModuleInit {

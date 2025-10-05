@@ -8,6 +8,7 @@ import { EquipmentFields } from "@/features/features/equipment/data/EquipmentFie
 import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { registerTableGenerator } from "@/hooks/useTableGenerator";
+import { cn } from "@/lib/utils";
 import { Modules } from "@/modules/modules";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
@@ -63,6 +64,23 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
       enableSorting: false,
       enableHiding: false,
     }),
+    [EquipmentFields.employee]: () => ({
+      id: "employee",
+      accessorKey: "employee",
+      header: t(`types.employees`, { count: 1 }),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => {
+        const equipment: EquipmentInterface = row.original.jsonApiData;
+        if (!equipment?.currentLoan?.employee) return <></>;
+
+        return (
+          <Link href={generateUrl({ page: Modules.Employee, id: equipment.currentLoan.employee.id })}>
+            {equipment.currentLoan.employee.name}
+          </Link>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.barcode]: () => ({
       id: "barcode",
       accessorKey: "barcode",
@@ -89,6 +107,25 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
         name: "endDate",
         title: t(`features.equipment.fields.endDate.label`),
       }),
+    [EquipmentFields.endDateOverdue]: () => ({
+      id: "endDate",
+      accessorKey: "endDate",
+      header: t(`features.equipment.fields.endDate.label`),
+      cell: ({ row }) => {
+        const equipment: EquipmentInterface = row.original.jsonApiData;
+        if (!equipment?.endDate) return <></>;
+
+        return (
+          <span
+            className={cn(`text-muted-foreground text-xs`, equipment.endDate < new Date() ? `text-destructive` : ``)}
+          >
+            {equipment?.endDate.toLocaleDateString("it", { dateStyle: "medium" })}
+          </span>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.status]: () => ({
       id: "status",
       accessorKey: "status",

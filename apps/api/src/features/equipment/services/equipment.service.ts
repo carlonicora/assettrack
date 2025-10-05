@@ -23,18 +23,28 @@ export class EquipmentService {
     fetchAll?: boolean;
     orderBy?: string;
     status?: EquipmentStatus;
+    expiring?: boolean;
+    unassigned?: boolean;
   }): Promise<JsonApiDataInterface> {
     const paginator: JsonApiPaginator = new JsonApiPaginator(params.query);
 
     return this.builder.buildList(
       EquipmentModel,
-      await this.equipmentRepository.find({
-        fetchAll: params.fetchAll,
-        term: params.term,
-        orderBy: params.orderBy,
-        status: params.status,
-        cursor: paginator.generateCursor(),
-      }),
+      params.expiring
+        ? await this.equipmentRepository.findExpiring({
+            cursor: paginator.generateCursor(),
+          })
+        : params.unassigned
+          ? await this.equipmentRepository.findUnassigned({
+              cursor: paginator.generateCursor(),
+            })
+          : await this.equipmentRepository.find({
+              fetchAll: params.fetchAll,
+              term: params.term,
+              orderBy: params.orderBy,
+              status: params.status,
+              cursor: paginator.generateCursor(),
+            }),
       paginator,
     );
   }

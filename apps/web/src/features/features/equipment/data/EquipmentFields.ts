@@ -9,6 +9,10 @@ export enum EquipmentFields {
   status = "status",
 
   supplier = "supplier",
+  loan = "loan",
+  employee = "employee",
+
+  endDateOverdue = "endDateOverdue",
 
   createdAt = "createdAt",
   updatedAt = "updatedAt",

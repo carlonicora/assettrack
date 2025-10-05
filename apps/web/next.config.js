@@ -29,9 +29,9 @@ const nextConfig = {
   },
   reactStrictMode: false,
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXT_PUBLIC_ADDRESS: process.env.NEXT_PUBLIC_ADDRESS,
-    NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL ?? "",
+    NEXT_PUBLIC_ADDRESS: process.env.NEXT_PUBLIC_ADDRESS ?? "",
+    NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "",
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

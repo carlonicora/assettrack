@@ -126,19 +126,19 @@ export default function EquipmentSelector({
                 <PopoverContent>
                   <Command shouldFilter={false}>
                     <div className="relative mb-2 w-full">
-                      <SearchIcon className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
+                      <SearchIcon className="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
                       <Input
                         placeholder={t(`features.equipment.search.placeholder`)}
                         type="text"
-                        className="w-full pr-8 pl-8"
+                        className="w-full pl-8 pr-8"
                         onChange={(e) => setSearchTerm(e.target.value)}
                         value={searchTerm}
                       />
                       {isSearching ? (
-                        <RefreshCwIcon className="text-muted-foreground absolute top-2.5 right-2.5 h-4 w-4 animate-spin" />
+                        <RefreshCwIcon className="text-muted-foreground absolute right-2.5 top-2.5 h-4 w-4 animate-spin" />
                       ) : searchTermRef.current ? (
                         <XIcon
-                          className={`absolute top-2.5 right-2.5 h-4 w-4 ${searchTermRef.current ? "cursor-pointer" : "text-muted-foreground"}`}
+                          className={`absolute right-2.5 top-2.5 h-4 w-4 ${searchTermRef.current ? "cursor-pointer" : "text-muted-foreground"}`}
                           onClick={() => {
                             setSearchTerm("");
                             search("");
@@ -151,11 +151,17 @@ export default function EquipmentSelector({
                     <CommandList>
                       {data.data &&
                         data.data.length > 0 &&
-                        (data.data as EquipmentInterface[]).map((equipment: EquipmentInterface) => (
-                          <CommandItem className="cursor-pointer" key={equipment.id} onSelect={() => setEquipment(equipment)}>
-                            <span className="">{equipment.name}</span>
-                          </CommandItem>
-                        ))}
+                        (data.data as EquipmentInterface[])
+                          .filter((equipment) => !equipment.currentLoan)
+                          .map((equipment: EquipmentInterface) => (
+                            <CommandItem
+                              className="cursor-pointer"
+                              key={equipment.id}
+                              onSelect={() => setEquipment(equipment)}
+                            >
+                              <span className="">{equipment.name}</span>
+                            </CommandItem>
+                          ))}
                     </CommandList>
                   </Command>
                 </PopoverContent>

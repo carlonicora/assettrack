@@ -3,6 +3,7 @@ import { AbstractJsonApiSerialiser } from "src/core/jsonapi/abstracts/abstract.j
 import { JsonApiDataInterface } from "src/core/jsonapi/interfaces/jsonapi.data.interface";
 import { JsonApiServiceInterface } from "src/core/jsonapi/interfaces/jsonapi.service.interface";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
+import { LoanModel } from "src/features/loan/entities/loan.model";
 import { SupplierModel } from "src/features/supplier/entities/supplier.model";
 
 @Injectable()
@@ -28,6 +29,9 @@ export class EquipmentSerialiser extends AbstractJsonApiSerialiser implements Js
     this.relationships = {
       supplier: {
         data: this.serialiserFactory.create(SupplierModel),
+      },
+      loan: {
+        data: this.serialiserFactory.create(LoanModel),
       },
     };
 

@@ -79,21 +79,14 @@ export class EquipmentMetadataService {
     if (params.existingBarcode === params.barcode) return;
 
     if (!this.upcConfig.enabled) {
-      console.log("UPC metadata fetching is disabled", "EquipmentMetadataService");
       return;
     }
 
     try {
       const metadata = await this.lookupBarcodeUpcItemDb(params.barcode);
 
-      console.log(metadata);
-
       if (metadata) {
         await this.equipmentRepository.updateMetadata({ id: params.equipmentId, ...metadata });
-        console.log(
-          `Successfully fetched and updated metadata for barcode: ${params.barcode}`,
-          "EquipmentMetadataService",
-        );
       }
     } catch (error) {
       console.error(`Failed to fetch metadata for barcode ${params.barcode}`, error, "EquipmentMetadataService");
@@ -106,7 +99,6 @@ export class EquipmentMetadataService {
     try {
       const cached = await this.cacheService.get(cacheKey);
       if (cached) {
-        console.log(`Cache hit for barcode: ${barcode}`, "EquipmentMetadataService");
         return cached;
       }
     } catch (error) {
@@ -141,8 +133,6 @@ export class EquipmentMetadataService {
 
         return metadata;
       }
-
-      console.log(`No product found for barcode: ${barcode}`, "EquipmentMetadataService");
       return null;
     } catch (error) {
       if (axios.isAxiosError(error)) {

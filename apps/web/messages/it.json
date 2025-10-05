@@ -117,7 +117,9 @@
         "no_results": "Nessuna attrezzatura trovata",
         "placeholder": "Cerca attrezzatura...",
         "select": "Seleziona Attrezzatura"
-      }
+      },
+      "due_soon": "Attrezzature in scadenza",
+      "unassigned": "Attrezzature non assegnate"
     },
     "loan": {
       "fields": {
@@ -154,6 +156,29 @@
         "no_results": "Nessun prestito trovato",
         "placeholder": "Cerca Prestito...",
         "select": "Seleziona Prestito"
+      },
+      "active": "Prestiti Attivi"
+    },
+    "analytic": {
+      "fields": {
+        "equipment": {
+          "label": "Attrezzature"
+        },
+        "loan": {
+          "label": "Prestiti"
+        },
+        "expiring30": {
+          "label": "Scadenza in 30 giorni"
+        },
+        "expiring60": {
+          "label": "Scadenza in 60 giorni"
+        },
+        "expiring90": {
+          "label": "Scadenza in 90 giorni"
+        },
+        "expired": {
+          "label": "Scaduto"
+        }
       }
     }
   },
@@ -403,7 +428,10 @@
       "searching": "Ricerca in corso..."
     },
     "language": "Lingua",
-    "languages": { "en": "🇬🇧 English", "it": "🇮🇹 Italiano" },
+    "languages": {
+      "en": "🇬🇧 English",
+      "it": "🇮🇹 Italiano"
+    },
     "hide_password": "Nascondi Password",
     "home": "Home Page",
     "last_updated": "Ultimo Aggiornamento",
