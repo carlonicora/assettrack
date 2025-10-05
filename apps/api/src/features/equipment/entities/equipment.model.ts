@@ -3,6 +3,7 @@ import { Equipment } from "src/features/equipment/entities/equipment.entity";
 import { mapEquipment } from "src/features/equipment/entities/equipment.map";
 import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
 import { EquipmentSerialiser } from "src/features/equipment/serialisers/equipment.serialiser";
+import { loanMeta } from "src/features/loan/entities/loan.meta";
 import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
 import { companyMeta } from "src/foundations/company/entities/company.meta";
 
@@ -11,6 +12,6 @@ export const EquipmentModel: DataModelInterface<Equipment> = {
   entity: undefined as unknown as Equipment,
   mapper: mapEquipment,
   serialiser: EquipmentSerialiser,
-  singleChildrenTokens: [companyMeta.nodeName, supplierMeta.nodeName],
+  singleChildrenTokens: [companyMeta.nodeName, supplierMeta.nodeName, loanMeta.nodeName],
   childrenTokens: [],
 };

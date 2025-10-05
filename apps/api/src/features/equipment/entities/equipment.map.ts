@@ -17,5 +17,6 @@ export const mapEquipment = (params: { data: any; record: any; entityFactory: En
     status: params.data.status,
     company: undefined,
     supplier: undefined,
+    loan: undefined,
   };
 };

@@ -8,6 +8,7 @@ import { Equipment } from "src/features/equipment/entities/equipment.entity";
 import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
 import { EquipmentCypherService } from "src/features/equipment/services/equipment.cypher.service";
+import { loanMeta } from "src/features/loan/entities/loan.meta";
 import { supplierMeta } from "src/features/supplier/entities/supplier.meta";
 
 @Injectable()
@@ -118,6 +119,46 @@ export class EquipmentRepository implements OnModuleInit {
     return this.neo4j.readMany(query);
   }
 
+  async findExpiring(params: { cursor?: JsonApiCursorInterface }): Promise<Equipment[]> {
+    const query = this.neo4j.initQuery({
+      cursor: params.cursor,
+      serialiser: EquipmentModel,
+    });
+
+    query.query += `
+      ${this.equipmentCypherService.default()}
+      WHERE ${equipmentMeta.nodeName}.endDate IS NOT NULL AND date(${equipmentMeta.nodeName}.endDate) <= date() + duration({months: 1})
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      
+      ORDER BY ${equipmentMeta.nodeName}.endDate DESC
+      {CURSOR}
+
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+
+  async findUnassigned(params: { cursor?: JsonApiCursorInterface }): Promise<Equipment[]> {
+    const query = this.neo4j.initQuery({
+      cursor: params.cursor,
+      serialiser: EquipmentModel,
+    });
+
+    query.query += `
+      ${this.equipmentCypherService.default()}
+      WHERE NOT EXISTS{ MATCH (${equipmentMeta.nodeName})-[:LOANED_THROUGH]->(${equipmentMeta.nodeName}_${loanMeta.nodeName}:${loanMeta.labelName}) }
+      ${this.securityService.userHasAccess({ validator: this.equipmentCypherService.userHasAccess })}
+      
+      ORDER BY ${equipmentMeta.nodeName}.endDate DESC
+      {CURSOR}
+
+      ${this.equipmentCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+
   async findById(params: { id: string }): Promise<Equipment> {
     const query = this.neo4j.initQuery({ serialiser: EquipmentModel });
 
@@ -184,8 +225,8 @@ export class EquipmentRepository implements OnModuleInit {
     name: string;
     barcode?: string;
     description?: string;
-    startDate?: Date;
-    endDate?: Date;
+    startDate?: string;
+    endDate?: string;
     status: EquipmentStatus;
     supplierIds: string;
   }): Promise<void> {
@@ -201,8 +242,8 @@ export class EquipmentRepository implements OnModuleInit {
       name: params.name,
       barcode: params.barcode ?? "",
       description: params.description ?? "",
-      startDate: params.startDate,
-      endDate: params.endDate,
+      startDate: params.startDate ? params.startDate.split("T")[0] : null,
+      endDate: params.endDate ? params.endDate.split("T")[0] : null,
       status: params.status,
       supplierIds: [params.supplierIds],
     };
@@ -213,8 +254,8 @@ export class EquipmentRepository implements OnModuleInit {
         name: $name,
         barcode: $barcode,
         description: $description,
-        ${params.startDate ? `startDate: $startDate,` : ``}
-        ${params.endDate ? `endDate: $endDate,` : ``}
+        ${params.startDate ? `startDate: date($startDate),` : ``}
+        ${params.endDate ? `endDate: date($endDate),` : ``}
         status: $status,
         createdAt: datetime(),
         updatedAt: datetime()
@@ -245,8 +286,8 @@ export class EquipmentRepository implements OnModuleInit {
     name: string;
     barcode?: string;
     description?: string;
-    startDate?: Date;
-    endDate?: Date;
+    startDate?: string;
+    endDate?: string;
     supplierIds: string;
     status: EquipmentStatus;
   }): Promise<void> {
@@ -262,8 +303,8 @@ export class EquipmentRepository implements OnModuleInit {
       name: params.name ?? "",
       barcode: params.barcode ?? "",
       description: params.description ?? "",
-      startDate: params.startDate,
-      endDate: params.endDate,
+      startDate: params.startDate ? params.startDate.split("T")[0] : null,
+      endDate: params.endDate ? params.endDate.split("T")[0] : null,
       supplierIds: [params.supplierIds],
       status: params.status,
     };
@@ -272,8 +313,8 @@ export class EquipmentRepository implements OnModuleInit {
     setParams.push("equipment.name = $name");
     setParams.push("equipment.barcode = $barcode");
     setParams.push("equipment.description = $description");
-    setParams.push(`equipment.startDate = ${params.startDate ? `$startDate` : `null`}`);
-    setParams.push(`equipment.endDate = ${params.endDate ? `$endDate` : `null`}`);
+    setParams.push(`equipment.startDate = ${params.startDate ? `date($startDate)` : `null`}`);
+    setParams.push(`equipment.endDate = ${params.endDate ? `date($endDate)` : `null`}`);
     setParams.push("equipment.status = $status");
     const set = setParams.join(", ");
 

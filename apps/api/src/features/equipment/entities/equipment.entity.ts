@@ -1,4 +1,5 @@
 import { Entity } from "src/common/abstracts/entity";
+import { Loan } from "src/features/loan/entities/loan.entity";
 import { Supplier } from "src/features/supplier/entities/supplier.entity";
 import { Company } from "src/foundations/company/entities/company.entity";
 
@@ -16,4 +17,5 @@ export type Equipment = Entity & {
 
   company: Company;
   supplier: Supplier;
+  loan?: Loan;
 };
