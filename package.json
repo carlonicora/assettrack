@@ -1,6 +1,6 @@
 {
   "name": "assettrack-monorepo",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "private": true,
   "description": "AssetTrack - Legal Practice Management Platform Monorepo",
   "engines": {
