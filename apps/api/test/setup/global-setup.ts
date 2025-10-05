@@ -1,6 +1,9 @@
 // Load environment variables FIRST before any other imports
 import * as dotenv from "dotenv";
-dotenv.config({ path: ".env.e2e" });
+import * as path from "path";
+
+// Load .env.e2e from monorepo root
+dotenv.config({ path: path.resolve(__dirname, "../../../.env.e2e") });
 
 // Register tsconfig paths before any imports that use path mapping
 import { register } from "tsconfig-paths";
