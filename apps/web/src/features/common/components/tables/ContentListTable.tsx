@@ -64,6 +64,7 @@ export const ContentListTable = memo(function ContentListTable(props: ContentLis
   }
 
   const rowModel = tableData ? table.getRowModel() : null;
+  const showFooter = !!(props.functions || data.next || data.previous);
 
   return (
     <div className="flex w-full flex-col">
@@ -106,37 +107,39 @@ export const ContentListTable = memo(function ContentListTable(props: ContentLis
               </TableRow>
             )}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={tableColumns.length} className="bg-card py-4 text-right">
-                <div className="flex items-center justify-end space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      data.previous?.(true);
-                    }}
-                    disabled={!data.previous}
-                  >
-                    <CaretLeftIcon className="h-4 w-4" />
-                  </Button>
-                  {props.functions && props.functions}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      data.next?.(true);
-                    }}
-                    disabled={!data.next}
-                  >
-                    <CaretRightIcon className="h-4 w-4" />
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
+          {showFooter && (
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={tableColumns.length} className="bg-card py-4 text-right">
+                  <div className="flex items-center justify-end space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        data.previous?.(true);
+                      }}
+                      disabled={!data.previous}
+                    >
+                      <CaretLeftIcon className="h-4 w-4" />
+                    </Button>
+                    {props.functions && props.functions}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        data.next?.(true);
+                      }}
+                      disabled={!data.next}
+                    >
+                      <CaretRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          )}
         </Table>
       </div>
     </div>
