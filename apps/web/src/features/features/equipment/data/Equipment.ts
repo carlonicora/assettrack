@@ -31,13 +31,11 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     return this._description;
   }
 
-  get startDate(): Date {
-    if (this._startDate === undefined) throw new Error("JsonApi error: equipment startDate is missing");
+  get startDate(): Date | undefined {
     return this._startDate;
   }
 
-  get endDate(): Date {
-    if (this._endDate === undefined) throw new Error("JsonApi error: equipment endDate is missing");
+  get endDate(): Date | undefined {
     return this._endDate;
   }
 

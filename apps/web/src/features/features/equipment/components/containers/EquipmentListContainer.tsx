@@ -1,7 +1,6 @@
 "use client";
 
 import EquipmentList from "@/features/features/equipment/components/lists/EquipmentList";
-import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 
 import { Modules } from "@/modules/modules";
 import { Action } from "@/permisions/types";

@@ -1,3 +1,4 @@
+import { EquipmentStatus } from "@assettrack/shared";
 import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { ClsService } from "nestjs-cls";
 import { JsonApiDataInterface } from "src/core/jsonapi/interfaces/jsonapi.data.interface";
@@ -21,6 +22,7 @@ export class EquipmentService {
     term?: string;
     fetchAll?: boolean;
     orderBy?: string;
+    status?: EquipmentStatus;
   }): Promise<JsonApiDataInterface> {
     const paginator: JsonApiPaginator = new JsonApiPaginator(params.query);
 
@@ -30,6 +32,7 @@ export class EquipmentService {
         fetchAll: params.fetchAll,
         term: params.term,
         orderBy: params.orderBy,
+        status: params.status,
         cursor: paginator.generateCursor(),
       }),
       paginator,

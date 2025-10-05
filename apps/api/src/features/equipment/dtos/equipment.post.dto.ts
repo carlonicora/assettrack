@@ -27,13 +27,11 @@ export class EquipmentPostAttributesDTO {
   @IsString()
   description?: string;
 
-  @IsDefined()
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   startDate: Date;
 
-  @IsDefined()
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   endDate: Date;
 

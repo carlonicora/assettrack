@@ -143,7 +143,6 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 id="startDate"
                 name={t(`features.equipment.fields.startDate.label`)}
                 placeholder={t(`features.equipment.fields.startDate.placeholder`)}
-                isRequired
               />
               <FormDate
                 form={form}
@@ -158,13 +157,6 @@ export default function EquipmentEditor({ equipment, propagateChanges }: Equipme
                 placeholder={t(`features.equipment.fields.status.placeholder`)}
                 type={EquipmentStatus}
                 translationKey="features.equipment.fields.status.select"
-                isRequired
-              />
-              <FormInput
-                form={form}
-                id="status"
-                name={t(`features.equipment.fields.status.label`)}
-                placeholder={t(`features.equipment.fields.status.placeholder`)}
                 isRequired
               />
               <SupplierSelector

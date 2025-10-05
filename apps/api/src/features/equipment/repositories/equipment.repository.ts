@@ -76,6 +76,7 @@ export class EquipmentRepository implements OnModuleInit {
     fetchAll?: boolean;
     term?: string;
     orderBy?: string;
+    status?: EquipmentStatus;
     cursor?: JsonApiCursorInterface;
   }): Promise<Equipment[]> {
     const query = this.neo4j.initQuery({
@@ -87,6 +88,7 @@ export class EquipmentRepository implements OnModuleInit {
     query.queryParams = {
       ...query.queryParams,
       term: params.term,
+      status: params.status,
     };
 
     if (params.term) {
@@ -107,6 +109,7 @@ export class EquipmentRepository implements OnModuleInit {
     }
 
     query.query += `
+      ${params.status ? `WHERE equipment.status = $status` : ``}
       {CURSOR}
 
       ${this.equipmentCypherService.returnStatement()}
@@ -181,8 +184,8 @@ export class EquipmentRepository implements OnModuleInit {
     name: string;
     barcode?: string;
     description?: string;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date;
+    endDate?: Date;
     status: EquipmentStatus;
     supplierIds: string;
   }): Promise<void> {
@@ -210,8 +213,8 @@ export class EquipmentRepository implements OnModuleInit {
         name: $name,
         barcode: $barcode,
         description: $description,
-        startDate: $startDate,
-        endDate: $endDate,
+        ${params.startDate ? `startDate: $startDate,` : ``}
+        ${params.endDate ? `endDate: $endDate,` : ``}
         status: $status,
         createdAt: datetime(),
         updatedAt: datetime()
@@ -242,8 +245,8 @@ export class EquipmentRepository implements OnModuleInit {
     name: string;
     barcode?: string;
     description?: string;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date;
+    endDate?: Date;
     supplierIds: string;
     status: EquipmentStatus;
   }): Promise<void> {
@@ -259,8 +262,8 @@ export class EquipmentRepository implements OnModuleInit {
       name: params.name ?? "",
       barcode: params.barcode ?? "",
       description: params.description ?? "",
-      startDate: params.startDate ?? "",
-      endDate: params.endDate ?? "",
+      startDate: params.startDate,
+      endDate: params.endDate,
       supplierIds: [params.supplierIds],
       status: params.status,
     };
@@ -269,8 +272,8 @@ export class EquipmentRepository implements OnModuleInit {
     setParams.push("equipment.name = $name");
     setParams.push("equipment.barcode = $barcode");
     setParams.push("equipment.description = $description");
-    setParams.push("equipment.startDate = $startDate");
-    setParams.push("equipment.endDate = $endDate");
+    setParams.push(`equipment.startDate = ${params.startDate ? `$startDate` : `null`}`);
+    setParams.push(`equipment.endDate = ${params.endDate ? `$endDate` : `null`}`);
     setParams.push("equipment.status = $status");
     const set = setParams.join(", ");
 

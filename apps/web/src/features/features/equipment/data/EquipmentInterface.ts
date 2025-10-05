@@ -17,8 +17,8 @@ export interface EquipmentInterface extends ApiDataInterface {
   get name(): string;
   get barcode(): string | undefined;
   get description(): string | undefined;
-  get startDate(): Date;
-  get endDate(): Date;
+  get startDate(): Date | undefined;
+  get endDate(): Date | undefined;
   get manufacturer(): string | undefined;
   get model(): string | undefined;
   get category(): string | undefined;
