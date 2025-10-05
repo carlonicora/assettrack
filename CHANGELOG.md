@@ -1,3 +1,9 @@
+## [1.3.4](https://github.com/carlonicora/assettrack/compare/v1.3.3...v1.3.4) (2025-10-05)
+
+### 🐛 Bug Fixes
+
+* move turbo caching to rharkor ([fa75259](https://github.com/carlonicora/assettrack/commit/fa75259f369ae7272077fd6f22ae532e66411f6c))
+
 ## [1.3.3](https://github.com/carlonicora/assettrack/compare/v1.3.2...v1.3.3) (2025-10-05)
 
 ### 🐛 Bug Fixes
