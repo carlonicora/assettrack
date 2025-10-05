@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/carlonicora/assettrack/compare/v1.3.1...v1.3.2) (2025-10-05)
+
+### 🐛 Bug Fixes
+
+* remove turbo cache from ci/cd ([b5af1a8](https://github.com/carlonicora/assettrack/commit/b5af1a8d8ce4bdc81cae64c284d4e601cc44b11b))
+
 ## [1.3.1](https://github.com/carlonicora/assettrack/compare/v1.3.0...v1.3.1) (2025-10-05)
 
 ### 🐛 Bug Fixes
