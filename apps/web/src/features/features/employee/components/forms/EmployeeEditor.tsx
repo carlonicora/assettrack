@@ -7,8 +7,6 @@ import CommonEditorButtons from "@/features/common/components/forms/CommonEditor
 import CommonEditorHeader from "@/features/common/components/forms/CommonEditorHeader";
 import CommonEditorTrigger from "@/features/common/components/forms/CommonEditorTrigger";
 import FormInput from "@/features/common/components/forms/FormInput";
-import FormTextarea from "@/features/common/components/forms/FormTextarea";
-import FormDate from "@/features/common/components/forms/FormDate";
 import { EmployeeInput, EmployeeInterface } from "@/features/features/employee/data/EmployeeInterface";
 import { EmployeeService } from "@/features/features/employee/data/EmployeeService";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
@@ -21,7 +19,6 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { entityObjectSchema } from "@/lib/entity.object.schema";
 
 type EmployeeEditorProps = {
   employee?: EmployeeInterface;
@@ -46,10 +43,10 @@ export default function EmployeeEditor({ employee, propagateChanges }: EmployeeE
 
   const getDefaultValues = () => ({
     id: employee?.id || v4(),
-      name: employee?.name || "",
-      phone: employee?.phone || "",
-      email: employee?.email || "",
-      avatar: employee?.avatar || "",
+    name: employee?.name || "",
+    phone: employee?.phone || "",
+    email: employee?.email || "",
+    avatar: employee?.avatar || "",
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,9 +70,7 @@ export default function EmployeeEditor({ employee, propagateChanges }: EmployeeE
     };
 
     try {
-      const updatedEmployee = employee
-        ? await EmployeeService.update(payload)
-        : await EmployeeService.create(payload);
+      const updatedEmployee = employee ? await EmployeeService.update(payload) : await EmployeeService.create(payload);
 
       revalidatePaths(generateUrl({ page: Modules.Employee, id: updatedEmployee.id, language: `[locale]` }));
       if (employee && propagateChanges) {
@@ -119,12 +114,12 @@ export default function EmployeeEditor({ employee, propagateChanges }: EmployeeE
                 name={t(`features.employee.fields.email.label`)}
                 placeholder={t(`features.employee.fields.email.placeholder`)}
               />
-              <FormInput
+              {/* <FormInput
                 form={form}
                 id="avatar"
                 name={t(`features.employee.fields.avatar.label`)}
                 placeholder={t(`features.employee.fields.avatar.placeholder`)}
-              />
+              /> */}
               <CommonEditorButtons form={form} setOpen={setOpen} isEdit={!!employee} />
             </div>
           </form>
