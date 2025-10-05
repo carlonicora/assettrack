@@ -1,3 +1,9 @@
+## [1.3.5](https://github.com/carlonicora/assettrack/compare/v1.3.4...v1.3.5) (2025-10-05)
+
+### 🐛 Bug Fixes
+
+* remove employee avatar as input ([dc0e46f](https://github.com/carlonicora/assettrack/commit/dc0e46f3990c645c5fa19f67792524e030cdebc5))
+
 ## [1.3.4](https://github.com/carlonicora/assettrack/compare/v1.3.3...v1.3.4) (2025-10-05)
 
 ### 🐛 Bug Fixes
