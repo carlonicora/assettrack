@@ -117,7 +117,9 @@
         "no_results": "Nessuna attrezzatura trovata",
         "placeholder": "Cerca attrezzatura...",
         "select": "Seleziona Attrezzatura"
-      }
+      },
+      "due_soon": "Attrezzature in scadenza",
+      "unassigned": "Attrezzature non assegnate"
     },
     "loan": {
       "fields": {
@@ -154,7 +156,8 @@
         "no_results": "Nessun prestito trovato",
         "placeholder": "Cerca Prestito...",
         "select": "Seleziona Prestito"
-      }
+      },
+      "active": "Prestiti Attivi"
     }
   },
   "foundations": {

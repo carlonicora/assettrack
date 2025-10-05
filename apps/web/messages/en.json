@@ -117,7 +117,9 @@
         "no_results": "No equipment found",
         "placeholder": "Search equipment...",
         "select": "Select Equipment"
-      }
+      },
+      "due_soon": "Equipment Due Soon",
+      "unassigned": "Unassigned Equipment"
     },
     "loan": {
       "fields": {
@@ -154,7 +156,8 @@
         "no_results": "No loan found",
         "placeholder": "Search Loan...",
         "select": "Select Loan"
-      }
+      },
+      "active": "Active Loans"
     }
   },
   "foundations": {
