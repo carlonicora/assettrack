@@ -31,7 +31,9 @@ jobs:
       - name: Restore Turbo cache
         uses: actions/cache/restore@v4
         with:
-          path: node_modules/.cache/turbo
+          path: |
+            .turbo
+            **/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -46,5 +48,7 @@ jobs:
         uses: actions/cache/save@v4
         if: always()
         with:
-          path: node_modules/.cache/turbo
+          path: |
+            .turbo
+            **/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
