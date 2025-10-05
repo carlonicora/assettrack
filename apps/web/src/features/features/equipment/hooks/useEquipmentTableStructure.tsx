@@ -8,6 +8,7 @@ import { EquipmentFields } from "@/features/features/equipment/data/EquipmentFie
 import { EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
 import { usePageUrlGenerator } from "@/hooks/usePageUrlGenerator";
 import { registerTableGenerator } from "@/hooks/useTableGenerator";
+import { cn } from "@/lib/utils";
 import { Modules } from "@/modules/modules";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
@@ -115,7 +116,9 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
         if (!equipment?.endDate) return <></>;
 
         return (
-          <span className={`text-destructive text-xs`}>
+          <span
+            className={cn(`text-muted-foreground text-xs`, equipment.endDate < new Date() ? `text-destructive` : ``)}
+          >
             {equipment?.endDate.toLocaleDateString("it", { dateStyle: "medium" })}
           </span>
         );

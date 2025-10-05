@@ -7,7 +7,12 @@ export const cellDate = (params: { name: string; title: string; highlightExpired
     accessorKey: params.name,
     header: params.title,
     cell: ({ row }) => (
-      <span className={cn(`text-muted-foreground text-xs`, params.highlightExpired ? `text-destructive` : ``)}>
+      <span
+        className={cn(
+          `text-muted-foreground text-xs`,
+          params.highlightExpired && row.getValue<Date>(params.name) < new Date() ? `text-destructive` : ``,
+        )}
+      >
         {row.getValue<Date>(params.name)
           ? row.getValue<Date>(params.name).toLocaleDateString("it", { dateStyle: "medium" })
           : ""}
