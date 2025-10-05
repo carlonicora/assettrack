@@ -26,7 +26,8 @@ export async function JsonApiServerRequest(params: {
   };
 
   if (params.cache) {
-    if (params.cache in ["days", "default", "hours", "max", "minutes", "seconds", "weeks"]) cacheLife(params.cache);
+    if (["days", "default", "hours", "max", "minutes", "seconds", "weeks"].includes(params.cache))
+      cacheLife(params.cache);
     else cacheTag(params.cache);
   } else {
     cacheLife("seconds");

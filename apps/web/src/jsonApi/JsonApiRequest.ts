@@ -146,6 +146,89 @@ async function getToken(): Promise<string | undefined> {
   return response;
 }
 
+/**
+ * Client-side direct fetch to bypass server action overhead
+ */
+async function directFetch(params: {
+  method: string;
+  link: string;
+  token?: string;
+  body?: any;
+  files?: { [key: string]: File | Blob } | File | Blob;
+  companyId?: string;
+  language: string;
+}): Promise<ApiData> {
+  const response: ApiData = {
+    data: undefined,
+    ok: false,
+    status: 0,
+    statusText: "",
+  };
+
+  const additionalHeaders: any = {};
+
+  if (params.companyId) additionalHeaders["x-companyid"] = params.companyId;
+  additionalHeaders["x-language"] = params.language;
+
+  let requestBody: BodyInit | undefined = undefined;
+
+  if (params.files) {
+    const formData = new FormData();
+    if (params.body && typeof params.body === "object") {
+      for (const key in params.body) {
+        if (Object.prototype.hasOwnProperty.call(params.body, key)) {
+          formData.append(
+            key,
+            typeof params.body[key] === "object" ? JSON.stringify(params.body[key]) : params.body[key],
+          );
+        }
+      }
+    }
+
+    if (params.files instanceof Blob) {
+      formData.append("file", params.files);
+    } else if (typeof params.files === "object" && params.files !== null) {
+      for (const key in params.files) {
+        if (params.files.hasOwnProperty(key)) {
+          formData.append(key, params.files[key]);
+        }
+      }
+    }
+
+    requestBody = formData;
+  } else if (params.body !== undefined) {
+    requestBody = JSON.stringify(params.body);
+    additionalHeaders["Content-Type"] = "application/json";
+  }
+
+  const options: RequestInit = { method: params.method, headers: { Accept: "application/json", ...additionalHeaders } };
+
+  if (requestBody !== undefined) options.body = requestBody;
+
+  if (params.token) {
+    options.headers = { ...options.headers, Authorization: `Bearer ${params.token}` };
+  }
+
+  try {
+    const apiResponse = await fetch(params.link, options);
+
+    response.ok = apiResponse.ok;
+    response.status = apiResponse.status;
+    response.statusText = apiResponse.statusText;
+    try {
+      response.data = await apiResponse.json();
+    } catch (error) {
+      response.data = undefined;
+    }
+  } catch (error) {
+    response.ok = false;
+    response.status = 500;
+    response.data = undefined;
+  }
+
+  return response;
+}
+
 export async function JsonApiGet(params: {
   classKey: ApiRequestDataTypeInterface;
   endpoint: string;
@@ -153,15 +236,32 @@ export async function JsonApiGet(params: {
   language: string;
 }): Promise<ApiResponseInterface> {
   const token = await getToken();
+  const start = new Date();
 
-  const apiResponse: ApiData = await JsonApiServerRequest({
-    detail: "GET",
-    link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
-    cache: params.classKey.cache,
-    companyId: params.companyId,
-    language: params.language,
-    token: token,
-  });
+  let apiResponse: ApiData;
+
+  // Use direct fetch on client-side to bypass server action overhead
+  if (typeof window !== "undefined") {
+    apiResponse = await directFetch({
+      method: "GET",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      language: params.language,
+      token: token,
+    });
+  } else {
+    // Use server action for SSR
+    apiResponse = await JsonApiServerRequest({
+      detail: "GET",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      cache: params.classKey.cache,
+      companyId: params.companyId,
+      language: params.language,
+      token: token,
+    });
+  }
+
+  console.log("GET completed in", new Date().getTime() - start.getTime(), params.endpoint);
 
   return translateResponse({
     classKey: params.classKey,
@@ -188,15 +288,31 @@ export async function JsonApiPost(params: {
   else if (params.overridesJsonApiCreation !== true)
     params.body = JsonApiDataFactory.create(params.classKey, params.body);
 
-  const apiResponse: ApiData = await JsonApiServerRequest({
-    detail: "POST",
-    link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
-    companyId: params.companyId,
-    body: params.body,
-    files: params.files,
-    language: params.language,
-    token: token,
-  });
+  let apiResponse: ApiData;
+
+  // Use direct fetch on client-side to bypass server action overhead
+  if (typeof window !== "undefined") {
+    apiResponse = await directFetch({
+      method: "POST",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  } else {
+    // Use server action for SSR
+    apiResponse = await JsonApiServerRequest({
+      detail: "POST",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  }
 
   return translateResponse({
     classKey: params.responseType ?? params.classKey,
@@ -221,15 +337,31 @@ export async function JsonApiPut(params: {
   if (!params.body) params.body = {};
   else params.body = JsonApiDataFactory.create(params.classKey, params.body);
 
-  const apiResponse: ApiData = await JsonApiServerRequest({
-    detail: "PUT",
-    link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
-    companyId: params.companyId,
-    body: params.body,
-    files: params.files,
-    language: params.language,
-    token: token,
-  });
+  let apiResponse: ApiData;
+
+  // Use direct fetch on client-side to bypass server action overhead
+  if (typeof window !== "undefined") {
+    apiResponse = await directFetch({
+      method: "PUT",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  } else {
+    // Use server action for SSR
+    apiResponse = await JsonApiServerRequest({
+      detail: "PUT",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  }
 
   return translateResponse({
     classKey: params.responseType ?? params.classKey,
@@ -256,15 +388,31 @@ export async function JsonApiPatch(params: {
   else if (params.overridesJsonApiCreation !== true)
     params.body = JsonApiDataFactory.create(params.classKey, params.body);
 
-  const apiResponse: ApiData = await JsonApiServerRequest({
-    detail: "PATCH",
-    link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
-    companyId: params.companyId,
-    body: params.body,
-    files: params.files,
-    language: params.language,
-    token: token,
-  });
+  let apiResponse: ApiData;
+
+  // Use direct fetch on client-side to bypass server action overhead
+  if (typeof window !== "undefined") {
+    apiResponse = await directFetch({
+      method: "PATCH",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  } else {
+    // Use server action for SSR
+    apiResponse = await JsonApiServerRequest({
+      detail: "PATCH",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      body: params.body,
+      files: params.files,
+      language: params.language,
+      token: token,
+    });
+  }
 
   return translateResponse({
     classKey: params.responseType ?? params.classKey,
@@ -282,13 +430,28 @@ export async function JsonApiDelete(params: {
   responseType?: ApiRequestDataTypeInterface;
 }): Promise<ApiResponseInterface> {
   const token = await getToken();
-  const apiResponse: ApiData = await JsonApiServerRequest({
-    detail: "DELETE",
-    link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
-    companyId: params.companyId,
-    language: params.language,
-    token: token,
-  });
+
+  let apiResponse: ApiData;
+
+  // Use direct fetch on client-side to bypass server action overhead
+  if (typeof window !== "undefined") {
+    apiResponse = await directFetch({
+      method: "DELETE",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      language: params.language,
+      token: token,
+    });
+  } else {
+    // Use server action for SSR
+    apiResponse = await JsonApiServerRequest({
+      detail: "DELETE",
+      link: `${params.endpoint.startsWith("http") ? "" : process.env.NEXT_PUBLIC_API_URL}${params.endpoint}`,
+      companyId: params.companyId,
+      language: params.language,
+      token: token,
+    });
+  }
 
   return translateResponse({
     classKey: params.responseType ?? params.classKey,
