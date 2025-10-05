@@ -1,3 +1,4 @@
+import { LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
 import { ApiDataInterface } from "@/jsonApi/interfaces/ApiDataInterface";
 
@@ -26,4 +27,5 @@ export interface EquipmentInterface extends ApiDataInterface {
   get status(): string;
 
   get supplier(): SupplierInterface;
+  get currentLoan(): LoanInterface | undefined;
 }

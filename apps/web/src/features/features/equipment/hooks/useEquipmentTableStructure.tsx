@@ -63,6 +63,23 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
       enableSorting: false,
       enableHiding: false,
     }),
+    [EquipmentFields.employee]: () => ({
+      id: "employee",
+      accessorKey: "employee",
+      header: t(`types.employees`, { count: 1 }),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => {
+        const equipment: EquipmentInterface = row.original.jsonApiData;
+        if (!equipment?.currentLoan?.employee) return <></>;
+
+        return (
+          <Link href={generateUrl({ page: Modules.Employee, id: equipment.currentLoan.employee.id })}>
+            {equipment.currentLoan.employee.name}
+          </Link>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.barcode]: () => ({
       id: "barcode",
       accessorKey: "barcode",
@@ -89,6 +106,23 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
         name: "endDate",
         title: t(`features.equipment.fields.endDate.label`),
       }),
+    [EquipmentFields.endDateOverdue]: () => ({
+      id: "endDate",
+      accessorKey: "endDate",
+      header: t(`features.equipment.fields.endDate.label`),
+      cell: ({ row }) => {
+        const equipment: EquipmentInterface = row.original.jsonApiData;
+        if (!equipment?.endDate) return <></>;
+
+        return (
+          <span className={`text-destructive text-xs`}>
+            {equipment?.endDate.toLocaleDateString("it", { dateStyle: "medium" })}
+          </span>
+        );
+      },
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.status]: () => ({
       id: "status",
       accessorKey: "status",

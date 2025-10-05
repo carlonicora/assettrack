@@ -1,4 +1,5 @@
 import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
+import { LoanInterface } from "@/features/features/loan/data/LoanInterface";
 import { SupplierInterface } from "@/features/features/supplier/data/SupplierInterface";
 import { AbstractApiData } from "@/jsonApi/abstracts/AbstractApiData";
 import { JsonApiHydratedDataInterface } from "@/jsonApi/interfaces/JsonApiHydratedDataInterface";
@@ -17,6 +18,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
   private _status?: string;
 
   private _supplier?: SupplierInterface;
+  private _currentLoan?: LoanInterface;
 
   get name(): string {
     if (this._name === undefined) throw new Error("JsonApi error: equipment name is missing");
@@ -64,6 +66,10 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     return this._supplier;
   }
 
+  get currentLoan(): LoanInterface | undefined {
+    return this._currentLoan;
+  }
+
   rehydrate(data: JsonApiHydratedDataInterface): this {
     super.rehydrate(data);
 
@@ -79,6 +85,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     this._status = data.jsonApi.attributes.status;
 
     this._supplier = this._readIncluded(data, "supplier", Modules.Supplier) as SupplierInterface;
+    this._currentLoan = this._readIncluded(data, "loan", Modules.Loan) as LoanInterface | undefined;
 
     return this;
   }
