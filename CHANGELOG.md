@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/carlonicora/assettrack/compare/v1.2.0...v1.3.0) (2025-10-05)
+
+### 🚀 Features
+
+* centralised .env variables ([ec3fa66](https://github.com/carlonicora/assettrack/commit/ec3fa664717937dc659b5f6feacd61e8dccb7371))
+* centralised .env variables ([a0ea574](https://github.com/carlonicora/assettrack/commit/a0ea57431c7b8083ad49440f7fb8f30f0e9023b2))
+
 ## [1.2.0](https://github.com/carlonicora/assettrack/compare/v1.1.0...v1.2.0) (2025-10-04)
 
 ### 🚀 Features
