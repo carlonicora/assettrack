@@ -19,9 +19,7 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
   });
 
   it(`GET /${equipmentMeta.endpoint}/:equipmentId → 403 when unauthenticated`, async () => {
-    await request(app.getHttpServer())
-      .get(`/${equipmentMeta.endpoint}/${EQUIPMENTS.CompanyOne_Full.id}`)
-      .expect(403);
+    await request(app.getHttpServer()).get(`/${equipmentMeta.endpoint}/${EQUIPMENTS.CompanyOne_Full.id}`).expect(403);
   });
 
   it(`GET /${equipmentMeta.endpoint}/:equipmentId → 403 when equipment from another company`, async () => {
@@ -126,13 +124,12 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
     });
   });
 
-
   // Other relationship tests - only if fixtures exist
   it(`GET /${supplierMeta.endpoint}/:supplierId/${equipmentMeta.endpoint} → 200 returns equipments by supplier`, async () => {
     // Check if relationship fixtures exist and are accessible
-    if (typeof SUPPLIERS === 'undefined') return;
+    if (typeof SUPPLIERS === "undefined") return;
 
-    const companyOneFixtures = Object.values(SUPPLIERS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(SUPPLIERS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -142,7 +139,9 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource
-    const expectedFixtures = Object.values(EQUIPMENTS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.supplier?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(EQUIPMENTS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.supplier?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: equipmentMeta.endpoint,
@@ -151,7 +150,7 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
   });
 
   it(`GET /${supplierMeta.endpoint}/:supplierId/${equipmentMeta.endpoint} → 200 returns empty list when supplier does not exist`, async () => {
-    if (typeof SUPPLIERS === 'undefined') return;
+    if (typeof SUPPLIERS === "undefined") return;
 
     const nonExistentSupplierId = "00000000-0000-0000-0000-000000000000";
 
@@ -164,9 +163,9 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
   });
 
   it(`GET /${supplierMeta.endpoint}/:supplierId/${equipmentMeta.endpoint} → 403 when unauthenticated`, async () => {
-    if (typeof SUPPLIERS === 'undefined') return;
+    if (typeof SUPPLIERS === "undefined") return;
 
-    const companyOneFixtures = Object.values(SUPPLIERS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(SUPPLIERS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     await request(app.getHttpServer())
@@ -175,9 +174,9 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
   });
 
   it(`GET /${supplierMeta.endpoint}/:supplierId/${equipmentMeta.endpoint}?search=term → 200 returns filtered equipments by supplier and search`, async () => {
-    if (typeof SUPPLIERS === 'undefined') return;
+    if (typeof SUPPLIERS === "undefined") return;
 
-    const companyOneFixtures = Object.values(SUPPLIERS).filter(r => r.company?.id === COMPANIES.CompanyOne.id);
+    const companyOneFixtures = Object.values(SUPPLIERS).filter((r) => r.company?.id === COMPANIES.CompanyOne.id);
     if (companyOneFixtures.length === 0) return;
 
     const res = await request(app.getHttpServer())
@@ -187,7 +186,9 @@ describe(`GET /${equipmentMeta.endpoint}`, () => {
 
     expect(res.body.data).toBeInstanceOf(Array);
     // Find which fixtures should be related to this parent resource AND match search
-    const expectedFixtures = Object.values(EQUIPMENTS).filter(f => f.company.id === COMPANIES.CompanyOne.id && f.supplier?.id === companyOneFixtures[0].id);
+    const expectedFixtures = Object.values(EQUIPMENTS).filter(
+      (f) => f.company.id === COMPANIES.CompanyOne.id && f.supplier?.id === companyOneFixtures[0].id,
+    );
     jsonApiValidator.validateResponseList({
       body: res.body,
       type: equipmentMeta.endpoint,
