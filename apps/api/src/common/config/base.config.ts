@@ -8,7 +8,7 @@ export const baseConfig = {
         ? process.env.API_URL
         : `${process.env.API_URL}/`
       : "http://localhost:3000/",
-    port: parseInt(process.env.PORT || "3000"),
+    port: parseInt(process.env.API_PORT || "3000"),
     env: process.env.ENV || "development",
   },
   app: {
