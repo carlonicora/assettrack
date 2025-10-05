@@ -1,8 +1,8 @@
 import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { ClsService } from "nestjs-cls";
 import { JsonApiDataInterface } from "src/core/jsonapi/interfaces/jsonapi.data.interface";
-import { JsonApiService } from "src/core/jsonapi/services/jsonapi.service";
 import { JsonApiPaginator } from "src/core/jsonapi/serialisers/jsonapi.paginator";
+import { JsonApiService } from "src/core/jsonapi/services/jsonapi.service";
 import { LoanPostDataDTO } from "src/features/loan/dtos/loan.post.dto";
 import { LoanPutDataDTO } from "src/features/loan/dtos/loan.put.dto";
 import { LoanModel } from "src/features/loan/entities/loan.model";
@@ -21,17 +21,22 @@ export class LoanService {
     term?: string;
     fetchAll?: boolean;
     orderBy?: string;
+    active?: boolean;
   }): Promise<JsonApiDataInterface> {
     const paginator: JsonApiPaginator = new JsonApiPaginator(params.query);
 
     return this.builder.buildList(
       LoanModel,
-      await this.loanRepository.find({
-        fetchAll: params.fetchAll,
-        term: params.term,
-        orderBy: params.orderBy,
-        cursor: paginator.generateCursor(),
-      }),
+      params.active
+        ? await this.loanRepository.findActive({
+            cursor: paginator.generateCursor(),
+          })
+        : await this.loanRepository.find({
+            fetchAll: params.fetchAll,
+            term: params.term,
+            orderBy: params.orderBy,
+            cursor: paginator.generateCursor(),
+          }),
       paginator,
     );
   }

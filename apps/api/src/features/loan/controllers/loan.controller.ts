@@ -16,15 +16,15 @@ import {
 } from "@nestjs/common";
 import { FastifyReply } from "fastify";
 
-import { CacheService } from "src/core/cache/services/cache.service";
-import { AuthenticatedRequest } from "src/common/interfaces/authenticated.request.interface";
 import { JwtAuthGuard } from "src/common/guards/jwt.auth.guard";
+import { AuthenticatedRequest } from "src/common/interfaces/authenticated.request.interface";
+import { CacheService } from "src/core/cache/services/cache.service";
+import { employeeMeta } from "src/features/employee/entities/employee.meta";
+import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
 import { LoanPostDTO } from "src/features/loan/dtos/loan.post.dto";
 import { LoanPutDTO } from "src/features/loan/dtos/loan.put.dto";
 import { loanMeta } from "src/features/loan/entities/loan.meta";
 import { LoanService } from "src/features/loan/services/loan.service";
-import { employeeMeta } from "src/features/employee/entities/employee.meta";
-import { equipmentMeta } from "src/features/equipment/entities/equipment.meta";
 import { AuditService } from "src/foundations/audit/services/audit.service";
 
 @UseGuards(JwtAuthGuard)
@@ -44,12 +44,14 @@ export class LoanController {
     @Query("search") search?: string,
     @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
+    @Query("active") active?: boolean,
   ) {
     const response = await this.loanService.find({
       term: search,
       query: query,
       fetchAll: fetchAll,
       orderBy: orderBy,
+      active: active,
     });
 
     reply.send(response);

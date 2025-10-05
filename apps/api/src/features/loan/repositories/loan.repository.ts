@@ -85,6 +85,26 @@ export class LoanRepository implements OnModuleInit {
     return this.neo4j.readMany(query);
   }
 
+  async findActive(params: { orderBy?: string; cursor?: JsonApiCursorInterface }): Promise<Loan[]> {
+    const query = this.neo4j.initQuery({
+      cursor: params.cursor,
+      serialiser: LoanModel,
+    });
+
+    query.query += `
+      ${this.loanCypherService.default()}
+      WHERE ${loanMeta.nodeName}.endDate >= date()
+      ${this.securityService.userHasAccess({ validator: this.loanCypherService.userHasAccess })}
+      
+      ORDER BY ${loanMeta.nodeName}.${params.orderBy ? `${params.orderBy}` : `updatedAt DESC`}
+      {CURSOR}
+
+      ${this.loanCypherService.returnStatement()}
+    `;
+
+    return this.neo4j.readMany(query);
+  }
+
   async findById(params: { id: string }): Promise<Loan> {
     const query = this.neo4j.initQuery({ serialiser: LoanModel });
 
@@ -108,8 +128,8 @@ export class LoanRepository implements OnModuleInit {
 
   async create(params: {
     id: string;
-    startDate: Date;
-    endDate?: Date;
+    startDate: string;
+    endDate?: string;
     employeeIds: string;
     equipmentIds: string;
   }): Promise<void> {
@@ -125,8 +145,8 @@ export class LoanRepository implements OnModuleInit {
     query.queryParams = {
       ...query.queryParams,
       id: params.id,
-      startDate: params.startDate,
-      endDate: params.endDate ?? "",
+      startDate: params.startDate.split("T")[0],
+      endDate: params.endDate ? params.endDate.split("T")[0] : "",
       employeeIds: [params.employeeIds],
       equipmentIds: [params.equipmentIds],
     };
@@ -134,8 +154,8 @@ export class LoanRepository implements OnModuleInit {
     query.query += `
       CREATE (loan:Loan {
         id: $id,
-        startDate: $startDate,
-        endDate: $endDate,
+        startDate: date($startDate),
+        ${params.endDate ? `endDate: date($endDate),` : ``}
         createdAt: datetime(),
         updatedAt: datetime()
       })
@@ -168,8 +188,8 @@ export class LoanRepository implements OnModuleInit {
 
   async put(params: {
     id: string;
-    startDate: Date;
-    endDate?: Date;
+    startDate: string;
+    endDate?: string;
     employeeIds: string;
     equipmentIds: string;
   }): Promise<void> {
@@ -185,15 +205,15 @@ export class LoanRepository implements OnModuleInit {
     query.queryParams = {
       ...query.queryParams,
       id: params.id,
-      startDate: params.startDate ?? "",
-      endDate: params.endDate ?? "",
+      startDate: params.startDate.split("T")[0],
+      endDate: params.endDate ? params.endDate.split("T")[0] : "",
       employeeIds: [params.employeeIds],
       equipmentIds: [params.equipmentIds],
     };
 
     const setParams: string[] = [];
-    setParams.push("loan.startDate = $startDate");
-    setParams.push("loan.endDate = $endDate");
+    setParams.push("loan.startDate = date($startDate)");
+    setParams.push(`loan.endDate = ${params.endDate ? `date($endDate)` : `null`}`);
     const set = setParams.join(", ");
 
     query.query += `

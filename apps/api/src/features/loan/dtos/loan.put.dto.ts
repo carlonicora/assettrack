@@ -8,11 +8,11 @@ export class LoanPutAttributesDTO {
   @IsDefined()
   @IsNotEmpty()
   @IsDateString()
-  startDate: Date;
+  startDate: string;
 
   @IsOptional()
   @IsDateString()
-  endDate?: Date;
+  endDate?: string;
 }
 
 export class LoanPutRelationshipsDTO {
