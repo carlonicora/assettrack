@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/carlonicora/assettrack/compare/v1.3.0...v1.3.1) (2025-10-05)
+
+### 🐛 Bug Fixes
+
+* correct turbo cache in ci/cd ([be7a735](https://github.com/carlonicora/assettrack/commit/be7a735919326daf9e55159e74305a37a68a4508))
+* correct turbo cache in ci/cd ([16f402a](https://github.com/carlonicora/assettrack/commit/16f402adfb15dcd410f2d2c3b8c2c54ce54c3f2a))
+
 ## [1.3.0](https://github.com/carlonicora/assettrack/compare/v1.2.0...v1.3.0) (2025-10-05)
 
 ### 🚀 Features
