@@ -14,6 +14,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
   private _model?: string;
   private _category?: string;
   private _imageUrl?: string;
+  private _returned?: boolean;
 
   private _supplier?: SupplierInterface;
 
@@ -38,6 +39,10 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
   get endDate(): Date {
     if (this._endDate === undefined) throw new Error("JsonApi error: equipment endDate is missing");
     return this._endDate;
+  }
+
+  get returned(): boolean {
+    return this._returned;
   }
 
   get manufacturer(): string | undefined {
@@ -73,6 +78,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     this._model = data.jsonApi.attributes.model;
     this._category = data.jsonApi.attributes.category;
     this._imageUrl = data.jsonApi.attributes.imageUrl;
+    this._returned = data.jsonApi.attributes.returned ?? false;
 
     this._supplier = this._readIncluded(data, "supplier", Modules.Supplier) as SupplierInterface;
 

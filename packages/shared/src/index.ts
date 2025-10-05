@@ -1,2 +1,1 @@
-// Shared code placeholder - currently empty
-export {};
+export { EquipmentStatus } from "./enums/equipment.status";

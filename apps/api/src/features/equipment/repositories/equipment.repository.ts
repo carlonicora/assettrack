@@ -1,3 +1,4 @@
+import { EquipmentStatus } from "@assettrack/shared";
 import { HttpException, HttpStatus, Injectable, OnModuleInit } from "@nestjs/common";
 import { JsonApiCursorInterface } from "src/core/jsonapi/interfaces/jsonapi.cursor.interface";
 import { updateRelationshipQuery } from "src/core/neo4j/queries/update.relationship";
@@ -182,6 +183,7 @@ export class EquipmentRepository implements OnModuleInit {
     description?: string;
     startDate: Date;
     endDate: Date;
+    status: EquipmentStatus;
     supplierIds: string;
   }): Promise<void> {
     const query = this.neo4j.initQuery();
@@ -198,6 +200,7 @@ export class EquipmentRepository implements OnModuleInit {
       description: params.description ?? "",
       startDate: params.startDate,
       endDate: params.endDate,
+      status: params.status,
       supplierIds: [params.supplierIds],
     };
 
@@ -209,6 +212,7 @@ export class EquipmentRepository implements OnModuleInit {
         description: $description,
         startDate: $startDate,
         endDate: $endDate,
+        status: $status,
         createdAt: datetime(),
         updatedAt: datetime()
       })
@@ -241,6 +245,7 @@ export class EquipmentRepository implements OnModuleInit {
     startDate: Date;
     endDate: Date;
     supplierIds: string;
+    status: EquipmentStatus;
   }): Promise<void> {
     const query = this.neo4j.initQuery();
 
@@ -257,6 +262,7 @@ export class EquipmentRepository implements OnModuleInit {
       startDate: params.startDate ?? "",
       endDate: params.endDate ?? "",
       supplierIds: [params.supplierIds],
+      status: params.status,
     };
 
     const setParams: string[] = [];
@@ -265,6 +271,7 @@ export class EquipmentRepository implements OnModuleInit {
     setParams.push("equipment.description = $description");
     setParams.push("equipment.startDate = $startDate");
     setParams.push("equipment.endDate = $endDate");
+    setParams.push("equipment.status = $status");
     const set = setParams.join(", ");
 
     query.query += `

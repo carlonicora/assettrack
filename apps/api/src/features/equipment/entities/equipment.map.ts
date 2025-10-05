@@ -14,6 +14,7 @@ export const mapEquipment = (params: { data: any; record: any; entityFactory: En
     model: params.data.model,
     category: params.data.category,
     imageUrl: params.data.imageUrl,
+    status: params.data.status,
     company: undefined,
     supplier: undefined,
   };

@@ -22,6 +22,7 @@ export interface EquipmentInterface extends ApiDataInterface {
   get model(): string | undefined;
   get category(): string | undefined;
   get imageUrl(): string | undefined;
+  get returned(): boolean;
 
   get supplier(): SupplierInterface;
 }
