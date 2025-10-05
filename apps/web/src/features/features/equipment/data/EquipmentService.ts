@@ -1,7 +1,8 @@
 import { AbstractService, HttpMethod, NextRef, PreviousRef } from "@/data/abstracts/AbstractService";
 import { EndpointCreator } from "@/data/EndpointCreator";
-import { Modules } from "@/modules/modules";
 import { EquipmentInput, EquipmentInterface } from "@/features/features/equipment/data/EquipmentInterface";
+import { Modules } from "@/modules/modules";
+import { EquipmentStatus } from "@assettrack/shared";
 
 export class EquipmentService extends AbstractService {
   static async findOne(params: { id: string }): Promise<EquipmentInterface> {
@@ -14,12 +15,14 @@ export class EquipmentService extends AbstractService {
 
   static async findMany(params: {
     search?: string;
+    status?: EquipmentStatus;
     fetchAll?: boolean;
     next?: NextRef;
     prev?: PreviousRef;
   }): Promise<EquipmentInterface[]> {
     const endpoint = new EndpointCreator({ endpoint: Modules.Equipment });
 
+    if (params.status) endpoint.addAdditionalParam("status", params.status);
     if (params.fetchAll) endpoint.addAdditionalParam("fetchAll", "true");
     if (params.search) endpoint.addAdditionalParam("search", params.search);
     if (Modules.Equipment.inclusions?.lists?.fields) endpoint.limitToFields(Modules.Equipment.inclusions.lists.fields);
@@ -34,13 +37,17 @@ export class EquipmentService extends AbstractService {
   }
 
   static async findManyBySupplier(params: {
-    supplierId: string
+    supplierId: string;
     search?: string;
     fetchAll?: boolean;
     next?: NextRef;
     prev?: PreviousRef;
   }): Promise<EquipmentInterface[]> {
-    const endpoint = new EndpointCreator({ endpoint: Modules.Supplier, id: params.supplierId, childEndpoint: Modules.Equipment });
+    const endpoint = new EndpointCreator({
+      endpoint: Modules.Supplier,
+      id: params.supplierId,
+      childEndpoint: Modules.Equipment,
+    });
 
     if (params.fetchAll) endpoint.addAdditionalParam("fetchAll", "true");
     if (params.search) endpoint.addAdditionalParam("search", params.search);
@@ -54,7 +61,6 @@ export class EquipmentService extends AbstractService {
       next: params.next,
     });
   }
-
 
   static async create(params: EquipmentInput): Promise<EquipmentInterface> {
     return this.callApi({

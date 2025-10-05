@@ -23,8 +23,6 @@
     "noUnusedParameters": false,
     "noImplicitReturns": false,
     "paths": {
-      "@assettrack/shared": ["../../packages/shared/src"],
-      "@assettrack/shared/*": ["../../packages/shared/src/*"],
       "src/*": ["src/*"]
     }
   },

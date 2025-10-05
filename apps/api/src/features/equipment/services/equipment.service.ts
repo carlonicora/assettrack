@@ -1,8 +1,9 @@
+import { EquipmentStatus } from "@assettrack/shared";
 import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { ClsService } from "nestjs-cls";
 import { JsonApiDataInterface } from "src/core/jsonapi/interfaces/jsonapi.data.interface";
-import { JsonApiService } from "src/core/jsonapi/services/jsonapi.service";
 import { JsonApiPaginator } from "src/core/jsonapi/serialisers/jsonapi.paginator";
+import { JsonApiService } from "src/core/jsonapi/services/jsonapi.service";
 import { EquipmentPostDataDTO } from "src/features/equipment/dtos/equipment.post.dto";
 import { EquipmentPutDataDTO } from "src/features/equipment/dtos/equipment.put.dto";
 import { EquipmentModel } from "src/features/equipment/entities/equipment.model";
@@ -21,6 +22,7 @@ export class EquipmentService {
     term?: string;
     fetchAll?: boolean;
     orderBy?: string;
+    status?: EquipmentStatus;
   }): Promise<JsonApiDataInterface> {
     const paginator: JsonApiPaginator = new JsonApiPaginator(params.query);
 
@@ -30,6 +32,7 @@ export class EquipmentService {
         fetchAll: params.fetchAll,
         term: params.term,
         orderBy: params.orderBy,
+        status: params.status,
         cursor: paginator.generateCursor(),
       }),
       paginator,
@@ -53,6 +56,7 @@ export class EquipmentService {
       description: params.data.attributes.description,
       startDate: params.data.attributes.startDate,
       endDate: params.data.attributes.endDate,
+      status: params.data.attributes.status,
       supplierIds: params.data.relationships.supplier.data.id,
     });
 
@@ -67,6 +71,7 @@ export class EquipmentService {
       description: params.data.attributes.description,
       startDate: params.data.attributes.startDate,
       endDate: params.data.attributes.endDate,
+      status: params.data.attributes.status,
       supplierIds: params.data.relationships.supplier.data.id,
     });
 

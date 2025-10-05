@@ -89,6 +89,16 @@ export const useEquipmentTableStructure: UseTableStructureHook<EquipmentInterfac
         name: "endDate",
         title: t(`features.equipment.fields.endDate.label`),
       }),
+    [EquipmentFields.status]: () => ({
+      id: "status",
+      accessorKey: "status",
+      header: t(`features.equipment.fields.status.label`),
+      cell: ({ row }: { row: TableContent<EquipmentInterface> }) => (
+        <>{t(`features.equipment.fields.status.select`, { type: row.getValue("status") })}</>
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    }),
     [EquipmentFields.createdAt]: () =>
       cellDate({
         name: "createdAt",

@@ -12,6 +12,7 @@ export type Equipment = Entity & {
   imageUrl?: string;
   startDate: Date;
   endDate: Date;
+  status: string;
 
   company: Company;
   supplier: Supplier;

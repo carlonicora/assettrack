@@ -14,6 +14,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
   private _model?: string;
   private _category?: string;
   private _imageUrl?: string;
+  private _status?: string;
 
   private _supplier?: SupplierInterface;
 
@@ -30,16 +31,18 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     return this._description;
   }
 
-  get startDate(): Date {
-    if (this._startDate === undefined) throw new Error("JsonApi error: equipment startDate is missing");
+  get startDate(): Date | undefined {
     return this._startDate;
   }
 
-  get endDate(): Date {
-    if (this._endDate === undefined) throw new Error("JsonApi error: equipment endDate is missing");
+  get endDate(): Date | undefined {
     return this._endDate;
   }
 
+  get status(): string {
+    if (this._status === undefined) throw new Error("JsonApi error: equipment status is missing");
+    return this._status;
+  }
   get manufacturer(): string | undefined {
     return this._manufacturer;
   }
@@ -73,6 +76,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     this._model = data.jsonApi.attributes.model;
     this._category = data.jsonApi.attributes.category;
     this._imageUrl = data.jsonApi.attributes.imageUrl;
+    this._status = data.jsonApi.attributes.status;
 
     this._supplier = this._readIncluded(data, "supplier", Modules.Supplier) as SupplierInterface;
 
@@ -96,6 +100,7 @@ export class Equipment extends AbstractApiData implements EquipmentInterface {
     if (data.description !== undefined) response.data.attributes.description = data.description;
     if (data.startDate !== undefined) response.data.attributes.startDate = data.startDate;
     if (data.endDate !== undefined) response.data.attributes.endDate = data.endDate;
+    if (data.status !== undefined) response.data.attributes.status = data.status;
 
     if (data.supplierId) {
       response.data.relationships.supplier = {

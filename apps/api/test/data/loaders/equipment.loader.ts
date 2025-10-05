@@ -10,7 +10,8 @@ export const generateEquipmentTestData = (): string[] => {
         barcode: ${equipment.barcode ? `"${equipment.barcode}"` : "null"},
         description: ${equipment.description ? `"${equipment.description}"` : "null"},
         startDate: datetime("${equipment.startDate.toISOString()}"),
-        endDate: datetime("${equipment.endDate.toISOString()}"),
+        endDate: ${equipment.endDate ? `datetime("${equipment.endDate.toISOString()}")` : "null"},
+        status: "${equipment.status}",
         createdAt: datetime(),
         updatedAt: datetime()
       })

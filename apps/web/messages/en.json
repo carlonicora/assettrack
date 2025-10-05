@@ -87,6 +87,12 @@
           "placeholder": "Select contract end date",
           "error": "Contract end date is required"
         },
+        "status": {
+          "label": "Status",
+          "placeholder": "Select equipment status",
+          "error": "Equipment status is required",
+          "select": "{type, select, ordered {Ordered} available {Available} returned {Returned} other {N/A}}"
+        },
         "manufacturer": {
           "label": "Manufacturer"
         },

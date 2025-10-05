@@ -1,3 +1,4 @@
+import { EquipmentStatus } from "@assettrack/shared";
 import { Type } from "class-transformer";
 import {
   Equals,
@@ -26,15 +27,18 @@ export class EquipmentPutAttributesDTO {
   @IsString()
   description?: string;
 
-  @IsDefined()
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   startDate: Date;
 
-  @IsDefined()
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   endDate: Date;
+
+  @IsDefined()
+  @IsNotEmpty()
+  @IsString()
+  status: EquipmentStatus;
 }
 
 export class EquipmentPutRelationshipsDTO {

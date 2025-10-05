@@ -8,16 +8,21 @@ import { EquipmentService } from "@/features/features/equipment/data/EquipmentSe
 import "@/features/features/equipment/hooks/useEquipmentTableStructure";
 import { DataListRetriever, useDataListRetriever } from "@/hooks/useDataListRetriever";
 import { Modules } from "@/modules/modules";
+import { EquipmentStatus } from "@assettrack/shared";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
-export default function EquipmentsList() {
+type EquipmentListProps = {
+  status?: EquipmentStatus;
+};
+
+export default function EquipmentsList({ status }: EquipmentListProps) {
   const t = useTranslations();
 
   const data: DataListRetriever<EquipmentInterface> = useDataListRetriever({
     module: Modules.Equipment,
     retriever: (params) => EquipmentService.findMany(params),
-    retrieverParams: {},
+    retrieverParams: { status: status },
   });
 
   const functions: ReactNode[] = [<EquipmentEditor key="create-equipment" />];
@@ -25,7 +30,13 @@ export default function EquipmentsList() {
   return (
     <ContentListTable
       data={data}
-      fields={[EquipmentFields.name, EquipmentFields.supplier, EquipmentFields.startDate, EquipmentFields.endDate]}
+      fields={[
+        EquipmentFields.name,
+        EquipmentFields.supplier,
+        EquipmentFields.status,
+        EquipmentFields.startDate,
+        EquipmentFields.endDate,
+      ]}
       tableGeneratorType={Modules.Equipment}
       functions={functions}
       title={t(`types.equipments`, { count: 2 })}

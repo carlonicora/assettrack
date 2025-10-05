@@ -16,8 +16,10 @@ export const equipmentValidator: ResourceValidator = {
       type: "date",
     },
     endDate: {
-      required: true,
       type: "date",
+    },
+    status: {
+      required: true,
     },
   },
   meta: {

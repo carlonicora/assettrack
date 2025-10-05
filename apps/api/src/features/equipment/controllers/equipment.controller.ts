@@ -1,3 +1,4 @@
+import { EquipmentStatus } from "@assettrack/shared";
 import {
   Body,
   Controller,
@@ -47,12 +48,14 @@ export class EquipmentController {
     @Query("search") search?: string,
     @Query("fetchAll") fetchAll?: boolean,
     @Query("orderBy") orderBy?: string,
+    @Query("status") status?: EquipmentStatus,
   ) {
     const response = await this.equipmentService.find({
       term: search,
       query: query,
       fetchAll: fetchAll,
       orderBy: orderBy,
+      status: status,
     });
 
     reply.send(response);

@@ -29,6 +29,11 @@
       {
         "name": "endDate",
         "type": "Date",
+        "nullable": true
+      },
+      {
+        "name": "status",
+        "type": "string",
         "nullable": false
       }
     ],

@@ -31,7 +31,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
@@ -55,7 +55,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
@@ -81,7 +81,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
       supplier: companySupplierFixtures[0],
       name: "Test name",
       startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
+      status: "Test status",
     };
 
     // Validate the response structure matches expected entity
@@ -131,7 +131,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
@@ -158,7 +158,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {
@@ -188,7 +188,7 @@ describe(`POST /${equipmentMeta.endpoint}`, () => {
         attributes: {
           name: "Test name",
           startDate: new Date().toISOString(),
-          endDate: new Date().toISOString(),
+          status: "Test status",
         },
         relationships: {
           supplier: {

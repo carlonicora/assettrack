@@ -22,6 +22,7 @@ export class EquipmentSerialiser extends AbstractJsonApiSerialiser implements Js
       model: "model",
       category: "category",
       imageUrl: "imageUrl",
+      status: "status",
     };
 
     this.relationships = {
