@@ -22,23 +22,18 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
+          cache: "pnpm"
       
-      - name: Cache Turbo
-        uses: actions/cache@v4
+      - name: Restore Turbo cache
+        uses: actions/cache/restore@v4
         with:
-          path: .turbo
+          path: |
+            .turbo
+            **/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -53,3 +48,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm dlx semantic-release
+      
+      - name: Save Turbo cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            .turbo
+            **/.turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
