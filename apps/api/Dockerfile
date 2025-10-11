@@ -1,16 +1,59 @@
-# Production Dockerfile for API
-FROM node:22-alpine AS builder
+# =============================================================================
+# Unified Dockerfile for API (Development & Production)
+# =============================================================================
+# Build targets:
+#   - development: Hot-reload development environment
+#   - production: Optimized production build
+#
+# Usage:
+#   Development:  docker build --target development -t api:dev .
+#   Production:   docker build --target production -t api:prod .
+# =============================================================================
+
+FROM node:22-alpine AS base
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.18.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.18.2 --activate
 
-# Install build dependencies
+# Install build dependencies for native modules (required for sharp)
 RUN apk add --no-cache python3 py3-pip make g++ cairo-dev jpeg-dev pango-dev giflib-dev
 
 WORKDIR /app
 
+# =============================================================================
+# DEVELOPMENT TARGET
+# =============================================================================
+FROM base AS development
+
+# Copy workspace configuration files (context is root)
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY tsconfig.base.json tsconfig.json ./
+COPY packages/shared/package.json ./packages/shared/
+
+# Copy API package.json
+COPY apps/api/package.json ./apps/api/
+
+# Install ALL dependencies (including devDependencies)
+RUN pnpm install --frozen-lockfile
+
+# Copy source files
+COPY apps/api ./apps/api/
+COPY packages/shared ./packages/shared/
+
+# Expose port (configurable via docker-compose)
+EXPOSE 3000
+
+# Development command (hot reload) - stay in /app to access tsconfig.json
+CMD ["pnpm", "--filter", "assettrack-api", "run", "dev"]
+
+# =============================================================================
+# BUILDER TARGET (for production)
+# =============================================================================
+FROM base AS builder
+
 # Copy workspace files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY tsconfig.base.json tsconfig.json ./
 COPY packages/shared/package.json ./packages/shared/
 COPY apps/api/package.json ./apps/api/
 
@@ -29,14 +72,16 @@ RUN pnpm build
 WORKDIR /app/apps/api
 RUN pnpm build
 
-# Production image
-FROM node:22-alpine
+# =============================================================================
+# PRODUCTION TARGET
+# =============================================================================
+FROM node:22-alpine AS production
 
-# Install runtime dependencies
+# Install runtime dependencies only (no build tools)
 RUN apk add --no-cache cairo jpeg pango giflib
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.18.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.18.2 --activate
 
 WORKDIR /app
 
@@ -48,13 +93,13 @@ COPY --from=builder /app/apps/api/package.json ./apps/api/
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/templates ./apps/api/templates
 
-# Install production dependencies only
-RUN pnpm install --frozen-lockfile --prod
+# Install production dependencies only (ignore scripts to skip husky)
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 WORKDIR /app/apps/api
 
 # Expose port
 EXPOSE 3000
 
-# Run API server
+# Production command (can be overridden for worker mode)
 CMD ["node", "--max-old-space-size=6144", "dist/main", "--mode=api"]

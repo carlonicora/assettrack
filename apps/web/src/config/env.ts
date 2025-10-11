@@ -1,10 +1,15 @@
 /**
  * Runtime environment configuration
  * All values are embedded at build time from .env
+ *
+ * For Docker deployments:
+ * - Client-side (browser): Uses NEXT_PUBLIC_API_URL (e.g., http://localhost:3400)
+ * - Server-side (SSR): Uses API_INTERNAL_URL (e.g., http://api:3400) to communicate within Docker network
  */
 
 export const ENV = {
-  API_URL: process.env.NEXT_PUBLIC_API_URL!,
+  // Use internal Docker API URL for SSR, fall back to public URL for non-Docker or client-side
+  API_URL: (typeof window === 'undefined' ? process.env.API_INTERNAL_URL : undefined) || process.env.NEXT_PUBLIC_API_URL!,
   APP_URL: process.env.NEXT_PUBLIC_ADDRESS!,
   VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
 } as const;
