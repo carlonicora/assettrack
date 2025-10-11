@@ -1,3 +1,13 @@
+## [1.6.0](https://github.com/carlonicora/assettrack/compare/v1.5.1...v1.6.0) (2025-10-11)
+
+### 🚀 Features
+
+* add infrastructure for docker ([5cd43e4](https://github.com/carlonicora/assettrack/commit/5cd43e48f2deb976c843df96bb5a193f3b2426e8))
+
+### 🐛 Bug Fixes
+
+* remove commented infrastructure ([b16e11d](https://github.com/carlonicora/assettrack/commit/b16e11dc498e50cd01c2c8cff27f5df844091049))
+
 ## [1.5.1](https://github.com/carlonicora/assettrack/compare/v1.5.0...v1.5.1) (2025-10-11)
 
 ### 🐛 Bug Fixes
