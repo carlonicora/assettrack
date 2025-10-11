@@ -1,3 +1,13 @@
+## [1.5.1](https://github.com/carlonicora/assettrack/compare/v1.5.0...v1.5.1) (2025-10-11)
+
+### 🐛 Bug Fixes
+
+* correct docker ([803d869](https://github.com/carlonicora/assettrack/commit/803d86978efddfebcee638de42c2360211d0d4b1))
+
+### 📚 Documentation
+
+* add docker documentation ([968564b](https://github.com/carlonicora/assettrack/commit/968564b9a0c97fb5467b9c02cdf4f5c44806aae5))
+
 ## [1.5.0](https://github.com/carlonicora/assettrack/compare/v1.4.0...v1.5.0) (2025-10-05)
 
 ### 🚀 Features
